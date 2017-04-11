@@ -1,7 +1,8 @@
 package com.excilys.computerdatabase.model;
 
 import java.text.DateFormat;
-import com.excilys.computerdatabase.persistence.*;
+import com.excilys.computerdatabase.service.CommandClient;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -44,16 +45,16 @@ public class Computer {
 	public static void main(String[] args) {
 
 		
-		Connection db= Database.getInstance();
-		ComputerDAO dao=new ComputerDAO(db);
-		CompanyDAO cdao=new CompanyDAO(db);
-		dao.addComputer("zzzzzzzz", "2000-12-12", "2005-12-12", 5);
-		dao.addComputer("zzz2zzz", "2000-12-12", "2005-12-12", 5);
-		dao.deleteComputer("zzz2zzz");
-		dao.listComputer();
-		cdao.listCompany();
-		
 
+	
+
+
+		CommandClient jo = new CommandClient();
+		jo.Connection();
+	
+		
+		jo.listCompany();
+		
 	}
 
 }

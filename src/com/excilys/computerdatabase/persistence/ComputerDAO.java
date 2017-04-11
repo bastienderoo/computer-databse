@@ -11,20 +11,42 @@ import java.util.Date;
 import java.sql.Connection;
 import com.excilys.computerdatabase.model.DateException;
 
-
+/**
+ * Classe contenant les méthodes permettant d'effectuer les différentes actions
+ * sur la list d'ordinateurs
+ * 
+ * @author excilys
+ *
+ */
 public class ComputerDAO {
+	/**
+	 * init connection
+	 */
 	private Connection connect = null;
-	public ComputerDAO(Connection db)
-	{
-	this.connect=db;	
+	/**
+	 * init list computer
+	 */
+	private String[][] listcomp = new String[0][0];
+
+	/**
+	 * Utilisation de la connection établie au préalable
+	 * 
+	 * @param db
+	 */
+	public ComputerDAO(Connection db) {
+		this.connect = db;
 	}
 
-
-	public void deleteComputer( String name) {
+	/**
+	 * supression d'un ordinateur par ID (clé)
+	 * 
+	 * @param id
+	 */
+	public void deleteComputer(int id) {
 		try {
 			Statement state = connect.createStatement();
 
-			state.executeUpdate("DELETE FROM computer WHERE name='" + name + "'");
+			state.executeUpdate("DELETE FROM computer WHERE id=" + id);
 			state.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -32,41 +54,51 @@ public class ComputerDAO {
 		}
 	}
 
-	public void listComputer() {
+	/**
+	 * crée la liste des ordinateurs
+	 */
+	public String[][] listComputer() {
 		try {
 			Statement state = connect.createStatement();
 
-			ResultSet result = state.executeQuery("SELECT * FROM computer");
+			ResultSet nbresult = state.executeQuery("SELECT COUNT(*) FROM computer");
 			// On récupère les MetaData
+			int raw = 0;
+
+			while (nbresult.next()) {
+				raw = nbresult.getInt(1);
+			}
+			int j = 0;
+
+			ResultSet result = state.executeQuery("SELECT * FROM computer");
 			ResultSetMetaData resultMeta = result.getMetaData();
-
-			System.out.println("\n**********************************");
-			// On affiche le nom des colonnes
-			for (int i = 1; i <= resultMeta.getColumnCount(); i++)
-				System.out.print("\t" + resultMeta.getColumnName(i).toUpperCase() + "\t *");
-
-			System.out.println("\n**********************************");
-
+			listcomp = new String[resultMeta.getColumnCount()][raw];
 			while (result.next()) {
-				for (int i = 1; i <= resultMeta.getColumnCount(); i++) {
-					if (result.getObject(i) != null) {
-						System.out.print("\t" + result.getString(i) + "\t |");
-					} else {
-						System.out.print("\t" + "******" + "\t |");
-					}
+				for (int i = 1; i < resultMeta.getColumnCount()+1; i++) {
+					listcomp[i - 1][j] = result.getString(i);
 				}
-				System.out.println("\n---------------------------------");
-
+				j++;
 			}
 
 			result.close();
+			return listcomp;
+
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			return listcomp;
 		}
 	}
 
-	public void addComputer( String name, String dateIntroduced, String dateDiscontinued, int iDCompany) {
+	/**
+	 * ajout d'un ordinateur
+	 * 
+	 * @param name
+	 * @param dateIntroduced
+	 * @param dateDiscontinued
+	 * @param iDCompany
+	 */
+	public void addComputer(String name, String dateIntroduced, String dateDiscontinued, int iDCompany) {
 
 		DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 		Date d1 = null;
@@ -99,8 +131,16 @@ public class ComputerDAO {
 
 	}
 
-	public void updateComputer( String name1, String dateIntroduced1, String dateDiscontinued1, int iDCompany1,
-			String name, String dateIntroduced, String dateDiscontinued, int iDCompany) {
+	/**
+	 * mise à jour d'un ordinateur à partir de son id (clé)
+	 * 
+	 * @param id
+	 * @param name
+	 * @param dateIntroduced
+	 * @param dateDiscontinued
+	 * @param iDCompany
+	 */
+	public void updateComputer(int id, String name, String dateIntroduced, String dateDiscontinued, int iDCompany) {
 
 		DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 		Date d1 = null;
@@ -112,8 +152,8 @@ public class ComputerDAO {
 
 				Statement state = connect.createStatement();
 
-				state.executeUpdate("INSERT INTO computer(name,introduced,discontinued,company_id) Values('" + name
-						+ "','" + dateIntroduced + "','" + dateDiscontinued + "','" + iDCompany + "')");
+				state.executeUpdate("UPDATE computer SET name ='" + name + "',introduced='" + dateIntroduced
+						+ "',discontinued='" + dateDiscontinued + "',company_id='" + iDCompany + "'WHERE id=" + id);
 				state.close();
 
 			} else {
@@ -132,7 +172,5 @@ public class ComputerDAO {
 		}
 
 	}
-
-
 
 }
