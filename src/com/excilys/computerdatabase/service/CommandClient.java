@@ -77,4 +77,20 @@ public class CommandClient {
 
 		}
 	}
+
+	public void updateCompany() {
+		System.out.println("entrer l'id de l'ordinate");
+		int idDelete = sc.nextInt();
+		sc.nextLine();
+		System.out.println("entrer le nom de l'ordinateur");
+		String name = sc.nextLine();
+		System.out.println("entrer la date d'introduction");
+		String dateIntroduced = sc.nextLine();
+		System.out.println("entrer la date d'arrêt");
+		String dateDiscontinued = sc.nextLine();
+		System.out.println("entrer l'id de l'entreprise");
+		int iDCompany = sc.nextInt();
+		
+		a.updateComputer(idDelete, name, dateIntroduced, dateDiscontinued, iDCompany);
+	}
 }

@@ -2,6 +2,7 @@ package com.excilys.computerdatabase.model;
 
 import java.text.DateFormat;
 import com.excilys.computerdatabase.service.CommandClient;
+import com.excilys.computerdatabase.ui.InterfaceUtilisateur;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -49,11 +50,7 @@ public class Computer {
 	
 
 
-		CommandClient jo = new CommandClient();
-		jo.Connection();
-	
-		
-		jo.listCompany();
+		InterfaceUtilisateur a = new InterfaceUtilisateur();
 		
 	}
 
