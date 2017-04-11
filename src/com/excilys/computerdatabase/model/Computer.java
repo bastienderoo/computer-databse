@@ -5,18 +5,21 @@ import com.excilys.computerdatabase.persistence.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.sql.*;
 
 public class Computer {
 
 	private String name;
 	private Date dateIntroduced;
 	private Date dateDiscontinued;
+	private int iDcompany;
+
 
 	public Computer(String name) {
 		this.name = name;
 	}
 
-	public Computer(String name, String dateIntroduced, String dateDiscontinued) throws DateException {
+	public Computer(String name, String dateIntroduced, String dateDiscontinued,int iDcompany) throws DateException {
 		DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 		Date d1 = null;
 		Date d2 = null;
@@ -27,6 +30,7 @@ public class Computer {
 				this.name = name;
 				this.dateIntroduced = d1;
 				this.dateDiscontinued = d2;
+				this.iDcompany=iDcompany;
 			} else {
 				throw new DateException("La date d'introduction doit être antérieure à la date d'arret");
 			}
@@ -39,16 +43,17 @@ public class Computer {
 
 	public static void main(String[] args) {
 
-		try {
-			Computer c1 = new Computer("", "2000-13-2", "2001-1-12");
-			AddComputer test = new AddComputer("zzzz","2000-11-21", "2000-1-12",12);
-			ListComputer c = new ListComputer();
 		
-		} catch (DateException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			
-		}
+		Connection db= Database.getInstance();
+		ComputerDAO dao=new ComputerDAO(db);
+		CompanyDAO cdao=new CompanyDAO(db);
+		dao.addComputer("zzzzzzzz", "2000-12-12", "2005-12-12", 5);
+		dao.addComputer("zzz2zzz", "2000-12-12", "2005-12-12", 5);
+		dao.deleteComputer("zzz2zzz");
+		dao.listComputer();
+		cdao.listCompany();
+		
+
 	}
 
 }
