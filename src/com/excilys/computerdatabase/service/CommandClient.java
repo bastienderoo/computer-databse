@@ -3,16 +3,16 @@ package com.excilys.computerdatabase.service;
 import java.sql.Connection;
 import java.util.Scanner;
 
-import com.excilys.computerdatabase.persistence.CompanyDAO;
-import com.excilys.computerdatabase.persistence.ComputerDAO;
+import com.excilys.computerdatabase.persistence.CompanyDAOImp;
+import com.excilys.computerdatabase.persistence.ComputerDAOImp;
 import com.excilys.computerdatabase.persistence.Database;
 
 public class CommandClient {
 	private Connection db = null;
 
 	Scanner sc = new Scanner(System.in);
-	private ComputerDAO a = null;
-	private CompanyDAO b = null;
+	private ComputerDAOImp a = null;
+	private CompanyDAOImp b = null;
 
 	public CommandClient() {
 
@@ -24,8 +24,8 @@ public class CommandClient {
 		System.out.println("entrer le mot de passe");
 		String pwd = sc.nextLine();
 		db = Database.getInstance(user, pwd);
-		a = new ComputerDAO(db);
-		b = new CompanyDAO(db);
+		a = new ComputerDAOImp(db);
+		b = new CompanyDAOImp(db);
 		return db;
 
 	}

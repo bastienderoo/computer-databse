@@ -11,7 +11,7 @@ import java.sql.Statement;
  * @author excilys
  *
  */
-public class CompanyDAO {
+public class CompanyDAOImp {
 	private Connection connect = null;
 	private String[][] listcomp = new String[0][0];
 
@@ -19,7 +19,7 @@ public class CompanyDAO {
 	 *  Utilisation de la connection établie au préalable
 	 * @param db
 	 */
-	public CompanyDAO(Connection db) {
+	public CompanyDAOImp(Connection db) {
 		this.connect = db;
 	}
 

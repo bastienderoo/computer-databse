@@ -1,57 +1,151 @@
 package com.excilys.computerdatabase.model;
 
-import java.text.DateFormat;
-import com.excilys.computerdatabase.service.CommandClient;
-import com.excilys.computerdatabase.ui.InterfaceUtilisateur;
-
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.sql.*;
+import java.time.LocalDate;
 
 public class Computer {
 
+	private long id;
 	private String name;
-	private Date dateIntroduced;
-	private Date dateDiscontinued;
-	private int iDcompany;
-
+	private LocalDate dateIntroduced;
+	private LocalDate dateDiscontinued;
+	private Company company;
 
 	public Computer(String name) {
 		this.name = name;
 	}
 
-	public Computer(String name, String dateIntroduced, String dateDiscontinued,int iDcompany) throws DateException {
-		DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-		Date d1 = null;
-		Date d2 = null;
-		try {
-			d1 = new Date(df.parse(dateIntroduced).getTime());
-			d2 = new Date(df.parse(dateDiscontinued).getTime());
-			if (d2.after(d1)) {
-				this.name = name;
-				this.dateIntroduced = d1;
-				this.dateDiscontinued = d2;
-				this.iDcompany=iDcompany;
-			} else {
-				throw new DateException("La date d'introduction doit être antérieure à la date d'arret");
-			}
+	private Computer(Builder builder) {
 
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		this.id = builder.id;
+		this.name = builder.name;
+		this.dateIntroduced = builder.dateIntroduced;
+		this.dateDiscontinued = builder.dateDiscontinued;
+		this.company = builder.company;
 	}
 
-	public static void main(String[] args) {
+	public long getId() {
+		return id;
+	}
 
-		
+	public void setId(long id) {
+		this.id = id;
+	}
 
-	
+	public String getName() {
+		return name;
+	}
 
+	public void setName(String name) {
+		this.name = name;
+	}
 
-		InterfaceUtilisateur a = new InterfaceUtilisateur();
-		
+	public LocalDate getDateIntroduced() {
+		return dateIntroduced;
+	}
+
+	public void setDateIntroduced(LocalDate dateIntroduced) {
+		this.dateIntroduced = dateIntroduced;
+	}
+
+	public LocalDate getDateDiscontinued() {
+		return dateDiscontinued;
+	}
+
+	public void setDateDiscontinued(LocalDate dateDiscontinued) {
+		this.dateDiscontinued = dateDiscontinued;
+	}
+
+	public Company getcompany() {
+		return company;
+	}
+
+	public void setcompany(Company company) {
+		this.company = company;
+	}
+
+	public static class Builder {
+		private long id;
+		private String name;
+		private LocalDate dateIntroduced;
+		private LocalDate dateDiscontinued;
+		private Company company;
+
+		public Builder(Long id, String name) {
+			this.id = id;
+			this.name = name;
+		}
+
+		public Builder dateIntroduced(LocalDate dateIntroduced) {
+			this.dateIntroduced = dateIntroduced;
+			return this;
+		}
+
+		public Builder dateDiscontinued(LocalDate dateDiscontinued) {
+			this.dateDiscontinued = dateDiscontinued;
+			return this;
+		}
+
+		public Builder company(Company company) {
+			this.company = company;
+			return this;
+		}
+
+		public Computer build() {
+			return new Computer(this);
+		}
+
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((company == null) ? 0 : company.hashCode());
+		result = prime * result + ((dateDiscontinued == null) ? 0 : dateDiscontinued.hashCode());
+		result = prime * result + ((dateIntroduced == null) ? 0 : dateIntroduced.hashCode());
+		result = prime * result + (int) (id ^ (id >>> 32));
+		result = prime * result + ((name == null) ? 0 : name.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Computer other = (Computer) obj;
+		if (company == null) {
+			if (other.company != null)
+				return false;
+		} else if (!company.equals(other.company))
+			return false;
+		if (dateDiscontinued == null) {
+			if (other.dateDiscontinued != null)
+				return false;
+		} else if (!dateDiscontinued.equals(other.dateDiscontinued))
+			return false;
+		if (dateIntroduced == null) {
+			if (other.dateIntroduced != null)
+				return false;
+		} else if (!dateIntroduced.equals(other.dateIntroduced))
+			return false;
+		if (id != other.id)
+			return false;
+		if (name == null) {
+			if (other.name != null)
+				return false;
+		} else if (!name.equals(other.name))
+			return false;
+		return true;
+	}
+
+	@Override
+	public String toString() {
+		return "Computer [id=" + id + ", name=" + name + ", dateIntroduced=" + dateIntroduced + ", dateDiscontinued="
+				+ dateDiscontinued + ", company=" + company + "]";
 	}
 
 }
