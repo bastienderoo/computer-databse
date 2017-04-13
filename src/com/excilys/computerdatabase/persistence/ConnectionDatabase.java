@@ -5,14 +5,15 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
+import com.excilys.computerdatabase.util.ComputerDatabaseDAOException;
+
 public enum ConnectionDatabase {
 	INSTANCE;
-
 
 	private ConnectionDatabase() {
 
 	}
-	
+
 	private static Connection connection;
 	static ResourceBundle bundle = ResourceBundle.getBundle("com.excilys.computerdatabase.properties.config");
 	private static String url = bundle.getString("database.url");
@@ -26,18 +27,18 @@ public enum ConnectionDatabase {
 	 */
 	public static Connection getInstance() {
 
-		if (connection == null) {
-			try {
+		try {
 
+			return DriverManager.getConnection(url, user, password);
 		
-				connection = DriverManager.getConnection(url, user, password);
-				
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new ComputerDatabaseDAOException("conn db",e);
 		}
-		return connection;
+		
 	}
+		
 
 	/**
 	 * fermeture de la connection
@@ -53,6 +54,5 @@ public enum ConnectionDatabase {
 		}
 		return connection;
 	}
-
 
 }

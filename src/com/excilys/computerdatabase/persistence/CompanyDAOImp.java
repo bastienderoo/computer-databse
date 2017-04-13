@@ -1,60 +1,74 @@
 package com.excilys.computerdatabase.persistence;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
-import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
+
+import com.excilys.computerdatabase.model.Company;
+import com.excilys.computerdatabase.util.ComputerDatabaseDAOException;
 
 /**
  * Classe contenant la méthode permettant d'afficher la liste des entreprises
+ * 
  * @author excilys
  *
  */
-public class CompanyDAOImp {
-	private Connection connect = null;
-	private String[][] listcomp = new String[0][0];
-
-	/**
-	 *  Utilisation de la connection établie au préalable
-	 * @param db
-	 */
-	public CompanyDAOImp(Connection db) {
-		this.connect = db;
-	}
+public class CompanyDAOImp implements CompanyDAO {
+	private static final String SELECT_COMPANY_BY_ID = "SELECT * FROM company WHERE id=? ";
+	private static final String SELECT_ALL_QUERY_PAGE10 = "SELECT * FROM company LIMIT 10 OFFSET ?";
 
 	/**
 	 * affichage de la liste des entreprises
 	 */
-	public String[][] listCompany() {
-		try {
-			Statement state = connect.createStatement();
 
-			ResultSet nbresult = state.executeQuery("SELECT COUNT(*) FROM company");
-			// On récupère les MetaData
-			int raw = 0;
+	public List<Company> getList(int page10) {
+		List<Company> listCompany = new ArrayList<Company>();
+		try (Connection connect = ConnectionDatabase.getInstance();
+				PreparedStatement pstmt = connect.prepareStatement(SELECT_ALL_QUERY_PAGE10);) {
+			pstmt.setInt(1, page10*10);
+			try (ResultSet rs = pstmt.executeQuery();) {
+				Company company;
+				long id;
+				String name;
 
-			while (nbresult.next()) {
-				raw = nbresult.getInt(1);
-			}
-			int j = 0;
 
-			ResultSet result = state.executeQuery("SELECT * FROM company");
-			ResultSetMetaData resultMeta = result.getMetaData();
-			listcomp = new String[resultMeta.getColumnCount()][raw];
-			while (result.next()) {
-				for (int i = 1; i < resultMeta.getColumnCount()+1; i++) {
-					listcomp[i - 1][j] = result.getString(i);
+				while (rs.next()) {
+					id = rs.getLong(1);
+					name = rs.getString(2);
+
+					company = new Company.Builder(name).id(id).build();
+					listCompany.add(company);
 				}
-				j++;
 			}
 
-			result.close();
-			return listcomp;
+
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			return listcomp;
 		}
+		return listCompany;
+	}
+	
+	public Company getCompanyById(long id) {
+		try (Connection connect = ConnectionDatabase.getInstance();
+				PreparedStatement pstmt = connect.prepareStatement(SELECT_COMPANY_BY_ID);) {
+			pstmt.setLong(1, id);
+			try (ResultSet rs = pstmt.executeQuery();) {
+				rs.next();
+				Company company;
+				String name = rs.getString(2);
+				company = new Company.Builder(name).id(id).build();
+				return company;
+			}
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			throw new ComputerDatabaseDAOException("pas de company pour cet ID",e);
+		}
+
 	}
 }

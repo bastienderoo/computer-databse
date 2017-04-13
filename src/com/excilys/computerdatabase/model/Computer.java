@@ -70,9 +70,14 @@ public class Computer {
 		private LocalDate dateDiscontinued;
 		private Company company;
 
-		public Builder(Long id, String name) {
-			this.id = id;
+		public Builder(String name) {
+
 			this.name = name;
+		}
+
+		public Builder id(Long id) {
+			this.id = id;
+			return this;
 		}
 
 		public Builder dateIntroduced(LocalDate dateIntroduced) {
