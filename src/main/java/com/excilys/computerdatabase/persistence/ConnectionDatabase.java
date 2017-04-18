@@ -15,7 +15,7 @@ public enum ConnectionDatabase {
 	}
 
 	private static Connection connection;
-	static ResourceBundle bundle = ResourceBundle.getBundle("com.excilys.computerdatabase.properties.config");
+	static ResourceBundle bundle = ResourceBundle.getBundle("config");
 	private static String url = bundle.getString("database.url");
 	private static String user = bundle.getString("database.user");
 	private static String password = bundle.getString("database.password");
