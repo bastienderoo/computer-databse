@@ -12,7 +12,6 @@ import com.excilys.computerdatabase.service.ComputerServiceImp;
 
 public class CommandSetters {
 
-<<<<<<< HEAD
     Scanner sc = new Scanner(System.in);
     private ComputerServiceImp computerService = new ComputerServiceImp();
     private CompanyServiceImp companyService = new CompanyServiceImp();
@@ -88,71 +87,5 @@ public class CommandSetters {
                 .dateDiscontinued(dateDiscontinued).company(company).build();
         computerService.update(computer);
     }
-=======
-	Scanner sc = new Scanner(System.in);
-	private ComputerServiceImp computerService = new ComputerServiceImp();
-	private CompanyServiceImp companyService = new CompanyServiceImp();
-	private static final Logger LOGGER = Logger.getLogger(CommandSetters.class.getName());
 
-	public void listcomputer() {
-
-		LOGGER.info("Entrer quelle page vous voulez afficher.");
-		int page10 = sc.nextInt();
-		List<Computer> listcomputer = computerService.getList(page10);
-		LOGGER.info(listcomputer.toString());
-	}
-
-	public void addComputer() {
-
-		LOGGER.info("entrer le nom de l'ordinateur");
-		String name = sc.nextLine();
-		LOGGER.info("entrer la date d'introduction");
-		String dateIntroducedString = sc.nextLine();
-		LOGGER.info("entrer la date d'arrêt");
-		String dateDiscontinuedString = sc.nextLine();
-		LOGGER.info("entrer l'id de l'entreprise");
-		long iDCompany = sc.nextLong();
-		LocalDate dateIntroduced = LocalDate.parse(dateIntroducedString);
-		LocalDate dateDiscontinued = LocalDate.parse(dateDiscontinuedString);
-		Company company = companyService.getCompanyById(iDCompany);
-		Computer computer = new Computer.Builder(name).dateIntroduced(dateIntroduced).dateDiscontinued(dateDiscontinued)
-				.company(company).build();
-		computerService.add(computer);
-	}
-
-	public void deleteComputer() {
-
-		LOGGER.info("entrer l'id de l'ordinateur à supprimer");
-		long idDelete = sc.nextLong();
-		computerService.delete(idDelete);
-
-	}
-
-	public void listCompany() {
-		LOGGER.info("Entrer quelle page vous voulez afficher.");
-		int page10 = sc.nextInt();
-		List<Company> listcompany = companyService.getList(page10);
-		LOGGER.info(listcompany.toString());
-	}
-
-	public void updateComputer() {
-		LOGGER.info("entrer l'id de l'ordinateur");
-		long id = sc.nextLong();
-		sc.nextLine();
-		LOGGER.info("entrer le nom de l'ordinateur");
-		String name = sc.nextLine();
-		LOGGER.info("entrer la date d'introduction");
-		String dateIntroducedString = sc.nextLine();
-		LOGGER.info("entrer la date d'arrêt");
-		String dateDiscontinuedString = sc.nextLine();
-		LOGGER.info("entrer l'id de l'entreprise");
-		long iDCompany = sc.nextLong();
-		LocalDate dateIntroduced = LocalDate.parse(dateIntroducedString);
-		LocalDate dateDiscontinued = LocalDate.parse(dateDiscontinuedString);
-		Company company = companyService.getCompanyById(iDCompany);
-		Computer computer = new Computer.Builder(name).id(id).dateIntroduced(dateIntroduced)
-				.dateDiscontinued(dateDiscontinued).company(company).build();
-		computerService.update(computer);
-	}
->>>>>>> 73e0817a3d35b4bced2c74c09de8d96d764a7303
 }

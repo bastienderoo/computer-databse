@@ -6,7 +6,7 @@ import com.excilys.computerdatabase.model.Company;
 import com.excilys.computerdatabase.persistence.CompanyDAOImp;
 
 public class CompanyServiceImp implements CompanyService {
-<<<<<<< HEAD
+
     private CompanyDAOImp companyDAO = new CompanyDAOImp();
 /**
  * .
@@ -27,18 +27,5 @@ public class CompanyServiceImp implements CompanyService {
         return company;
 
     }
-=======
-	private CompanyDAOImp companyDAO = new CompanyDAOImp();
 
-	public List<Company> getList(int page10) {
-		List<Company> listcompany = companyDAO.getList(page10);
-		return listcompany;
-	}
-
-	public Company getCompanyById(long id) {
-		Company company = companyDAO.getCompanyById(id);
-		return company;
-
-	}
->>>>>>> 73e0817a3d35b4bced2c74c09de8d96d764a7303
 }
