@@ -3,7 +3,7 @@ package com.excilys.computerdatabase.service;
 import java.util.List;
 
 import com.excilys.computerdatabase.model.Company;
-import com.excilys.computerdatabase.persistence.CompanyDAOImp;
+import com.excilys.computerdatabase.persistence.implementation.CompanyDAOImp;
 
 public class CompanyServiceImp implements CompanyService {
 

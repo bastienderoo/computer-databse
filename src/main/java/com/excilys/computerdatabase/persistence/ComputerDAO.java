@@ -16,7 +16,7 @@ public interface ComputerDAO {
      * @param page10 page10
      * @return listcomputer
      */
-    List<Computer> getList(int page10);
+    List<Computer> getList(int page, int nbrElements);
     /**
      * .
      * @param computer computer

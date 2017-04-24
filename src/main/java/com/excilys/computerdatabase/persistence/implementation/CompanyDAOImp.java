@@ -1,4 +1,4 @@
-package com.excilys.computerdatabase.persistence;
+package com.excilys.computerdatabase.persistence.implementation;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -8,23 +8,29 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.excilys.computerdatabase.model.Company;
+import com.excilys.computerdatabase.persistence.CompanyDAO;
+import com.excilys.computerdatabase.persistence.ConnectionDatabase;
 import com.excilys.computerdatabase.util.ComputerDatabaseDAOException;
+
 /**
  * Classe contenant la méthode permettant d'afficher la liste des entreprises.
+ * 
  * @author excilys
  */
 public class CompanyDAOImp implements CompanyDAO {
     private static final String SELECT_COMPANY_BY_ID = "SELECT * FROM company WHERE id=? ";
     private static final String SELECT_ALL_QUERY_PAGE10 = "SELECT * FROM company LIMIT 100 OFFSET ?";
+
     /**
      * affichage de la liste des entreprises.
+     * 
      * @param page10
      *            page10
      * @return listcompany
      */
-    public List<Company> getList(int page10) {
+    public List<Company> getList() {
         List<Company> listCompany = new ArrayList<Company>();
-        try (Connection connect = ConnectionDatabase.getInstance();
+        try (Connection connect = ConnectionDatabase.INSTANCE.getConnection();
                 PreparedStatement pstmt = connect.prepareStatement(SELECT_ALL_QUERY_PAGE10);) {
             pstmt.setInt(1, page10 * 10);
             try (ResultSet rs = pstmt.executeQuery();) {
@@ -44,14 +50,16 @@ public class CompanyDAOImp implements CompanyDAO {
         }
         return listCompany;
     }
+
     /**
      * get company by id.
+     * 
      * @param id
      *            id
      * @return company
      */
     public Company getCompanyById(long id) {
-        try (Connection connect = ConnectionDatabase.getInstance();
+        try (Connection connect = ConnectionDatabase.INSTANCE.getConnection();
                 PreparedStatement pstmt = connect.prepareStatement(SELECT_COMPANY_BY_ID);) {
             pstmt.setLong(1, id);
             try (ResultSet rs = pstmt.executeQuery();) {

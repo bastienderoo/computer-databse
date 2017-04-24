@@ -10,7 +10,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.excilys.computerdatabase.model.Company;
-import com.excilys.computerdatabase.persistence.CompanyDAOImp;
+import com.excilys.computerdatabase.persistence.implementation.CompanyDAOImp;
 
 public class CompanyServiceTest {
     protected CompanyServiceImp companyService;

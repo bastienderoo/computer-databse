@@ -36,7 +36,7 @@ public class AddComputer extends HttpServlet {
             throws ServletException, IOException {
         // TODO Auto-generated method stub
         CompanyService companyService = new CompanyServiceImp();
-        List<Company> listCompany =companyService.getList(0);
+        List<Company> listCompany =companyService.getList();
         request.setAttribute( "Company", listCompany );
         this.getServletContext().getRequestDispatcher("/WEB-INF/views/addComputer.jsp").forward(request, response);
     }

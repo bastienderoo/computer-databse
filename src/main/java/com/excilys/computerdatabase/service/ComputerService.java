@@ -17,7 +17,7 @@ public interface ComputerService {
  * @param page10 page10
  * @return liscomputer
  */
-    List<ComputerDTO> getList(int page10);
+    List<ComputerDTO> getList(int page,int nbrElements);
 /**
  * .
  * @param computer computer
@@ -41,5 +41,7 @@ public interface ComputerService {
  * @return computer
  */
     Computer getComputerByName(String name);
+    
+    public int getNombreComputer();
 
 }

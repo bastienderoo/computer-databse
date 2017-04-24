@@ -22,7 +22,7 @@
 
 	<section id="main">
 		<div class="container">
-			<h1 id="homeTitle">121 Computers found</h1>
+			<h1 id="homeTitle">${nombreComputers} Computers found</h1>
 			<div id="actions" class="form-horizontal">
 				<div class="pull-left">
 					<form id="searchForm" action="#" method="GET" class="form-inline">
@@ -98,20 +98,47 @@
 
 					</a></li>
 				</c:if>
-				<li><a href="?page=1">1</a></li>
-				<li><a href="?page=2">2</a></li>
-				<li><a href="?page=3">3</a></li>
-				<li><a href="?page=4">4</a></li>
-				<li><a href="?page=5">5</a></li>
-				<li><a href="?page=${page+1}" aria-label="Next"> <span
-						aria-hidden="true">&raquo;</span>
-				</a></li>
+				<c:choose>
+					<c:when test="${page lt 4}">
+						<c:forEach var="i" begin="1" end="5">
+							<li><a href="?page=${i}">${i}</a></li>
+						</c:forEach>
+
+					</c:when>
+					<c:when test="${page > nombrePage-3}">
+						<c:forEach var="i" begin="1" end="5">
+							<li><a href="?page=${nombrePage-5 +i}">${nombrePage-5 +i}</a></li>
+						</c:forEach>
+
+					</c:when>
+					<c:otherwise>
+						<c:forEach var="i" begin="1" end="5">
+							<li><a href="?page=${page + i -3}">${page+i-3}</a></li>
+						</c:forEach>
+
+
+					</c:otherwise>
+				</c:choose>
+
+				<c:if test="${page lt nombrePage}">
+					<li><a href="?page=${page+1}" aria-label="Next"> <span
+							aria-hidden="true">&raquo;</span>
+
+					</a></li>
+				</c:if>
+
 			</ul>
 
 			<div class="btn-group btn-group-sm pull-right" role="group">
-				<button type="button" class="btn btn-default">10</button>
-				<button type="button" class="btn btn-default">50</button>
-				<button type="button" class="btn btn-default">100</button>
+				<ul class="pagination">
+
+
+					<li><a href="?nombreElements=10">10</a></li>
+					<li><a href="?nombreElements=50">50</a></li>
+					<li><a href="?nombreElements=100">100</a></li>
+
+
+				</ul>
 			</div>
 		</div>
 	</footer>

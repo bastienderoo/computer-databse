@@ -6,8 +6,7 @@ import java.util.List;
 import com.excilys.computerdatabase.mappers.MapperComputer;
 import com.excilys.computerdatabase.model.Computer;
 import com.excilys.computerdatabase.model.ComputerDTO;
-
-import com.excilys.computerdatabase.persistence.ComputerDAOImp;
+import com.excilys.computerdatabase.persistence.implementation.ComputerDAOImp;
 import com.excilys.computerdatabase.util.ComputerDatabaseDAOException;
 
 public class ComputerServiceImp implements ComputerService {
@@ -24,8 +23,8 @@ public class ComputerServiceImp implements ComputerService {
      * @param page10 page10
      * @return listcomputer
      */
-    public List<ComputerDTO> getList(int page10) {
-        List<Computer> listcomputer = computerDAO.getList(page10);
+    public List<ComputerDTO> getList(int page,int nbrElements) {
+        List<Computer> listcomputer = computerDAO.getList(page,nbrElements);
         return MapperComputer.mapperComputer(listcomputer);
     }
     /**
@@ -38,7 +37,7 @@ public class ComputerServiceImp implements ComputerService {
             long id = computerDAO.add(computer);
             return id;
         } else {
-            throw new ComputerDatabaseDAOException("Date introduced must be before Date dicontinued");
+            throw new ServiceException("Date introduced must be before Date dicontinued");
         }
     }
     /**
@@ -49,7 +48,7 @@ public class ComputerServiceImp implements ComputerService {
         if (computer.getDateIntroduced().isBefore(computer.getDateDiscontinued())) {
             computerDAO.update(computer);
         } else {
-            throw new ComputerDatabaseDAOException("Date introduced must be before Date dicontinued");
+            throw new ServiceException("Date introduced must be before Date dicontinued");
         }
     }
     /**
@@ -69,6 +68,10 @@ public class ComputerServiceImp implements ComputerService {
     public Computer getComputerByName(String name) {
         Computer computer = computerDAO.getComputerByName(name);
         return computer;
+    }
+    
+    public int getNombreComputer(){
+        return computerDAO.nombreComputer();
     }
 
 }

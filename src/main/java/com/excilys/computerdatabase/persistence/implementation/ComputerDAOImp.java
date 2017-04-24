@@ -1,7 +1,9 @@
-package com.excilys.computerdatabase.persistence;
+package com.excilys.computerdatabase.persistence.implementation;
 
 import com.excilys.computerdatabase.model.Company;
 import com.excilys.computerdatabase.model.Computer;
+import com.excilys.computerdatabase.persistence.ComputerDAO;
+import com.excilys.computerdatabase.persistence.ConnectionDatabase;
 import com.excilys.computerdatabase.util.ComputerDatabaseDAOException;
 
 import java.sql.SQLException;
@@ -25,9 +27,10 @@ public class ComputerDAOImp implements ComputerDAO {
     private static final String DELETE_QUERY = "DELETE FROM computer WHERE id=?";
     private static final String ADD_QUERY = "INSERT INTO computer(name,introduced,discontinued,company_id) VALUES(?,?,?,?)";
     private static final String UPDATE_QUERY = "UPDATE computer SET name =?, introduced=?, discontinued= ? ,company_id= ? WHERE id= ?";
-    private static final String SELECT_ALL_QUERY_PAGE10 = "SELECT * FROM computer LIMIT 10 OFFSET ?";
+    private static final String SELECT_ALL_QUERY_PAGE = "SELECT * FROM computer LEFT JOIN company ON computer.company_id = company.id LIMIT ? OFFSET ?";
     private static final String GET_COMPUTER_BY_ID = "SELECT * From computer WHERE id=?";
     private static final String GET_COMPUTER_BY_NAME = "SELECT * From computer WHERE name=?";
+    private static final String COUNT_COMPUTER = "SELECT COUNT(*) FROM computer";
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.S");
 
     /**
@@ -37,7 +40,7 @@ public class ComputerDAOImp implements ComputerDAO {
      *            id
      */
     public void delete(long id) {
-        try (Connection connect = ConnectionDatabase.getInstance();
+        try (Connection connect = ConnectionDatabase.INSTANCE.getConnection();
                 PreparedStatement pstmt = connect.prepareStatement(DELETE_QUERY);) {
             pstmt.setLong(1, id);
             pstmt.executeUpdate();
@@ -54,19 +57,20 @@ public class ComputerDAOImp implements ComputerDAO {
      *            page10
      * @return listcomputer
      */
-    public List<Computer> getList(int page10) {
+    public List<Computer> getList(int page, int nbrElements) {
         List<Computer> listComputer = new ArrayList<Computer>();
-        try (Connection connect = ConnectionDatabase.getInstance();
-                PreparedStatement pstmt = connect.prepareStatement(SELECT_ALL_QUERY_PAGE10);) {
-            pstmt.setInt(1, page10 * 10);
+        try (Connection connect = ConnectionDatabase.INSTANCE.getConnection();
+                PreparedStatement pstmt = connect.prepareStatement(SELECT_ALL_QUERY_PAGE);) {
+            pstmt.setInt(1, nbrElements);
+            pstmt.setInt(2, page * nbrElements);
             try (ResultSet rs = pstmt.executeQuery();) {
                 Computer computer;
-                Company company = null;
+                Company company;
                 long id;
                 String name;
-                LocalDate dateIntroduced = null;
-                LocalDate dateDiscontinued = null;
-                long idCompany = 0L;
+                LocalDate dateIntroduced;
+                LocalDate dateDiscontinued;
+                long idCompany;
 
                 while (rs.next()) {
                     id = rs.getLong(1);
@@ -83,7 +87,8 @@ public class ComputerDAOImp implements ComputerDAO {
                     }
                     if (rs.getLong(5) != 0L) {
                         idCompany = rs.getLong(5);
-                        company = (new CompanyDAOImp()).getCompanyById(idCompany);
+                        String nameCompany = rs.getString(7);
+                        company = new Company.Builder(nameCompany).id(idCompany).build();
                     } else {
                         company = null;
                     }
@@ -92,11 +97,15 @@ public class ComputerDAOImp implements ComputerDAO {
 
                     listComputer.add(computer);
                 }
+            } catch (SQLException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
             }
 
         } catch (SQLException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
+
         }
         return listComputer;
     }
@@ -109,7 +118,7 @@ public class ComputerDAOImp implements ComputerDAO {
      * @return id
      */
     public long add(Computer computer) {
-        try (Connection connect = ConnectionDatabase.getInstance();
+        try (Connection connect = ConnectionDatabase.INSTANCE.getConnection();
                 PreparedStatement pstmt = connect.prepareStatement(ADD_QUERY, Statement.RETURN_GENERATED_KEYS);) {
             pstmt.setString(1, computer.getName());
             pstmt.setObject(2, computer.getDateIntroduced());
@@ -140,7 +149,7 @@ public class ComputerDAOImp implements ComputerDAO {
      */
     public void update(Computer computer) {
         System.out.println(computer);
-        try (Connection connect = ConnectionDatabase.getInstance();
+        try (Connection connect = ConnectionDatabase.INSTANCE.getConnection();
                 PreparedStatement pstmt = connect.prepareStatement(UPDATE_QUERY);) {
             pstmt.setString(1, computer.getName());
             pstmt.setObject(2, computer.getDateIntroduced());
@@ -151,7 +160,6 @@ public class ComputerDAOImp implements ComputerDAO {
                 pstmt.setNull(4, java.sql.Types.BIGINT);
             }
             pstmt.setLong(5, computer.getId());
-            System.out.println(pstmt);
             pstmt.executeUpdate();
 
         } catch (SQLException e) { // TODO Auto-generated
@@ -168,7 +176,7 @@ public class ComputerDAOImp implements ComputerDAO {
      * @return computer
      */
     public Computer getComputerById(long id) {
-        try (Connection connect = ConnectionDatabase.getInstance();
+        try (Connection connect = ConnectionDatabase.INSTANCE.getConnection();
                 PreparedStatement pstmt = connect.prepareStatement(GET_COMPUTER_BY_ID);) {
             pstmt.setLong(1, id);
             try (ResultSet rs = pstmt.executeQuery();) {
@@ -212,7 +220,7 @@ public class ComputerDAOImp implements ComputerDAO {
      * @return computer
      */
     public Computer getComputerByName(String name) {
-        try (Connection connect = ConnectionDatabase.getInstance();
+        try (Connection connect = ConnectionDatabase.INSTANCE.getConnection();
                 PreparedStatement pstmt = connect.prepareStatement(GET_COMPUTER_BY_NAME);) {
             pstmt.setString(1, name);
             try (ResultSet rs = pstmt.executeQuery();) {
@@ -247,6 +255,20 @@ public class ComputerDAOImp implements ComputerDAO {
             throw new ComputerDatabaseDAOException("pas de company pour cet ID", e);
         }
 
+    }
+
+    public int nombreComputer() {
+        try (Connection connect = ConnectionDatabase.INSTANCE.getConnection();
+                PreparedStatement pstmt = connect.prepareStatement(COUNT_COMPUTER);
+                ResultSet rs = pstmt.executeQuery();) {
+            rs.next();
+            int nombrecomputer = rs.getInt(1);
+            return nombrecomputer;
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+            throw new ComputerDatabaseDAOException("pas de company pour cet ID", e);
+        }
     }
 
 }

@@ -13,6 +13,7 @@ import org.junit.Test;
 import com.excilys.computerdatabase.model.Company;
 
 import com.excilys.computerdatabase.model.Computer;
+import com.excilys.computerdatabase.persistence.implementation.ComputerDAOImp;
 import com.excilys.computerdatabase.util.ComputerDatabaseDAOException;
 
 public class ComputerDAOImpTest {
