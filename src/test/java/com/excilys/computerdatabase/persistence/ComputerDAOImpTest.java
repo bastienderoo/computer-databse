@@ -1,16 +1,23 @@
 package com.excilys.computerdatabase.persistence;
 
 import static org.junit.Assert.assertTrue;
+<<<<<<< HEAD
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+=======
+import static org.junit.Assert.fail;
+>>>>>>> 73e0817a3d35b4bced2c74c09de8d96d764a7303
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+<<<<<<< HEAD
 import com.excilys.computerdatabase.model.Company;
+=======
+>>>>>>> 73e0817a3d35b4bced2c74c09de8d96d764a7303
 import com.excilys.computerdatabase.model.Computer;
 import com.excilys.computerdatabase.util.ComputerDatabaseDAOException;
 
@@ -73,6 +80,7 @@ public class ComputerDAOImpTest {
 		assertTrue(computer3.getName().equals("testName2"));
 		computerDAOImp.delete(idComputer);
 	}
+<<<<<<< HEAD
 	
 	@Test
 	public void testList() {
@@ -92,5 +100,7 @@ public class ComputerDAOImpTest {
 		List<Computer> listComputer2 =computerDAOImp.getList(0);
 		assertTrue(listComputer.equals(listComputer2));
 	}
+=======
+>>>>>>> 73e0817a3d35b4bced2c74c09de8d96d764a7303
 
 }

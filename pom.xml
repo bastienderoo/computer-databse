@@ -4,11 +4,18 @@
 	<groupId>ComputerDatabase</groupId>
 	<artifactId>ComputerDatabase</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
+<<<<<<< HEAD
 	<packaging>war</packaging>
 	<name>ComputerDatabase</name>
 	<properties>
 		<version.junit>4.12</version.junit>
 		<version.mysql>5.1.40</version.mysql>
+=======
+	<name>ComputerDatabase</name>
+	<properties>
+		<version.junit>4.12</version.junit>
+		<version.mysql>5.1.37</version.mysql>
+>>>>>>> 73e0817a3d35b4bced2c74c09de8d96d764a7303
 		<version.org.mockito>2.0.2-beta</version.org.mockito>
 		<version.org.slf4j>1.7.25</version.org.slf4j>
 	</properties>
@@ -27,6 +34,7 @@
 				</configuration>
 
 			</plugin>
+<<<<<<< HEAD
 			 <plugin>
         <groupId>org.apache.tomcat.maven</groupId>
         <artifactId>tomcat7-maven-plugin</artifactId>
@@ -39,6 +47,9 @@
         </configuration>
         <version>2.2</version>
       </plugin>
+=======
+
+>>>>>>> 73e0817a3d35b4bced2c74c09de8d96d764a7303
 		</plugins>
 	</build>
 
@@ -50,13 +61,21 @@
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 			<version>${version.junit}</version>
+<<<<<<< HEAD
 
+=======
+			<scope>test</scope>
+>>>>>>> 73e0817a3d35b4bced2c74c09de8d96d764a7303
 		</dependency>
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
 			<version>${version.mysql}</version>
+<<<<<<< HEAD
 
+=======
+			<scope>test</scope>
+>>>>>>> 73e0817a3d35b4bced2c74c09de8d96d764a7303
 		</dependency>
 		<dependency>
 			<groupId>org.mockito</groupId>
@@ -68,6 +87,7 @@
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-api</artifactId>
 			<version>${version.org.slf4j}</version>
+<<<<<<< HEAD
 
 		</dependency>
 		<dependency>
@@ -88,6 +108,9 @@
 			<artifactId>jstl</artifactId>
 			<version>1.2</version>
 			<scope>provided</scope>
+=======
+			<scope>test</scope>
+>>>>>>> 73e0817a3d35b4bced2c74c09de8d96d764a7303
 		</dependency>
 
 
@@ -107,5 +130,9 @@
 			</plugin>
 		</plugins>
 	</reporting>
+<<<<<<< HEAD
 	
+=======
+
+>>>>>>> 73e0817a3d35b4bced2c74c09de8d96d764a7303
 </project>

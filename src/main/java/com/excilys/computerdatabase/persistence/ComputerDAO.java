@@ -5,6 +5,7 @@ import java.util.List;
 import com.excilys.computerdatabase.model.Computer;
 
 public interface ComputerDAO {
+<<<<<<< HEAD
     /**
      * .
      * @param id id
@@ -40,4 +41,13 @@ public interface ComputerDAO {
      */
     Computer getComputerByName(String name);
 
+=======
+	public void delete(long id);
+	public List<Computer> getList(int page10);
+	public long add(Computer computer);
+	public void update(Computer computer);
+	public Computer getComputerById(long id);
+	public Computer getComputerByName(String name);
+	
+>>>>>>> 73e0817a3d35b4bced2c74c09de8d96d764a7303
 }

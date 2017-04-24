@@ -1,0 +1,13 @@
+import com.excilys.computerdatabase.persistence.ConnectionDatabase;
+
+public class Test {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		
+		ConnectionDatabase.getInstance();
+		
+
+	}
+
+}

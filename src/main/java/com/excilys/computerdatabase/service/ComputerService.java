@@ -3,6 +3,7 @@ package com.excilys.computerdatabase.service;
 import java.util.List;
 
 import com.excilys.computerdatabase.model.Computer;
+<<<<<<< HEAD
 import com.excilys.computerdatabase.model.ComputerDTO;
 
 public interface ComputerService {
@@ -40,4 +41,14 @@ public interface ComputerService {
  * @return computer
  */
     Computer getComputerByName(String name);
+=======
+
+public interface ComputerService {
+	public void delete(long id);
+	public List<Computer> getList(int page10);
+	public void add(Computer computer);
+	public void update(Computer computer);
+	public Computer getComputerById(long id);
+	public Computer getComputerByName(String name);
+>>>>>>> 73e0817a3d35b4bced2c74c09de8d96d764a7303
 }
