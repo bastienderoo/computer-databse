@@ -13,8 +13,8 @@ public class CompanyServiceImp implements CompanyService {
  * @param page10 page10
  * @return listcompany
  */
-    public List<Company> getList(int page10) {
-        List<Company> listcompany = companyDAO.getList(page10);
+    public List<Company> getList() {
+        List<Company> listcompany = companyDAO.getList();
         return listcompany;
     }
 /**
@@ -24,6 +24,12 @@ public class CompanyServiceImp implements CompanyService {
  */
     public Company getCompanyById(long id) {
         Company company = companyDAO.getCompanyById(id);
+        return company;
+
+    }
+    
+    public Company getCompanyByNamr(String name) {
+        Company company = companyDAO.getCompanyByName(name);
         return company;
 
     }

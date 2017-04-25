@@ -12,7 +12,7 @@ public interface CompanyService {
      *            page10
      * @return listcompany
      */
-    List<Company> getList(int page10);
+    List<Company> getList();
 
     /**
      * .
@@ -22,5 +22,7 @@ public interface CompanyService {
      * @return company
      */
     Company getCompanyById(long id);
+
+    Company getCompanyByNamr(String name);
 
 }

@@ -11,13 +11,15 @@ public interface CompanyDAO {
      * @param page10 page10
      * @return listcompany
      */
-    List<Company> getList(int page10);
+    List<Company> getList();
     /**
      * get company by id.
      * @param id id
      * @return company
      */
     Company getCompanyById(long id);
+    
+    Company getCompanyByName(String name);
 
 
 }

@@ -26,9 +26,24 @@ public class MapperComputer {
 
     public static Computer mapperComputerDTO(ComputerDTO computerDTO) {
         CompanyServiceImp companyService = new CompanyServiceImp();
-        LocalDate dateDiscontinued = LocalDate.parse(computerDTO.getDateDiscontinued());
-        LocalDate dateIntroduced = LocalDate.parse(computerDTO.getDateIntroduced());
-        Company company = companyService.getCompanyById(computerDTO.getIdCompany());
+        LocalDate dateDiscontinued;
+        LocalDate dateIntroduced;
+        Company company;
+        if (computerDTO.getDateDiscontinued() != "") {
+            dateDiscontinued = LocalDate.parse(computerDTO.getDateDiscontinued());
+        } else {
+            dateDiscontinued = null;
+        }
+        if (computerDTO.getDateIntroduced() != "") {
+            dateIntroduced = LocalDate.parse(computerDTO.getDateIntroduced());
+        } else {
+            dateIntroduced = null;
+        }
+        if (computerDTO.getIdCompany() != 0) {
+            company = companyService.getCompanyById(computerDTO.getIdCompany());
+        } else {
+            company = null;
+        }
 
         Computer computer = new Computer.Builder(computerDTO.getName()).id(computerDTO.getId())
                 .dateIntroduced(dateIntroduced).dateDiscontinued(dateDiscontinued).company(company).build();

@@ -19,7 +19,8 @@ import com.excilys.computerdatabase.util.ComputerDatabaseDAOException;
  */
 public class CompanyDAOImp implements CompanyDAO {
     private static final String SELECT_COMPANY_BY_ID = "SELECT * FROM company WHERE id=? ";
-    private static final String SELECT_ALL_QUERY_PAGE10 = "SELECT * FROM company LIMIT 100 OFFSET ?";
+    private static final String SELECT_COMPANY_BY_NAME = "SELECT * FROM company WHERE nameCompany=? ";
+    private static final String SELECT_ALL_QUERY_PAGE10 = "SELECT * FROM company";
 
     /**
      * affichage de la liste des entreprises.
@@ -32,7 +33,6 @@ public class CompanyDAOImp implements CompanyDAO {
         List<Company> listCompany = new ArrayList<Company>();
         try (Connection connect = ConnectionDatabase.INSTANCE.getConnection();
                 PreparedStatement pstmt = connect.prepareStatement(SELECT_ALL_QUERY_PAGE10);) {
-            pstmt.setInt(1, page10 * 10);
             try (ResultSet rs = pstmt.executeQuery();) {
                 Company company;
                 long id;
@@ -66,6 +66,26 @@ public class CompanyDAOImp implements CompanyDAO {
                 rs.next();
                 Company company;
                 String name = rs.getString(2);
+                company = new Company.Builder(name).id(id).build();
+                return company;
+            }
+
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+            throw new ComputerDatabaseDAOException("pas de company pour cet ID", e);
+        }
+
+    }
+    
+    public Company getCompanyByName(String name) {
+        try (Connection connect = ConnectionDatabase.INSTANCE.getConnection();
+                PreparedStatement pstmt = connect.prepareStatement(SELECT_COMPANY_BY_NAME);) {
+            pstmt.setString(1, name);
+            try (ResultSet rs = pstmt.executeQuery();) {
+                rs.next();
+                Company company;
+                Long id = rs.getLong(1);
                 company = new Company.Builder(name).id(id).build();
                 return company;
             }
