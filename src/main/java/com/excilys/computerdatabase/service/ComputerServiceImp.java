@@ -6,7 +6,6 @@ import com.excilys.computerdatabase.mappers.MapperComputer;
 import com.excilys.computerdatabase.model.Computer;
 import com.excilys.computerdatabase.model.ComputerDTO;
 import com.excilys.computerdatabase.persistence.implementation.ComputerDAOImp;
-import com.excilys.computerdatabase.util.ComputerDatabaseDAOException;
 
 public class ComputerServiceImp implements ComputerService {
     private ComputerDAOImp computerDAO = new ComputerDAOImp();
@@ -48,8 +47,7 @@ public class ComputerServiceImp implements ComputerService {
             } else {
                 throw new ServiceException("Date introduced must be before Date dicontinued");
             }
-        }
-        else {
+        } else {
             long id = computerDAO.add(computer);
             return id;
         }

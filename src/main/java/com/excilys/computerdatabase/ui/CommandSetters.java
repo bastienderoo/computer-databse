@@ -7,6 +7,7 @@ import java.util.logging.Logger;
 
 import com.excilys.computerdatabase.model.Company;
 import com.excilys.computerdatabase.model.Computer;
+import com.excilys.computerdatabase.model.ComputerDTO;
 import com.excilys.computerdatabase.service.CompanyServiceImp;
 import com.excilys.computerdatabase.service.ComputerServiceImp;
 
@@ -16,19 +17,22 @@ public class CommandSetters {
     private ComputerServiceImp computerService = new ComputerServiceImp();
     private CompanyServiceImp companyService = new CompanyServiceImp();
     private static final Logger LOGGER = Logger.getLogger(CommandSetters.class.getName());
-/**
- * affiche la liste des ordinateurs.
- */
+
+    /**
+     * affiche la liste des ordinateurs.
+     */
     public void listcomputer() {
 
         LOGGER.info("Entrer quelle page vous voulez afficher.");
         int page10 = sc.nextInt();
-        List<Computer> listcomputer = computerService.getList(page10);
+        int elementPage = sc.nextInt();
+        List<ComputerDTO> listcomputer = computerService.getList(page10, elementPage);
         LOGGER.info(listcomputer.toString());
     }
-/**
- * ajout d'un ordinateur.
- */
+
+    /**
+     * ajout d'un ordinateur.
+     */
     public void addComputer() {
 
         LOGGER.info("entrer le nom de l'ordinateur");
@@ -46,9 +50,10 @@ public class CommandSetters {
                 .company(company).build();
         computerService.add(computer);
     }
-/**
- * supression d'un ordinateur.
- */
+
+    /**
+     * supression d'un ordinateur.
+     */
     public void deleteComputer() {
 
         LOGGER.info("entrer l'id de l'ordinateur à supprimer");
@@ -56,18 +61,19 @@ public class CommandSetters {
         computerService.delete(idDelete);
 
     }
-/**
- * Affiche la liste des entreprises.
- */
+
+    /**
+     * Affiche la liste des entreprises.
+     */
     public void listCompany() {
-        LOGGER.info("Entrer quelle page vous voulez afficher.");
-        int page10 = sc.nextInt();
-        List<Company> listcompany = companyService.getList(page10);
+
+        List<Company> listcompany = companyService.getList();
         LOGGER.info(listcompany.toString());
     }
-/**
- * Mise à jour d'un ordinateur.
- */
+
+    /**
+     * Mise à jour d'un ordinateur.
+     */
     public void updateComputer() {
         LOGGER.info("entrer l'id de l'ordinateur");
         long id = sc.nextLong();

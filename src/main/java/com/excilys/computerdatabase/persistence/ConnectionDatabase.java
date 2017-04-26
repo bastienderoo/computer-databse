@@ -1,24 +1,38 @@
 package com.excilys.computerdatabase.persistence;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
+
+import javax.sql.DataSource;
+
+import com.excilys.computerdatabase.util.ComputerDatabaseDAOException;
+import com.zaxxer.hikari.HikariConfig;
+import com.zaxxer.hikari.HikariDataSource;
 
 public enum ConnectionDatabase {
 
     INSTANCE;
-    private Connection connection;
+
     private ResourceBundle bundle = ResourceBundle.getBundle("config");
     private String url = bundle.getString("database.url");
     private String user = bundle.getString("database.user");
     private String password = bundle.getString("database.password");
+    private DataSource dataSource;
 
     ConnectionDatabase() {
 
         try {
 
             Class.forName("com.mysql.jdbc.Driver");
+            HikariConfig config = new HikariConfig();
+            config.setJdbcUrl(url);
+            config.setUsername(user);
+            config.setPassword(password);
+            config.setMaximumPoolSize(20);
+            config.setMaxLifetime(60);
+
+            dataSource = new HikariDataSource(config);
 
         } catch (ClassNotFoundException e) {
             // TODO Auto-generated catch block
@@ -36,14 +50,11 @@ public enum ConnectionDatabase {
     public Connection getConnection() {
 
         try {
-            if (connection == null || connection.isClosed()) {
-                connection = DriverManager.getConnection(url, user, password);
-            }
+            return dataSource.getConnection();
         } catch (SQLException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            throw new ComputerDatabaseDAOException("Connection impossible");
         }
-        return connection;
+
     }
 
 }

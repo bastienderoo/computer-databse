@@ -22,7 +22,7 @@
 
 	<section id="main">
 		<div class="container">
-			<h1 id="homeTitle">${nombreComputers} Computers found</h1>
+			<h1 id="homeTitle">${nombreComputers} Computers found hehe</h1>
 			<div id="actions" class="form-horizontal">
 				<div class="pull-left">
 					<form id="searchForm" action="#" method="GET" class="form-inline">
@@ -76,7 +76,7 @@
 
 							<td class="editMode"><input type="checkbox" name="cb"
 								class="cb" value="0"></td>
-							<td><a href="editComputer.html" onclick=""><c:out
+							<td><a href="EditComputer" onclick=""><c:out
 										value="${computer.name}"></c:out></a></td>
 							<td>${computer.dateIntroduced}</td>
 							<td>${computer.dateDiscontinued}</td>

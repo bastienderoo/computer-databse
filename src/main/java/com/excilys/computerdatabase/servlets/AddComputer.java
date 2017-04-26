@@ -2,7 +2,6 @@ package com.excilys.computerdatabase.servlets;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.StringTokenizer;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -27,14 +26,6 @@ public class AddComputer extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
     /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public AddComputer() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
-
-    /**
      * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
      *      response)
      */
@@ -45,7 +36,7 @@ public class AddComputer extends HttpServlet {
         ComputerService computerService = new ComputerServiceImp();
         List<Company> listCompany = companyService.getList();
         String computerName = request.getParameter("computerName");
-        if (computerName != null) {
+        if (computerName != "") {
             String introduced = request.getParameter("introduced");
             String discontinued = request.getParameter("discontinued");
             Long companyId = Long.parseLong(request.getParameter("companyId"));

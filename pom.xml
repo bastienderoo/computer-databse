@@ -10,7 +10,7 @@
 		<version.junit>4.12</version.junit>
 		<version.mysql>5.1.40</version.mysql>
 		<version.org.mockito>2.0.2-beta</version.org.mockito>
-		<version.org.slf4j>1.7.25</version.org.slf4j>
+		<version.org.slf4j>1.7.23</version.org.slf4j>
 	</properties>
 	<build>
 		<!-- To define the plugin version in your parent POM -->
@@ -62,13 +62,18 @@
 			<groupId>org.mockito</groupId>
 			<artifactId>mockito-all</artifactId>
 			<version>${version.org.mockito}</version>
+			<scope>test</scope>
 		</dependency>
 
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-api</artifactId>
 			<version>${version.org.slf4j}</version>
-
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-simple</artifactId>
+			<version>${version.org.slf4j}</version>
 		</dependency>
 		<dependency>
 			<groupId>javax.servlet</groupId>
@@ -87,9 +92,14 @@
 			<groupId>javax.servlet</groupId>
 			<artifactId>jstl</artifactId>
 			<version>1.2</version>
-			<scope>provided</scope>
 		</dependency>
 
+		<!-- https://mvnrepository.com/artifact/com.zaxxer/HikariCP -->
+		<dependency>
+			<groupId>com.zaxxer</groupId>
+			<artifactId>HikariCP</artifactId>
+			<version>2.6.1</version>
+		</dependency>
 
 
 	</dependencies>
