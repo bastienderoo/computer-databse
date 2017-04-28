@@ -28,7 +28,7 @@ public class CompanyServiceImp implements CompanyService {
 
     }
     
-    public Company getCompanyByNamr(String name) {
+    public Company getCompanyByName(String name) {
         Company company = companyDAO.getCompanyByName(name);
         return company;
 

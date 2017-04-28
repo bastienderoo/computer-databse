@@ -20,9 +20,8 @@ import java.util.List;
 /**
  * Created by excilys on 26/04/17.
  */
-@WebServlet("/EditComputer")
+@WebServlet("/editComputer")
 public class EditComputer extends HttpServlet {
-
 
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -31,30 +30,57 @@ public class EditComputer extends HttpServlet {
         CompanyService companyService = new CompanyServiceImp();
         ComputerService computerService = new ComputerServiceImp();
         List<Company> listCompany = companyService.getList();
-        String computerName = request.getParameter("computerName");
-        if (computerName != "") {
-            String introduced = request.getParameter("introduced");
-            String discontinued = request.getParameter("discontinued");
-            Long companyId = Long.parseLong(request.getParameter("companyId"));
-            System.out.println(introduced);
-            ComputerDTO computerDTO = new ComputerDTO.Builder(computerName).dateIntroduced(introduced)
-                    .dateDiscontinued(discontinued).idCompany(companyId).build();
-            Computer computer = MapperComputer.mapperComputerDTO(computerDTO);
-            computerService.update(computer);
-
+        String idString = request.getParameter("id");
+        if (idString != null) {
+            long id = Long.parseLong(idString);
+            System.out.println(id);
+            Computer computer = computerService.getComputerById(id);
+            System.out.println(computer.getName());
+            request.setAttribute("computerName", computer.getName());
+            request.setAttribute("introduced", computer.getDateIntroduced());
+            request.setAttribute("discontinued", computer.getDateDiscontinued());
         }
+        request.setAttribute("computerId", idString);
         request.setAttribute("companyId", listCompany);
         this.getServletContext().getRequestDispatcher("/WEB-INF/views/editComputer.jsp").forward(request, response);
-
     }
 
     /**
      * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-     *      response)
+     * response)
      */
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         // TODO Auto-generated method stub
-        doGet(request, response);
+
+        ComputerService computerService = new ComputerServiceImp();
+
+
+        String idCompanyString = request.getParameter("companyId");
+        String idString = request.getParameter("id");
+        if (idString != null) {
+            String computerName = request.getParameter("computerName");
+            long id = Long.parseLong(idString);
+
+            if (computerName != null) {
+                String introduced = request.getParameter("introduced");
+                String discontinued = request.getParameter("discontinued");
+                String companyIdString = request.getParameter("companyId");
+                if (companyIdString != null && !companyIdString.equals("")) {
+                    long idCompany = Long.parseLong(idCompanyString);
+
+                    ComputerDTO computerDTO = new ComputerDTO.Builder(computerName)
+                            .id(id)
+                            .dateIntroduced(introduced)
+                            .dateDiscontinued(discontinued)
+                            .idCompany(idCompany).build();
+                    Computer computer = MapperComputer.mapperComputerDTO(computerDTO);
+                    computerService.update(computer);
+                }
+            }
+        }
+
+
+        response.sendRedirect("Dashboard");
     }
 }

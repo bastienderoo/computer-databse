@@ -2,6 +2,7 @@ package com.excilys.computerdatabase.servlets;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Objects;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -27,26 +28,13 @@ public class AddComputer extends HttpServlet {
 
     /**
      * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
-     *      response)
+     * response)
      */
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         // TODO Auto-generated method stub
         CompanyService companyService = new CompanyServiceImp();
-        ComputerService computerService = new ComputerServiceImp();
         List<Company> listCompany = companyService.getList();
-        String computerName = request.getParameter("computerName");
-        if (computerName != "") {
-            String introduced = request.getParameter("introduced");
-            String discontinued = request.getParameter("discontinued");
-            Long companyId = Long.parseLong(request.getParameter("companyId"));
-            System.out.println(introduced);
-            ComputerDTO computerDTO = new ComputerDTO.Builder(computerName).dateIntroduced(introduced)
-                    .dateDiscontinued(discontinued).idCompany(companyId).build();
-            Computer computer = MapperComputer.mapperComputerDTO(computerDTO);
-            computerService.add(computer);
-
-        }
         request.setAttribute("companyId", listCompany);
         this.getServletContext().getRequestDispatcher("/WEB-INF/views/addComputer.jsp").forward(request, response);
 
@@ -54,12 +42,31 @@ public class AddComputer extends HttpServlet {
 
     /**
      * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-     *      response)
+     * response)
      */
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         // TODO Auto-generated method stub
-        doGet(request, response);
+
+        ComputerService computerService = new ComputerServiceImp();
+
+        String computerName = request.getParameter("computerName");
+        if (!Objects.equals(computerName, "")) {
+            String introduced = request.getParameter("introduced");
+            String discontinued = request.getParameter("discontinued");
+            String companyIdString = request.getParameter("companyId");
+            if (companyIdString != null) {
+                Long companyId = Long.parseLong(companyIdString);
+
+                ComputerDTO computerDTO = new ComputerDTO.Builder(computerName).dateIntroduced(introduced)
+                        .dateDiscontinued(discontinued).idCompany(companyId).build();
+                Computer computer = MapperComputer.mapperComputerDTO(computerDTO);
+                computerService.add(computer);
+
+            }
+        }
+
+        response.sendRedirect("Dashboard");
     }
 
 }

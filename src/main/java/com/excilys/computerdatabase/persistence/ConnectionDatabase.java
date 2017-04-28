@@ -29,10 +29,18 @@ public enum ConnectionDatabase {
             config.setJdbcUrl(url);
             config.setUsername(user);
             config.setPassword(password);
-            config.setMaximumPoolSize(20);
-            config.setMaxLifetime(60);
+            config.setMaximumPoolSize(100);
+
 
             dataSource = new HikariDataSource(config);
+
+            // To close the datasource when the server is closing
+            Runtime.getRuntime().addShutdownHook(new Thread() {
+                @Override
+                public void run() {
+                    ((HikariDataSource) ConnectionDatabase.this.dataSource).close();
+                }
+            });
 
         } catch (ClassNotFoundException e) {
             // TODO Auto-generated catch block
@@ -43,8 +51,6 @@ public enum ConnectionDatabase {
     }
 
     /**
-     * 
-     * 
      * @return fermeture connexion
      */
     public Connection getConnection() {

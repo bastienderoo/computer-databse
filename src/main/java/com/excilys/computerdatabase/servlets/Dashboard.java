@@ -1,7 +1,9 @@
 package com.excilys.computerdatabase.servlets;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -21,14 +23,15 @@ public class Dashboard extends HttpServlet {
     private static final long serialVersionUID = 1L;
     int page;
     int nombreElements = 10;
+    String search = "";
 
     /**
      * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
-     *      response)
+     * response)
      */
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        // TODO Auto-generated method stub
+
 
         try {
             page = Integer.parseInt(request.getParameter("page")) - 1;
@@ -43,10 +46,19 @@ public class Dashboard extends HttpServlet {
         } catch (NumberFormatException e) {
 
         }
+        List<ComputerDTO> listComputer;
 
         ComputerService computerService = new ComputerServiceImp();
-        List<ComputerDTO> listComputer = computerService.getList(page, nombreElements);
-        int nombreComputers = computerService.getNombreComputer();
+        search = request.getParameter("search");
+        int nombreComputers;
+        if (!Objects.equals(search, "") && search != null) {
+            listComputer = computerService.getComputerByName(search);
+            nombreComputers = listComputer.size();
+        } else {
+            listComputer = computerService.getList(page, nombreElements);
+            nombreComputers = computerService.getNombreComputer();
+        }
+
         int nombrePage = nombreComputers / nombreElements + 1;
         request.setAttribute("nombreComputers", nombreComputers);
         request.setAttribute("computerList", listComputer);
@@ -59,12 +71,23 @@ public class Dashboard extends HttpServlet {
 
     /**
      * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-     *      response)
+     * response)
      */
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         // TODO Auto-generated method stub
-        int id = request.getParameter("")
+        ComputerService computerService = new ComputerServiceImp();
+        String listSelection = request.getParameter("selection");
+        System.out.println(listSelection);
+        String[] idString = listSelection.split(",");
+        for (String idS : idString) {
+            if (idS != null) {
+                Long id = Long.parseLong(idS);
+                computerService.delete(id);
+            }
+
+
+        }
         doGet(request, response);
     }
 

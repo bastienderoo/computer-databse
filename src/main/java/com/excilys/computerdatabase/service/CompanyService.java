@@ -23,6 +23,6 @@ public interface CompanyService {
      */
     Company getCompanyById(long id);
 
-    Company getCompanyByNamr(String name);
+    Company getCompanyByName(String name);
 
 }

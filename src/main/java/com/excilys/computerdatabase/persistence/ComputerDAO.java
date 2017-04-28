@@ -39,6 +39,6 @@ public interface ComputerDAO {
      * @param name name
      * @return computer
      */
-    Computer getComputerByName(String name);
+    List<Computer> getComputerByName(String name);
 
 }

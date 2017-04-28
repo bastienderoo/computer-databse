@@ -58,7 +58,7 @@ public class MapperComputer {
             String dateIntroduced = c.getDateIntroduced() != null ? c.getDateIntroduced().toString() : "-";
             String company = c.getcompany() != null ? c.getcompany().getName() : "-";
             Long idCompany = c.getcompany() != null ? c.getcompany().getId() : 0L;
-            System.out.println(company);
+
             ComputerDTO computerDTO = new ComputerDTO.Builder(c.getName()).id(c.getId()).dateIntroduced(dateIntroduced)
                     .dateDiscontinued(dateDiscontinued).company(company).idCompany(idCompany).build();
             listcomputerDTO.add(computerDTO);

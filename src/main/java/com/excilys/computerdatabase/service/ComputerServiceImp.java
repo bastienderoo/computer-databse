@@ -12,9 +12,8 @@ public class ComputerServiceImp implements ComputerService {
 
     /**
      * .
-     * 
-     * @param id
-     *            id
+     *
+     * @param id id
      */
     public void delete(long id) {
         computerDAO.delete(id);
@@ -22,9 +21,8 @@ public class ComputerServiceImp implements ComputerService {
 
     /**
      * .
-     * 
-     * @param page10
-     *            page10
+     *
+     * @param page10 page10
      * @return listcomputer
      */
     public List<ComputerDTO> getList(int page, int nbrElements) {
@@ -34,9 +32,8 @@ public class ComputerServiceImp implements ComputerService {
 
     /**
      * .
-     * 
-     * @param computer
-     *            computer
+     *
+     * @param computer computer
      * @return long
      */
     public long add(Computer computer) {
@@ -55,23 +52,26 @@ public class ComputerServiceImp implements ComputerService {
 
     /**
      * .
-     * 
-     * @param computer
-     *            computer
+     *
+     * @param computer computer
      */
     public void update(Computer computer) {
-        if (computer.getDateIntroduced().isBefore(computer.getDateDiscontinued())) {
-            computerDAO.update(computer);
+        if (computer.getDateIntroduced() != null && computer.getDateDiscontinued() != null) {
+            if (computer.getDateIntroduced().isBefore(computer.getDateDiscontinued())) {
+                computerDAO.update(computer);
+            } else {
+                throw new ServiceException("Date introduced must be before Date dicontinued");
+            }
         } else {
-            throw new ServiceException("Date introduced must be before Date dicontinued");
+            computerDAO.update(computer);
         }
+
     }
 
     /**
      * .
-     * 
-     * @param id
-     *            id
+     *
+     * @param id id
      * @return computer
      */
     public Computer getComputerById(long id) {
@@ -81,14 +81,14 @@ public class ComputerServiceImp implements ComputerService {
 
     /**
      * .
-     * 
-     * @param name
-     *            name
+     *
+     * @param name name
      * @return computer
      */
-    public Computer getComputerByName(String name) {
-        Computer computer = computerDAO.getComputerByName(name);
-        return computer;
+    public List<ComputerDTO> getComputerByName(String name) {
+        List<Computer> listComputer = computerDAO.getComputerByName(name);
+        return MapperComputer.mapperComputer(listComputer);
+
     }
 
     public int getNombreComputer() {

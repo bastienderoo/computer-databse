@@ -15,19 +15,19 @@
 <body>
 	<header class="navbar navbar-inverse navbar-fixed-top">
 		<div class="container">
-			<a class="navbar-brand" href="dashboard.html"> Application -
+			<a class="navbar-brand" href="Dashboard"> Application -
 				Computer Database </a>
 		</div>
 	</header>
 
 	<section id="main">
 		<div class="container">
-			<h1 id="homeTitle">${nombreComputers} Computers found hehe</h1>
+			<h1 id="homeTitle">${nombreComputers} Computers found</h1>
 			<div id="actions" class="form-horizontal">
 				<div class="pull-left">
 					<form id="searchForm" action="#" method="GET" class="form-inline">
 
-						<input type="search" id="searchbox" name="search"
+						<input type="search" id="search" name="search"
 							class="form-control" placeholder="Search name" /> <input
 							type="submit" id="searchsubmit" value="Filter by name"
 							class="btn btn-primary" />
@@ -75,8 +75,8 @@
 
 
 							<td class="editMode"><input type="checkbox" name="cb"
-								class="cb" value="0"></td>
-							<td><a href="EditComputer" onclick=""><c:out
+								class="cb" value="${computer.id}"></td>
+							<td><a id="id" href="editComputer?id=${computer.id}" onclick=""><c:out
 										value="${computer.name}"></c:out></a></td>
 							<td>${computer.dateIntroduced}</td>
 							<td>${computer.dateDiscontinued}</td>

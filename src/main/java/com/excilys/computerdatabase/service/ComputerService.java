@@ -40,7 +40,7 @@ public interface ComputerService {
  * @param name name
  * @return computer
  */
-    Computer getComputerByName(String name);
+    List<ComputerDTO> getComputerByName(String name);
     
     public int getNombreComputer();
 
