@@ -60,7 +60,7 @@ public class AddComputer extends HttpServlet {
 
                 ComputerDTO computerDTO = new ComputerDTO.Builder(computerName).dateIntroduced(introduced)
                         .dateDiscontinued(discontinued).idCompany(companyId).build();
-                Computer computer = MapperComputer.mapperComputerDTO(computerDTO);
+                Computer computer = MapperComputer.mapperDTOIntoComputer(computerDTO);
                 computerService.add(computer);
 
             }

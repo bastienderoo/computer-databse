@@ -15,7 +15,7 @@ import java.util.concurrent.TimeUnit;
 /**
  * Created by excilys on 28/04/17.
  */
-public class SeleniumTest {
+/*public class SeleniumTest {
     private static WebDriver driver;
     private final String homeDir = "LocalHost:8080/ComputerDatabase";
     private WebElement element;
@@ -43,3 +43,4 @@ public class SeleniumTest {
         Assert.assertNotNull(element);
     }
 }
+*/

@@ -7,29 +7,36 @@ public class ComputerDTO {
     private String dateDiscontinued;
     private String company;
     private long idCompany;
-    
+
 
     public long getId() {
         return id;
     }
+
     public void setId(long id) {
         this.id = id;
     }
+
     public String getName() {
         return name;
     }
+
     public void setName(String name) {
         this.name = name;
     }
+
     public String getDateIntroduced() {
         return dateIntroduced;
     }
+
     public void setDateIntroduced(String dateIntroduced) {
         this.dateIntroduced = dateIntroduced;
     }
+
     public String getDateDiscontinued() {
         return dateDiscontinued;
     }
+
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -42,6 +49,7 @@ public class ComputerDTO {
         result = prime * result + ((name == null) ? 0 : name.hashCode());
         return result;
     }
+
     @Override
     public boolean equals(Object obj) {
         if (this == obj)
@@ -77,26 +85,34 @@ public class ComputerDTO {
             return false;
         return true;
     }
+
     public void setDateDiscontinued(String dateDiscontinued) {
         this.dateDiscontinued = dateDiscontinued;
     }
+
     public String getCompany() {
         return company;
     }
+
     public void setCompany(String company) {
         this.company = company;
     }
+
     public long getIdCompany() {
         return idCompany;
     }
+
     public void setIdCompany(long idCompany) {
         this.idCompany = idCompany;
     }
+
     public ComputerDTO(String name) {
         this.name = name;
     }
+
     /**
      * .
+     *
      * @param builder builder
      */
     private ComputerDTO(Builder builder) {
@@ -108,6 +124,7 @@ public class ComputerDTO {
         this.company = builder.company;
         this.idCompany = builder.idCompany;
     }
+
     public static class Builder {
         private long id;
         private String name;
@@ -115,15 +132,19 @@ public class ComputerDTO {
         private String dateDiscontinued;
         private String company;
         private long idCompany;
+
         /**
          * .
+         *
          * @param name name
          */
         public Builder(String name) {
             this.name = name;
         }
+
         /**
          * .
+         *
          * @param id id
          * @return id
          */
@@ -131,8 +152,10 @@ public class ComputerDTO {
             this.id = id;
             return this;
         }
+
         /**
          * .
+         *
          * @param dateIntroduced dateIntroduced
          * @return dateIntroduced
          */
@@ -140,8 +163,10 @@ public class ComputerDTO {
             this.dateIntroduced = dateIntroduced;
             return this;
         }
+
         /**
          * .
+         *
          * @param dateDiscontinued dateDiscontinued
          * @return dateDiscontinued
          */
@@ -149,8 +174,10 @@ public class ComputerDTO {
             this.dateDiscontinued = dateDiscontinued;
             return this;
         }
+
         /**
          * .
+         *
          * @param company company
          * @return company
          */
@@ -158,7 +185,7 @@ public class ComputerDTO {
             this.company = company;
             return this;
         }
-        
+
         public Builder idCompany(long idCompany) {
             this.idCompany = idCompany;
             return this;
@@ -166,12 +193,13 @@ public class ComputerDTO {
 
         /**
          * .
+         *
          * @return computer
          */
         public ComputerDTO build() {
             return new ComputerDTO(this);
         }
-        
-      
+
+
     }
 }

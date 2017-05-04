@@ -11,6 +11,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 /**
  * Classe contenant les méthodes permettant d'effectuer les différentes actions
@@ -28,37 +29,27 @@ public class ComputerDAOImp implements ComputerDAO {
     private static final String GET_COMPUTER_BY_NAME = "SELECT * From computer WHERE upper(name) like upper(?)";
     private static final String COUNT_COMPUTER = "SELECT COUNT(*) FROM computer";
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.S");
+    private static final Logger LOGGER = Logger.getLogger(CompanyDAOImp.class.getName());
 
-    /**
-     * supression d'un ordinateur par ID (clé).
-     *
-     * @param id id
-     */
     public void delete(long id) {
         try (Connection connect = ConnectionDatabase.INSTANCE.getConnection();
-             PreparedStatement pstmt = connect.prepareStatement(DELETE_QUERY);) {
-            pstmt.setLong(1, id);
-            pstmt.executeUpdate();
+             PreparedStatement preparedStatement = connect.prepareStatement(DELETE_QUERY)) {
+            preparedStatement.setLong(1, id);
+            preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            // TODO Auto-generated catch block
+            LOGGER.info("Impossible to delete this computer");
             e.printStackTrace();
         }
     }
 
-    /**
-     * crée la liste des ordinateurs.
-     *
-     * @param page        page10
-     * @param nbrElements page10
-     * @return listcomputer
-     */
+
     public List<Computer> getList(int page, int nbrElements) {
         List<Computer> listComputer = new ArrayList<Computer>();
         try (Connection connect = ConnectionDatabase.INSTANCE.getConnection();
-             PreparedStatement pstmt = connect.prepareStatement(SELECT_ALL_QUERY_PAGE);) {
-            pstmt.setInt(1, nbrElements);
-            pstmt.setInt(2, page * nbrElements);
-            try (ResultSet rs = pstmt.executeQuery();) {
+             PreparedStatement preparedStatement = connect.prepareStatement(SELECT_ALL_QUERY_PAGE)) {
+            preparedStatement.setInt(1, nbrElements);
+            preparedStatement.setInt(2, page * nbrElements);
+            try (ResultSet rs = preparedStatement.executeQuery()) {
                 Computer computer;
                 Company company;
                 long id;
@@ -93,27 +84,22 @@ public class ComputerDAOImp implements ComputerDAO {
                     listComputer.add(computer);
                 }
             } catch (SQLException e) {
-                // TODO Auto-generated catch block
+                LOGGER.info("Can not get the list of computers");
                 e.printStackTrace();
             }
 
         } catch (SQLException e) {
-            // TODO Auto-generated catch block
+            LOGGER.info("Connection failure");
             e.printStackTrace();
 
         }
         return listComputer;
     }
 
-    /**
-     * ajout d'un ordinateur.
-     *
-     * @param computer computer
-     * @return id
-     */
+
     public long add(Computer computer) {
         try (Connection connect = ConnectionDatabase.INSTANCE.getConnection();
-             PreparedStatement pstmt = connect.prepareStatement(ADD_QUERY, Statement.RETURN_GENERATED_KEYS);) {
+             PreparedStatement pstmt = connect.prepareStatement(ADD_QUERY, Statement.RETURN_GENERATED_KEYS)) {
             pstmt.setString(1, computer.getName());
 
             pstmt.setObject(2, computer.getDateIntroduced());
@@ -129,60 +115,53 @@ public class ComputerDAOImp implements ComputerDAO {
             return generatedKeys.getLong(1);
 
         } catch (SQLException e) {
+            LOGGER.info("Can not add the computer");
             e.printStackTrace();
-            throw new ComputerDatabaseDAOException("pas de company pour cet ID", e);
+            throw new ComputerDatabaseDAOException();
 
         }
 
     }
 
-    /**
-     * mise à jour d'un ordinateur à partir de son id (clé).
-     *
-     * @param computer computer
-     */
+
     public void update(Computer computer) {
         System.out.println(computer);
         try (Connection connect = ConnectionDatabase.INSTANCE.getConnection();
-             PreparedStatement pstmt = connect.prepareStatement(UPDATE_QUERY);) {
-            pstmt.setString(1, computer.getName());
+             PreparedStatement preparedStatement = connect.prepareStatement(UPDATE_QUERY)) {
+            preparedStatement.setString(1, computer.getName());
             if (computer.getDateIntroduced() != null) {
-                pstmt.setObject(2, computer.getDateIntroduced());
+                preparedStatement.setObject(2, computer.getDateIntroduced());
             } else {
-                pstmt.setString(2,null);
+                preparedStatement.setString(2, null);
             }
 
             if (computer.getDateDiscontinued() != null) {
-                pstmt.setObject(3, computer.getDateDiscontinued());
+                preparedStatement.setObject(3, computer.getDateDiscontinued());
             } else {
-                pstmt.setString(3,null);
+                preparedStatement.setString(3, null);
             }
 
             if (computer.getcompany() != null) {
-                pstmt.setLong(4, computer.getcompany().getId());
+                preparedStatement.setLong(4, computer.getcompany().getId());
             } else {
-                pstmt.setNull(4, java.sql.Types.BIGINT);
+                preparedStatement.setNull(4, java.sql.Types.BIGINT);
             }
-            pstmt.setLong(5, computer.getId());
-            pstmt.executeUpdate();
+            preparedStatement.setLong(5, computer.getId());
+            preparedStatement.executeUpdate();
 
-        } catch (SQLException e) { // TODO Auto-generated
+        } catch (SQLException e) {
+            LOGGER.info("Can not update the computer");
             e.printStackTrace();
         }
 
     }
 
-    /**
-     * get computer by id.
-     *
-     * @param id id
-     * @return computer
-     */
+
     public Computer getComputerById(long id) {
         try (Connection connect = ConnectionDatabase.INSTANCE.getConnection();
-             PreparedStatement pstmt = connect.prepareStatement(GET_COMPUTER_BY_ID);) {
-            pstmt.setLong(1, id);
-            try (ResultSet rs = pstmt.executeQuery();) {
+             PreparedStatement preparedStatement = connect.prepareStatement(GET_COMPUTER_BY_ID)) {
+            preparedStatement.setLong(1, id);
+            try (ResultSet rs = preparedStatement.executeQuery()) {
                 Computer computer;
                 Company company = null;
                 String name;
@@ -209,24 +188,20 @@ public class ComputerDAOImp implements ComputerDAO {
             }
 
         } catch (SQLException e) {
-            // TODO Auto-generated catch block
-            throw new ComputerDatabaseDAOException("pas de company pour cet ID");
+            LOGGER.info("Can not get the computer with this ID");
+            e.printStackTrace();
+            throw new ComputerDatabaseDAOException();
         }
 
     }
 
-    /**
-     * get computer by name.
-     *
-     * @param name name
-     * @return computer
-     */
+
     public List<Computer> getComputerByName(String name) {
         List<Computer> listComputer = new ArrayList<Computer>();
         try (Connection connect = ConnectionDatabase.INSTANCE.getConnection();
-             PreparedStatement pstmt = connect.prepareStatement(GET_COMPUTER_BY_NAME);) {
-            pstmt.setString(1, name + "%");
-            try (ResultSet rs = pstmt.executeQuery();) {
+             PreparedStatement preparedStatement = connect.prepareStatement(GET_COMPUTER_BY_NAME)) {
+            preparedStatement.setString(1, name + "%");
+            try (ResultSet rs = preparedStatement.executeQuery()) {
                 Computer computer;
                 Company company = null;
                 long id;
@@ -257,23 +232,24 @@ public class ComputerDAOImp implements ComputerDAO {
             }
 
         } catch (SQLException e) {
+            LOGGER.info("Can not get the computer with this name");
             e.printStackTrace();
-            throw new ComputerDatabaseDAOException("pas de company pour cet ID", e);
+            throw new ComputerDatabaseDAOException();
         }
 
     }
 
     public int nombreComputer() {
         try (Connection connect = ConnectionDatabase.INSTANCE.getConnection();
-             PreparedStatement pstmt = connect.prepareStatement(COUNT_COMPUTER);
-             ResultSet rs = pstmt.executeQuery();) {
+             PreparedStatement preparedStatement = connect.prepareStatement(COUNT_COMPUTER);
+             ResultSet rs = preparedStatement.executeQuery()) {
             rs.next();
             int nombrecomputer = rs.getInt(1);
             return nombrecomputer;
         } catch (SQLException e) {
-            // TODO Auto-generated catch block
+            LOGGER.info("Can not get the number of computers");
             e.printStackTrace();
-            throw new ComputerDatabaseDAOException("pas de company pour cet ID", e);
+            throw new ComputerDatabaseDAOException();
         }
     }
 

@@ -9,8 +9,9 @@ public class InterfaceUtilisateur {
 
     CommandSetters command = new CommandSetters();
     private static final Logger LOGGER = Logger.getLogger(CommandSetters.class.getName());
-        /**
-     * liste des commandes utilisateurs.
+
+    /**
+     * list command user.
      */
     public InterfaceUtilisateur() {
 
@@ -18,23 +19,23 @@ public class InterfaceUtilisateur {
                 "Que voulez-vous faire 1(add) 2(delete) 3(liste computer) 4(liste company) 5(update) 6(disconnect)");
         int choix = sc.nextInt();
         switch (choix) {
-        case 1:
-            command.addComputer();
-            break;
-        case 2:
-            command.deleteComputer();
-            break;
-        case 3:
-            command.listcomputer();
-            break;
-        case 4:
-            command.listCompany();
-            break;
-        case 5:
-            command.updateComputer();
-            break;
-        default:
-            break;
+            case 1:
+                command.addComputer();
+                break;
+            case 2:
+                command.deleteComputer();
+                break;
+            case 3:
+                command.listComputer();
+                break;
+            case 4:
+                command.listCompany();
+                break;
+            case 5:
+                command.updateComputer();
+                break;
+            default:
+                break;
 
         }
         LOGGER.info("programme terminé");

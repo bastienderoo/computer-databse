@@ -3,6 +3,7 @@ package com.excilys.computerdatabase.persistence;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
+import java.util.logging.Logger;
 
 import javax.sql.DataSource;
 
@@ -19,6 +20,7 @@ public enum ConnectionDatabase {
     private String user = bundle.getString("database.user");
     private String password = bundle.getString("database.password");
     private DataSource dataSource;
+    private final Logger LOGGER = Logger.getLogger(ConnectionDatabase.class.getName());
 
     ConnectionDatabase() {
 
@@ -43,7 +45,7 @@ public enum ConnectionDatabase {
             });
 
         } catch (ClassNotFoundException e) {
-            // TODO Auto-generated catch block
+            LOGGER.info("Connection failure");
             e.printStackTrace();
 
         }
@@ -51,14 +53,15 @@ public enum ConnectionDatabase {
     }
 
     /**
-     * @return fermeture connexion
+     * @return Connection
      */
     public Connection getConnection() {
 
         try {
             return dataSource.getConnection();
         } catch (SQLException e) {
-            throw new ComputerDatabaseDAOException("Connection impossible");
+            LOGGER.info("Connection failure");
+            throw new ComputerDatabaseDAOException();
         }
 
     }

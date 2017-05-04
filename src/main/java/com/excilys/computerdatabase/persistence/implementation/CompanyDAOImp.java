@@ -6,34 +6,26 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 import com.excilys.computerdatabase.model.Company;
 import com.excilys.computerdatabase.persistence.CompanyDAO;
 import com.excilys.computerdatabase.persistence.ConnectionDatabase;
 import com.excilys.computerdatabase.util.ComputerDatabaseDAOException;
+import com.mysql.jdbc.log.Log;
 
-/**
- * Classe contenant la méthode permettant d'afficher la liste des entreprises.
- * 
- * @author excilys
- */
+
 public class CompanyDAOImp implements CompanyDAO {
     private static final String SELECT_COMPANY_BY_ID = "SELECT * FROM company WHERE id=? ";
     private static final String SELECT_COMPANY_BY_NAME = "SELECT * FROM company WHERE nameCompany=? ";
     private static final String SELECT_ALL_QUERY_PAGE10 = "SELECT * FROM company";
+    private static final Logger LOGGER = Logger.getLogger(CompanyDAOImp.class.getName());
 
-    /**
-     * affichage de la liste des entreprises.
-     * 
-     * @param page10
-     *            page10
-     * @return listcompany
-     */
     public List<Company> getList() {
         List<Company> listCompany = new ArrayList<Company>();
         try (Connection connect = ConnectionDatabase.INSTANCE.getConnection();
-                PreparedStatement pstmt = connect.prepareStatement(SELECT_ALL_QUERY_PAGE10);) {
-            try (ResultSet rs = pstmt.executeQuery();) {
+             PreparedStatement preparedStatement = connect.prepareStatement(SELECT_ALL_QUERY_PAGE10)) {
+            try (ResultSet rs = preparedStatement.executeQuery()) {
                 Company company;
                 long id;
                 String name;
@@ -45,24 +37,18 @@ public class CompanyDAOImp implements CompanyDAO {
                 }
             }
         } catch (SQLException e) {
-            // TODO Auto-generated catch block
+            LOGGER.info("Impossible to create the list of companies");
             e.printStackTrace();
         }
         return listCompany;
     }
 
-    /**
-     * get company by id.
-     * 
-     * @param id
-     *            id
-     * @return company
-     */
+
     public Company getCompanyById(long id) {
         try (Connection connect = ConnectionDatabase.INSTANCE.getConnection();
-                PreparedStatement pstmt = connect.prepareStatement(SELECT_COMPANY_BY_ID);) {
-            pstmt.setLong(1, id);
-            try (ResultSet rs = pstmt.executeQuery();) {
+             PreparedStatement preparedStatement = connect.prepareStatement(SELECT_COMPANY_BY_ID)) {
+            preparedStatement.setLong(1, id);
+            try (ResultSet rs = preparedStatement.executeQuery()) {
                 rs.next();
                 Company company;
                 String name = rs.getString(2);
@@ -71,18 +57,18 @@ public class CompanyDAOImp implements CompanyDAO {
             }
 
         } catch (SQLException e) {
-            // TODO Auto-generated catch block
+            LOGGER.info("Impossible to get the company with this ID");
             e.printStackTrace();
-            throw new ComputerDatabaseDAOException("pas de company pour cet ID", e);
+            throw new ComputerDatabaseDAOException();
         }
 
     }
-    
+
     public Company getCompanyByName(String name) {
         try (Connection connect = ConnectionDatabase.INSTANCE.getConnection();
-                PreparedStatement pstmt = connect.prepareStatement(SELECT_COMPANY_BY_NAME);) {
-            pstmt.setString(1, name);
-            try (ResultSet rs = pstmt.executeQuery();) {
+             PreparedStatement preparedStatement = connect.prepareStatement(SELECT_COMPANY_BY_NAME)) {
+            preparedStatement.setString(1, name);
+            try (ResultSet rs = preparedStatement.executeQuery()) {
                 rs.next();
                 Company company;
                 Long id = rs.getLong(1);
@@ -91,9 +77,9 @@ public class CompanyDAOImp implements CompanyDAO {
             }
 
         } catch (SQLException e) {
-            // TODO Auto-generated catch block
+            LOGGER.info("Impossible to get the company with this name");
             e.printStackTrace();
-            throw new ComputerDatabaseDAOException("pas de company pour cet ID", e);
+            throw new ComputerDatabaseDAOException();
         }
 
     }

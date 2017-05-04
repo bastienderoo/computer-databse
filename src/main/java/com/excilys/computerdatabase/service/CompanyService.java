@@ -6,23 +6,26 @@ import com.excilys.computerdatabase.model.Company;
 
 public interface CompanyService {
     /**
-     * .
-     * 
-     * @param page10
-     *            page10
-     * @return listcompany
+     * create a list of companies.
+     *
+     * @return list of companies
      */
     List<Company> getList();
 
     /**
-     * .
-     * 
-     * @param id
-     *            id
+     * get a company by its ID.
+     *
+     * @param id id
      * @return company
      */
     Company getCompanyById(long id);
 
+    /**
+     * get a company by its name.
+     *
+     * @param name
+     * @return
+     */
     Company getCompanyByName(String name);
 
 }

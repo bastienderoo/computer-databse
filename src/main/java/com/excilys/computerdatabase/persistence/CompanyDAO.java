@@ -8,17 +8,25 @@ public interface CompanyDAO {
 
     /**
      * list company.
-     * @param page10 page10
+     *
      * @return listcompany
      */
     List<Company> getList();
+
     /**
      * get company by id.
+     *
      * @param id id
      * @return company
      */
     Company getCompanyById(long id);
-    
+
+    /**
+     * get a company by its name.
+     *
+     * @param name name
+     * @return company
+     */
     Company getCompanyByName(String name);
 
 

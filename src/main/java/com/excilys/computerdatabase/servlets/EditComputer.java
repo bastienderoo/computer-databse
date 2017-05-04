@@ -74,7 +74,7 @@ public class EditComputer extends HttpServlet {
                             .dateIntroduced(introduced)
                             .dateDiscontinued(discontinued)
                             .idCompany(idCompany).build();
-                    Computer computer = MapperComputer.mapperComputerDTO(computerDTO);
+                    Computer computer = MapperComputer.mapperDTOIntoComputer(computerDTO);
                     computerService.update(computer);
                 }
             }

@@ -1,13 +1,12 @@
 package com.excilys.computerdatabase.util;
 
-public class ComputerDatabaseDAOException extends RuntimeException {
-
+public class ServiceException extends RuntimeException {
 
 
     /**
      * .
      */
-    public ComputerDatabaseDAOException() {
+    public ServiceException() {
         super();
     }
 
@@ -16,7 +15,7 @@ public class ComputerDatabaseDAOException extends RuntimeException {
      *
      * @param message message
      */
-    public ComputerDatabaseDAOException(String message) {
+    public ServiceException(String message) {
         super(message);
     }
 
@@ -26,7 +25,7 @@ public class ComputerDatabaseDAOException extends RuntimeException {
      * @param message message
      * @param cause   cause
      */
-    public ComputerDatabaseDAOException(String message, Throwable cause) {
+    public ServiceException(String message, Throwable cause) {
         super(message, cause);
     }
 
@@ -35,7 +34,7 @@ public class ComputerDatabaseDAOException extends RuntimeException {
      *
      * @param cause cause
      */
-    public ComputerDatabaseDAOException(Throwable cause) {
+    public ServiceException(Throwable cause) {
         super(cause);
     }
 

@@ -19,9 +19,9 @@ public class CommandSetters {
     private static final Logger LOGGER = Logger.getLogger(CommandSetters.class.getName());
 
     /**
-     * affiche la liste des ordinateurs.
+     * show computers list.
      */
-    public void listcomputer() {
+    public void listComputer() {
 
         LOGGER.info("Entrer quelle page vous voulez afficher.");
         int page10 = sc.nextInt();
@@ -31,7 +31,7 @@ public class CommandSetters {
     }
 
     /**
-     * ajout d'un ordinateur.
+     * add a computer.
      */
     public void addComputer() {
 
@@ -52,7 +52,7 @@ public class CommandSetters {
     }
 
     /**
-     * supression d'un ordinateur.
+     * delete a computer.
      */
     public void deleteComputer() {
 
@@ -63,7 +63,7 @@ public class CommandSetters {
     }
 
     /**
-     * Affiche la liste des entreprises.
+     * show companies list.
      */
     public void listCompany() {
 
@@ -72,7 +72,7 @@ public class CommandSetters {
     }
 
     /**
-     * Mise à jour d'un ordinateur.
+     * update a computer.
      */
     public void updateComputer() {
         LOGGER.info("entrer l'id de l'ordinateur");

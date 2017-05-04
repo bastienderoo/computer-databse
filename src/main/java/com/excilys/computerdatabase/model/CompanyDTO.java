@@ -3,10 +3,12 @@ package com.excilys.computerdatabase.model;
 public class CompanyDTO {
     private long id;
     private String name;
-/**
- * .
- * @param builder builder
- */
+
+    /**
+     * .
+     *
+     * @param builder builder
+     */
     private CompanyDTO(Builder builder) {
         this.name = builder.name;
         this.id = builder.id;
@@ -23,26 +25,32 @@ public class CompanyDTO {
     public static class Builder {
         private long id;
         private String name;
-/**
- * .
- * @param name name
- */
+
+        /**
+         * .
+         *
+         * @param name name
+         */
         public Builder(String name) {
             this.name = name;
         }
-/**
- * .
- * @param id id
- * @return id
- */
+
+        /**
+         * .
+         *
+         * @param id id
+         * @return id
+         */
         public Builder id(long id) {
             this.id = id;
             return this;
         }
-/**
- * .
- * @return company
- */
+
+        /**
+         * .
+         *
+         * @return company
+         */
         public CompanyDTO build() {
             return new CompanyDTO(this);
         }

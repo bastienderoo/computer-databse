@@ -9,9 +9,11 @@ import java.util.List;
 
 import com.excilys.computerdatabase.model.Company;
 import com.excilys.computerdatabase.model.Computer;
+import org.apache.commons.lang3.StringUtils;
+
 
 public class MapperComputer {
-    public static ComputerDTO mapperComputer(Computer computer) {
+    public static ComputerDTO mapperComputerIntoDTO(Computer computer) {
 
         String dateDiscontinued = computer.getDateDiscontinued().toString();
         String dateIntroduced = computer.getDateIntroduced().toString();
@@ -24,17 +26,17 @@ public class MapperComputer {
         return computerDTO;
     }
 
-    public static Computer mapperComputerDTO(ComputerDTO computerDTO) {
+    public static Computer mapperDTOIntoComputer(ComputerDTO computerDTO) {
         CompanyServiceImp companyService = new CompanyServiceImp();
         LocalDate dateDiscontinued;
         LocalDate dateIntroduced;
         Company company;
-        if (computerDTO.getDateDiscontinued() != "") {
+        if (StringUtils.isBlank(computerDTO.getDateDiscontinued())) {
             dateDiscontinued = LocalDate.parse(computerDTO.getDateDiscontinued());
         } else {
             dateDiscontinued = null;
         }
-        if (computerDTO.getDateIntroduced() != "") {
+        if (StringUtils.isBlank(computerDTO.getDateIntroduced())) {
             dateIntroduced = LocalDate.parse(computerDTO.getDateIntroduced());
         } else {
             dateIntroduced = null;
@@ -50,20 +52,14 @@ public class MapperComputer {
         return computer;
     }
 
-    public static List<ComputerDTO> mapperComputer(List<Computer> computer) {
-        List<ComputerDTO> listcomputerDTO = new ArrayList<ComputerDTO>();
+    public static List<ComputerDTO> mapperComputerIntoDTO(List<Computer> computer) {
+        List<ComputerDTO> listComputerDTO = new ArrayList<ComputerDTO>();
 
         for (Computer c : computer) {
-            String dateDiscontinued = c.getDateDiscontinued() != null ? c.getDateDiscontinued().toString() : "-";
-            String dateIntroduced = c.getDateIntroduced() != null ? c.getDateIntroduced().toString() : "-";
-            String company = c.getcompany() != null ? c.getcompany().getName() : "-";
-            Long idCompany = c.getcompany() != null ? c.getcompany().getId() : 0L;
-
-            ComputerDTO computerDTO = new ComputerDTO.Builder(c.getName()).id(c.getId()).dateIntroduced(dateIntroduced)
-                    .dateDiscontinued(dateDiscontinued).company(company).idCompany(idCompany).build();
-            listcomputerDTO.add(computerDTO);
+            ComputerDTO computerDTO = mapperComputerIntoDTO(c);
+            listComputerDTO.add(computerDTO);
         }
 
-        return listcomputerDTO;
+        return listComputerDTO;
     }
 }

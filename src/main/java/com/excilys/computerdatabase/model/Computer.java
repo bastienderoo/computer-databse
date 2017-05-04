@@ -12,15 +12,19 @@ public class Computer {
     private LocalDate dateIntroduced;
     private LocalDate dateDiscontinued;
     private Company company;
+
     /**
      * .
+     *
      * @param name name
      */
     public Computer(String name) {
         this.name = name;
     }
+
     /**
      * .
+     *
      * @param builder builder
      */
     private Computer(Builder builder) {
@@ -63,22 +67,28 @@ public class Computer {
     public void setDateDiscontinued(LocalDate dateDiscontinued) {
         this.dateDiscontinued = dateDiscontinued;
     }
+
     /**
      * .
+     *
      * @return company company
      */
     public Company getcompany() {
         return company;
     }
+
     /**
      * .
+     *
      * @param company company
      */
     public void setcompany(Company company) {
         this.company = company;
     }
+
     /**
      * .
+     *
      * @author excilys
      */
     public static class Builder {
@@ -87,15 +97,19 @@ public class Computer {
         private LocalDate dateIntroduced;
         private LocalDate dateDiscontinued;
         private Company company;
+
         /**
          * .
+         *
          * @param name name
          */
         public Builder(String name) {
             this.name = name;
         }
+
         /**
          * .
+         *
          * @param id id
          * @return id
          */
@@ -103,8 +117,10 @@ public class Computer {
             this.id = id;
             return this;
         }
+
         /**
          * .
+         *
          * @param dateIntroduced dateIntroduced
          * @return dateIntroduced
          */
@@ -112,8 +128,10 @@ public class Computer {
             this.dateIntroduced = dateIntroduced;
             return this;
         }
+
         /**
          * .
+         *
          * @param dateDiscontinued dateDiscontinued
          * @return dateDiscontinued
          */
@@ -121,8 +139,10 @@ public class Computer {
             this.dateDiscontinued = dateDiscontinued;
             return this;
         }
+
         /**
          * .
+         *
          * @param company company
          * @return company
          */
@@ -130,8 +150,10 @@ public class Computer {
             this.company = company;
             return this;
         }
+
         /**
          * .
+         *
          * @return computer
          */
         public Computer build() {

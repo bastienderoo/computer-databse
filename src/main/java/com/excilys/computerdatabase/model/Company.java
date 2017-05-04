@@ -4,10 +4,12 @@ public class Company {
 
     private long id;
     private String name;
-/**
- * .
- * @param builder builder
- */
+
+    /**
+     * Company builder.
+     *
+     * @param builder builder
+     */
     private Company(Builder builder) {
         this.name = builder.name;
         this.id = builder.id;
@@ -24,26 +26,32 @@ public class Company {
     public static class Builder {
         private long id;
         private String name;
-/**
- * .
- * @param name name
- */
+
+        /**
+         * Builder.
+         *
+         * @param name name
+         */
         public Builder(String name) {
             this.name = name;
         }
-/**
- * .
- * @param id id
- * @return id
- */
+
+        /**
+         * .
+         *
+         * @param id id
+         * @return id
+         */
         public Builder id(long id) {
             this.id = id;
             return this;
         }
-/**
- * .
- * @return company
- */
+
+        /**
+         * .
+         *
+         * @return company
+         */
         public Company build() {
             return new Company(this);
         }

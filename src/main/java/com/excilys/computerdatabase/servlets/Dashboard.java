@@ -1,7 +1,6 @@
 package com.excilys.computerdatabase.servlets;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -22,7 +21,7 @@ import com.excilys.computerdatabase.service.ComputerServiceImp;
 public class Dashboard extends HttpServlet {
     private static final long serialVersionUID = 1L;
     int page;
-    int nombreElements = 10;
+    int numberElements = 10;
     String search = "";
 
     /**
@@ -40,8 +39,8 @@ public class Dashboard extends HttpServlet {
         }
 
         try {
-            if (nombreElements != Integer.parseInt(request.getParameter("nombreElements"))) {
-                nombreElements = Integer.parseInt(request.getParameter("nombreElements"));
+            if (numberElements != Integer.parseInt(request.getParameter("numberElements"))) {
+                numberElements = Integer.parseInt(request.getParameter("numberElements"));
             }
         } catch (NumberFormatException e) {
 
@@ -50,21 +49,21 @@ public class Dashboard extends HttpServlet {
 
         ComputerService computerService = new ComputerServiceImp();
         search = request.getParameter("search");
-        int nombreComputers;
+        int numberComputers;
         if (!Objects.equals(search, "") && search != null) {
             listComputer = computerService.getComputerByName(search);
-            nombreComputers = listComputer.size();
+            numberComputers = listComputer.size();
         } else {
-            listComputer = computerService.getList(page, nombreElements);
-            nombreComputers = computerService.getNombreComputer();
+            listComputer = computerService.getList(page, numberElements);
+            numberComputers = computerService.getNumberComputer();
         }
 
-        int nombrePage = nombreComputers / nombreElements + 1;
-        request.setAttribute("nombreComputers", nombreComputers);
+        int numberPage = numberComputers / numberElements + 1;
+        request.setAttribute("numberComputers", numberComputers);
         request.setAttribute("computerList", listComputer);
         request.setAttribute("page", page + 1);
-        request.setAttribute("nombreElements", nombreElements);
-        request.setAttribute("nombrePage", nombrePage);
+        request.setAttribute("numberElements", numberElements);
+        request.setAttribute("numberPage", numberPage);
         this.getServletContext().getRequestDispatcher("/WEB-INF/views/dashboard.jsp").forward(request, response);
 
     }
