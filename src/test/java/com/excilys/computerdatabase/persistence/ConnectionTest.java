@@ -7,8 +7,9 @@ import org.junit.Test;
 public class ConnectionTest {
 
 
-/*   @Test
+    @Test
     public void testConnection() {
         assertNotNull(ConnectionDatabase.INSTANCE.getConnection());
-    }*/
+
+    }
 }
