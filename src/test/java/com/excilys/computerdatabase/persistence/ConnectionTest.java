@@ -10,8 +10,8 @@ public class ConnectionTest {
 
     @Test
     public void testConnection() {
-assertTrue(1==1);
-        //assertNotNull(ConnectionDatabase.INSTANCE.getConnection());
+
+        assertNotNull(ConnectionDatabase.INSTANCE.getConnection());
 
     }
 }
