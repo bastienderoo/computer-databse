@@ -66,7 +66,9 @@ public class MapperResultset {
         } catch (SQLException e)
 
         {
+            e.printStackTrace();
             throw new MapperException();
+
         }
     }
 
