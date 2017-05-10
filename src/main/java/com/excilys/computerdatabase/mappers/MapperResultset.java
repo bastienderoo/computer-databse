@@ -53,7 +53,7 @@ public class MapperResultset {
             if (!StringUtils.isBlank(rs.getString(4))) {
                 dateDiscontinued = LocalDate.parse(rs.getString(4), formatter);
             }
-            if (rs.getLong(5) != 0) {
+            if (rs.getLong(5) != 0L) {
                 company = new Company.Builder(rs.getString(7)).id(rs.getLong(5)).build();
             }
             return new Computer.Builder(rs.getString(2))
@@ -85,7 +85,7 @@ public class MapperResultset {
                 if (!StringUtils.isBlank(rs.getString(4))) {
                     dateDiscontinued = LocalDate.parse(rs.getString(4), formatter);
                 }
-                if (rs.getLong(5) != 0) {
+                if (rs.getLong(5) != 0L) {
                     company = new Company.Builder(rs.getString(7)).id(rs.getLong(5)).build();
                 }
 
