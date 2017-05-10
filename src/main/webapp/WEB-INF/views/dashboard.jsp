@@ -22,7 +22,7 @@
 
 	<section id="main">
 		<div class="container">
-			<h1 id="homeTitle">${nombreComputers} Computers found</h1>
+			<h1 id="homeTitle">${numberComputers} Computers found</h1>
 			<div id="actions" class="form-horizontal">
 				<div class="pull-left">
 					<form id="searchForm" action="#" method="GET" class="form-inline">
@@ -105,9 +105,9 @@
 						</c:forEach>
 
 					</c:when>
-					<c:when test="${page > nombrePage-3}">
+					<c:when test="${page > numberPage-3}">
 						<c:forEach var="i" begin="1" end="5">
-							<li><a href="?page=${nombrePage-5 +i}">${nombrePage-5 +i}</a></li>
+							<li><a href="?page=${numberPage-5 +i}">${numberPage-5 +i}</a></li>
 						</c:forEach>
 
 					</c:when>
@@ -120,7 +120,7 @@
 					</c:otherwise>
 				</c:choose>
 
-				<c:if test="${page lt nombrePage}">
+				<c:if test="${page lt numberPage}">
 					<li><a href="?page=${page+1}" aria-label="Next"> <span
 							aria-hidden="true">&raquo;</span>
 
@@ -133,9 +133,9 @@
 				<ul class="pagination">
 
 
-					<li><a href="?nombreElements=10">10</a></li>
-					<li><a href="?nombreElements=50">50</a></li>
-					<li><a href="?nombreElements=100">100</a></li>
+					<li><a href="?numberElements=10">10</a></li>
+					<li><a href="?numberElements=50">50</a></li>
+					<li><a href="?numberElements=100">100</a></li>
 
 
 				</ul>
