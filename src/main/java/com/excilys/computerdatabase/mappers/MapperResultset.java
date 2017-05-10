@@ -11,6 +11,8 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
+
 /**
  * Created by excilys on 10/05/17.
  */
@@ -41,16 +43,23 @@ public class MapperResultset {
     }
 
     public static Computer mapperComputer(ResultSet rs) {
-
-
-        try
-
-        {
-            Company company = new Company.Builder(rs.getString(7)).id(rs.getLong(5)).build();
+        LocalDate dateIntroduced = null;
+        LocalDate dateDiscontinued = null;
+        Company company = null;
+        try {
+            if (!StringUtils.isBlank(rs.getString(3))) {
+                dateIntroduced = LocalDate.parse(rs.getString(3), formatter);
+            }
+            if (!StringUtils.isBlank(rs.getString(4))) {
+                dateDiscontinued = LocalDate.parse(rs.getString(4), formatter);
+            }
+            if (rs.getLong(5) != 0) {
+                company = new Company.Builder(rs.getString(7)).id(rs.getLong(5)).build();
+            }
             return new Computer.Builder(rs.getString(2))
                     .id(rs.getLong(1))
-                    .dateIntroduced(LocalDate.parse(rs.getString(3), formatter))
-                    .dateDiscontinued(LocalDate.parse(rs.getString(4), formatter))
+                    .dateIntroduced(dateIntroduced)
+                    .dateDiscontinued(dateDiscontinued)
                     .company(company)
                     .build();
 
@@ -63,14 +72,25 @@ public class MapperResultset {
 
     public static List<Computer> mapperComputerList(ResultSet rs) {
         List<Computer> listComputer = new ArrayList<>();
-        try
-        {
+        LocalDate dateIntroduced = null;
+        LocalDate dateDiscontinued = null;
+        Company company = null;
+        try {
             while (rs.next()) {
-                Company company = new Company.Builder(rs.getString(7)).id(rs.getLong(5)).build();
+                if (!StringUtils.isBlank(rs.getString(3))) {
+                    dateIntroduced = LocalDate.parse(rs.getString(3), formatter);
+                }
+                if (!StringUtils.isBlank(rs.getString(4))) {
+                    dateDiscontinued = LocalDate.parse(rs.getString(4), formatter);
+                }
+                if (rs.getLong(5) != 0) {
+                    company = new Company.Builder(rs.getString(7)).id(rs.getLong(5)).build();
+                }
+
                 listComputer.add(new Computer.Builder(rs.getString(2))
                         .id(rs.getLong(1))
-                        .dateIntroduced(LocalDate.parse(rs.getString(3), formatter))
-                        .dateDiscontinued(LocalDate.parse(rs.getString(4), formatter))
+                        .dateIntroduced(dateIntroduced)
+                        .dateDiscontinued(dateDiscontinued)
                         .company(company)
                         .build());
 
