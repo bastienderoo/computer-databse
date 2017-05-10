@@ -14,9 +14,9 @@ import com.excilys.computerdatabase.model.Company;
 import com.excilys.computerdatabase.model.Computer;
 import com.excilys.computerdatabase.model.ComputerDTO;
 import com.excilys.computerdatabase.service.CompanyService;
-import com.excilys.computerdatabase.service.CompanyServiceImp;
+import com.excilys.computerdatabase.service.implementation.CompanyServiceImp;
 import com.excilys.computerdatabase.service.ComputerService;
-import com.excilys.computerdatabase.service.ComputerServiceImp;
+import com.excilys.computerdatabase.service.implementation.ComputerServiceImp;
 import com.excilys.computerdatabase.mappers.MapperComputer;
 
 /**

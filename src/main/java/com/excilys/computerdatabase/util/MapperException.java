@@ -1,12 +1,11 @@
 package com.excilys.computerdatabase.util;
 
-public class ServiceException extends RuntimeException {
+/**
+ * Created by excilys on 10/05/17.
+ */
+public class MapperException extends RuntimeException{
 
-
-    /**
-     * .
-     */
-    public ServiceException() {
+    public MapperException() {
         super();
     }
 
@@ -15,7 +14,7 @@ public class ServiceException extends RuntimeException {
      *
      * @param message message
      */
-    public ServiceException(String message) {
+    public MapperException(String message) {
         super(message);
     }
 
@@ -25,7 +24,7 @@ public class ServiceException extends RuntimeException {
      * @param message message
      * @param cause   cause
      */
-    public ServiceException(String message, Throwable cause) {
+    public MapperException(String message, Throwable cause) {
         super(message, cause);
     }
 
@@ -34,8 +33,7 @@ public class ServiceException extends RuntimeException {
      *
      * @param cause cause
      */
-    public ServiceException(Throwable cause) {
+    public MapperException(Throwable cause) {
         super(cause);
     }
-
 }

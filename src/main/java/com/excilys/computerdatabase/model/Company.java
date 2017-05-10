@@ -1,5 +1,7 @@
 package com.excilys.computerdatabase.model;
 
+import sun.plugin2.gluegen.runtime.CPU;
+
 public class Company {
 
     private long id;
@@ -7,12 +9,9 @@ public class Company {
 
     /**
      * Company builder.
-     *
-     * @param builder builder
      */
-    private Company(Builder builder) {
-        this.name = builder.name;
-        this.id = builder.id;
+    private Company() {
+
     }
 
     public long getId() {
@@ -24,8 +23,7 @@ public class Company {
     }
 
     public static class Builder {
-        private long id;
-        private String name;
+        private Company company = new Company();
 
         /**
          * Builder.
@@ -33,7 +31,7 @@ public class Company {
          * @param name name
          */
         public Builder(String name) {
-            this.name = name;
+            company.name = name;
         }
 
         /**
@@ -43,7 +41,7 @@ public class Company {
          * @return id
          */
         public Builder id(long id) {
-            this.id = id;
+            company.id = id;
             return this;
         }
 
@@ -53,7 +51,7 @@ public class Company {
          * @return company
          */
         public Company build() {
-            return new Company(this);
+            return company;
         }
 
     }

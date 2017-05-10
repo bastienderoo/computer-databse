@@ -24,16 +24,9 @@ public class Computer {
 
     /**
      * .
-     *
-     * @param builder builder
      */
-    private Computer(Builder builder) {
+    private Computer() {
 
-        this.id = builder.id;
-        this.name = builder.name;
-        this.dateIntroduced = builder.dateIntroduced;
-        this.dateDiscontinued = builder.dateDiscontinued;
-        this.company = builder.company;
     }
 
     public long getId() {
@@ -92,11 +85,7 @@ public class Computer {
      * @author excilys
      */
     public static class Builder {
-        private long id;
-        private String name;
-        private LocalDate dateIntroduced;
-        private LocalDate dateDiscontinued;
-        private Company company;
+        private Computer computer = new Computer();
 
         /**
          * .
@@ -104,7 +93,7 @@ public class Computer {
          * @param name name
          */
         public Builder(String name) {
-            this.name = name;
+            computer.name = name;
         }
 
         /**
@@ -114,7 +103,7 @@ public class Computer {
          * @return id
          */
         public Builder id(Long id) {
-            this.id = id;
+            computer.id = id;
             return this;
         }
 
@@ -125,7 +114,7 @@ public class Computer {
          * @return dateIntroduced
          */
         public Builder dateIntroduced(LocalDate dateIntroduced) {
-            this.dateIntroduced = dateIntroduced;
+            computer.dateIntroduced = dateIntroduced;
             return this;
         }
 
@@ -136,7 +125,7 @@ public class Computer {
          * @return dateDiscontinued
          */
         public Builder dateDiscontinued(LocalDate dateDiscontinued) {
-            this.dateDiscontinued = dateDiscontinued;
+            computer.dateDiscontinued = dateDiscontinued;
             return this;
         }
 
@@ -147,7 +136,7 @@ public class Computer {
          * @return company
          */
         public Builder company(Company company) {
-            this.company = company;
+            computer.company = company;
             return this;
         }
 
@@ -157,7 +146,7 @@ public class Computer {
          * @return computer
          */
         public Computer build() {
-            return new Computer(this);
+            return computer;
         }
 
     }

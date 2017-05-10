@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.excilys.computerdatabase.model.ComputerDTO;
 import com.excilys.computerdatabase.service.ComputerService;
-import com.excilys.computerdatabase.service.ComputerServiceImp;
+import com.excilys.computerdatabase.service.implementation.ComputerServiceImp;
 
 /**
  * Servlet implementation class Dashboard

@@ -1,30 +1,26 @@
-package com.excilys.computerdatabase.service;
+package com.excilys.computerdatabase.service.implementation;
 
 import java.util.List;
 
 import com.excilys.computerdatabase.model.Company;
 import com.excilys.computerdatabase.persistence.implementation.CompanyDAOImp;
+import com.excilys.computerdatabase.service.CompanyService;
 
 public class CompanyServiceImp implements CompanyService {
 
     private CompanyDAOImp companyDAO = new CompanyDAOImp();
 
     public List<Company> getList() {
-        List<Company> listcompany = companyDAO.getList();
-        return listcompany;
+        return companyDAO.getList();
     }
 
 
     public Company getCompanyById(long id) {
-        Company company = companyDAO.getCompanyById(id);
-        return company;
-
+        return companyDAO.getCompanyById(id);
     }
 
     public Company getCompanyByName(String name) {
-        Company company = companyDAO.getCompanyByName(name);
-        return company;
-
+        return companyDAO.getCompanyByName(name);
     }
 
 }

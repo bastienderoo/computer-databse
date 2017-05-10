@@ -1,4 +1,4 @@
-package com.excilys.computerdatabase.service;
+package com.excilys.computerdatabase.service.implementation;
 
 import java.util.List;
 import java.util.logging.Logger;
@@ -7,6 +7,7 @@ import com.excilys.computerdatabase.mappers.MapperComputer;
 import com.excilys.computerdatabase.model.Computer;
 import com.excilys.computerdatabase.model.ComputerDTO;
 import com.excilys.computerdatabase.persistence.implementation.ComputerDAOImp;
+import com.excilys.computerdatabase.service.ComputerService;
 import com.excilys.computerdatabase.util.ServiceException;
 
 public class ComputerServiceImp implements ComputerService {
@@ -33,8 +34,7 @@ public class ComputerServiceImp implements ComputerService {
                 throw new ServiceException();
             }
         } else {
-            long id = computerDAO.add(computer);
-            return id;
+            return computerDAO.add(computer);
         }
     }
 
@@ -53,8 +53,8 @@ public class ComputerServiceImp implements ComputerService {
     }
 
     public Computer getComputerById(long id) {
-        Computer computer = computerDAO.getComputerById(id);
-        return computer;
+        return computerDAO.getComputerById(id);
+
     }
 
     public List<ComputerDTO> getComputerByName(String name) {
@@ -64,7 +64,7 @@ public class ComputerServiceImp implements ComputerService {
     }
 
     public int getNumberComputer() {
-        return computerDAO.nombreComputer();
+        return computerDAO.numberComputer();
     }
 
 }

@@ -1,5 +1,6 @@
 package com.excilys.computerdatabase.persistence.implementation;
 
+import com.excilys.computerdatabase.mappers.MapperResultset;
 import com.excilys.computerdatabase.model.Company;
 import com.excilys.computerdatabase.model.Computer;
 import com.excilys.computerdatabase.persistence.ComputerDAO;
@@ -50,48 +51,14 @@ public class ComputerDAOImp implements ComputerDAO {
             preparedStatement.setInt(1, nbrElements);
             preparedStatement.setInt(2, page * nbrElements);
             try (ResultSet rs = preparedStatement.executeQuery()) {
-                Computer computer;
-                Company company;
-                long id;
-                String name;
-                LocalDate dateIntroduced;
-                LocalDate dateDiscontinued;
-                long idCompany;
-
-                while (rs.next()) {
-                    id = rs.getLong(1);
-                    name = rs.getString(2);
-                    if (rs.getString(3) != null) {
-                        dateIntroduced = LocalDate.parse(rs.getString(3), formatter);
-                    } else {
-                        dateIntroduced = null;
-                    }
-                    if (rs.getString(4) != null) {
-                        dateDiscontinued = LocalDate.parse(rs.getString(4), formatter);
-                    } else {
-                        dateDiscontinued = null;
-                    }
-                    if (rs.getLong(5) != 0L) {
-                        idCompany = rs.getLong(5);
-                        String nameCompany = rs.getString(7);
-                        company = new Company.Builder(nameCompany).id(idCompany).build();
-                    } else {
-                        company = null;
-                    }
-                    computer = new Computer.Builder(name).id(id).dateIntroduced(dateIntroduced)
-                            .dateDiscontinued(dateDiscontinued).company(company).build();
-
-                    listComputer.add(computer);
-                }
+                return MapperResultset.mapperComputerList(rs);
             } catch (SQLException e) {
                 LOGGER.info("Can not get the list of computers");
                 e.printStackTrace();
             }
-
         } catch (SQLException e) {
             LOGGER.info("Connection failure");
             e.printStackTrace();
-
         }
         return listComputer;
     }
@@ -162,29 +129,10 @@ public class ComputerDAOImp implements ComputerDAO {
              PreparedStatement preparedStatement = connect.prepareStatement(GET_COMPUTER_BY_ID)) {
             preparedStatement.setLong(1, id);
             try (ResultSet rs = preparedStatement.executeQuery()) {
-                Computer computer;
-                Company company = null;
-                String name;
-                LocalDate dateIntroduced = null;
-                LocalDate dateDiscontinued = null;
-                long idCompany = 0L;
+
 
                 rs.next();
-                name = rs.getString(2);
-
-                if (rs.getString(3) != null) {
-                    dateIntroduced = LocalDate.parse(rs.getString(3), formatter);
-                }
-                if (rs.getString(4) != null) {
-                    dateDiscontinued = LocalDate.parse(rs.getString(4), formatter);
-                }
-                if (rs.getLong(5) != 0L) {
-                    idCompany = rs.getLong(5);
-                    company = (new CompanyDAOImp()).getCompanyById(idCompany);
-                }
-                computer = new Computer.Builder(name).id(id).dateIntroduced(dateIntroduced)
-                        .dateDiscontinued(dateDiscontinued).company(company).build();
-                return computer;
+                return MapperResultset.mapperComputer(rs);
             }
 
         } catch (SQLException e) {
@@ -239,13 +187,13 @@ public class ComputerDAOImp implements ComputerDAO {
 
     }
 
-    public int nombreComputer() {
+    public int numberComputer() {
         try (Connection connect = ConnectionDatabase.INSTANCE.getConnection();
              PreparedStatement preparedStatement = connect.prepareStatement(COUNT_COMPUTER);
              ResultSet rs = preparedStatement.executeQuery()) {
             rs.next();
-            int nombrecomputer = rs.getInt(1);
-            return nombrecomputer;
+            int numberComputer = rs.getInt(1);
+            return numberComputer;
         } catch (SQLException e) {
             LOGGER.info("Can not get the number of computers");
             e.printStackTrace();

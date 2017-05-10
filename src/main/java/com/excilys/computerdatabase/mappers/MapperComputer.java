@@ -1,7 +1,7 @@
 package com.excilys.computerdatabase.mappers;
 
 import com.excilys.computerdatabase.model.ComputerDTO;
-import com.excilys.computerdatabase.service.CompanyServiceImp;
+import com.excilys.computerdatabase.service.implementation.CompanyServiceImp;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
