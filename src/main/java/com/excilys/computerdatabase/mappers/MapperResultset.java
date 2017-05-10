@@ -45,7 +45,7 @@ public class MapperResultset {
     public static Computer mapperComputer(ResultSet rs) {
         LocalDate dateIntroduced = null;
         LocalDate dateDiscontinued = null;
-        Company company = null;
+        Company company;
         try {
             if (!StringUtils.isBlank(rs.getString(3))) {
                 dateIntroduced = LocalDate.parse(rs.getString(3), formatter);
@@ -55,6 +55,8 @@ public class MapperResultset {
             }
             if (rs.getLong(5) != 0L) {
                 company = new Company.Builder(rs.getString(7)).id(rs.getLong(5)).build();
+            } else {
+                company = null;
             }
             return new Computer.Builder(rs.getString(2))
                     .id(rs.getLong(1))
