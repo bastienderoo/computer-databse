@@ -2,6 +2,7 @@ package com.excilys.computerdatabase.mappers;
 
 import com.excilys.computerdatabase.model.Company;
 import com.excilys.computerdatabase.model.Computer;
+import com.excilys.computerdatabase.persistence.implementation.CompanyDAOImp;
 import com.excilys.computerdatabase.util.MapperException;
 
 import java.sql.ResultSet;
@@ -54,7 +55,7 @@ public class MapperResultset {
                 dateDiscontinued = LocalDate.parse(rs.getString(4), formatter);
             }
             if (rs.getLong(5) != 0L) {
-                company = new Company.Builder(rs.getString(7)).id(rs.getLong(5)).build();
+                company = (new CompanyDAOImp()).getCompanyById(rs.getLong(5));
             } else {
                 company = null;
             }
@@ -88,7 +89,7 @@ public class MapperResultset {
                     dateDiscontinued = LocalDate.parse(rs.getString(4), formatter);
                 }
                 if (rs.getLong(5) != 0L) {
-                    company = new Company.Builder(rs.getString(7)).id(rs.getLong(5)).build();
+                    company = (new CompanyDAOImp()).getCompanyById(rs.getLong(5));
                 }
 
                 listComputer.add(new Computer.Builder(rs.getString(2))
