@@ -16,6 +16,7 @@ public class MapperComputer {
     public static ComputerDTO mapperComputerIntoDTO(Computer computer) {
         String dateDiscontinued;
         String dateIntroduced;
+        String company;
         if (computer.getDateDiscontinued() != null) {
             dateDiscontinued = computer.getDateDiscontinued().toString();
         } else {
@@ -26,7 +27,12 @@ public class MapperComputer {
         } else {
             dateIntroduced = "";
         }
-        String company = computer.getcompany().getName();
+        if (computer.getcompany() != null) {
+            company = computer.getcompany().getName();
+        } else {
+            company = "";
+        }
+
         Long idCompany = computer.getId();
 
         ComputerDTO computerDTO = new ComputerDTO.Builder(computer.getName()).id(computer.getId())
