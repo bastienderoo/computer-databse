@@ -14,7 +14,7 @@ public class Page {
 
     public Page(int numberPage, int elementByPage) {
         this.numberPage = numberPage;
-        this.elementByPage = elementByPage;
+        this.elementByPage = elementByPage; 
 
     }
 
