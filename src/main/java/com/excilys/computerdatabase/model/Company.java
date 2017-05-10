@@ -1,7 +1,5 @@
 package com.excilys.computerdatabase.model;
 
-import sun.plugin2.gluegen.runtime.CPU;
-
 public class Company {
 
     private long id;
