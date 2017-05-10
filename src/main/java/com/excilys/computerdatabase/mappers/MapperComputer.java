@@ -14,9 +14,18 @@ import org.apache.commons.lang3.StringUtils;
 
 public class MapperComputer {
     public static ComputerDTO mapperComputerIntoDTO(Computer computer) {
-
-        String dateDiscontinued = computer.getDateDiscontinued().toString();
-        String dateIntroduced = computer.getDateIntroduced().toString();
+        String dateDiscontinued;
+        String dateIntroduced;
+        if (computer.getDateDiscontinued() != null) {
+            dateDiscontinued = computer.getDateDiscontinued().toString();
+        } else {
+            dateDiscontinued = "";
+        }
+        if (computer.getDateIntroduced() != null) {
+            dateIntroduced = computer.getDateIntroduced().toString();
+        } else {
+            dateIntroduced = "";
+        }
         String company = computer.getcompany().getName();
         Long idCompany = computer.getId();
 
@@ -31,12 +40,12 @@ public class MapperComputer {
         LocalDate dateDiscontinued;
         LocalDate dateIntroduced;
         Company company;
-        if (StringUtils.isBlank(computerDTO.getDateDiscontinued())) {
+        if (!StringUtils.isBlank(computerDTO.getDateDiscontinued())) {
             dateDiscontinued = LocalDate.parse(computerDTO.getDateDiscontinued());
         } else {
             dateDiscontinued = null;
         }
-        if (StringUtils.isBlank(computerDTO.getDateIntroduced())) {
+        if (!StringUtils.isBlank(computerDTO.getDateIntroduced())) {
             dateIntroduced = LocalDate.parse(computerDTO.getDateIntroduced());
         } else {
             dateIntroduced = null;

@@ -1,4 +1,4 @@
-use `computer-database-db-test`;
+use `computer-database-db`;
 set sql_mode = "";
 insert into company (id,name) values (  1,'Apple Inc.');
 insert into company (id,name) values (  2,'Thinking Machines');
