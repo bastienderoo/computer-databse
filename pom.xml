@@ -14,7 +14,7 @@
     </properties>
     <build>
         <!-- To define the plugin version in your parent POM -->
-
+        <finalName>${project.artifactId}</finalName>
         <!-- To use the plugin goals in your POM or parent POM -->
         <plugins>
             <plugin>
