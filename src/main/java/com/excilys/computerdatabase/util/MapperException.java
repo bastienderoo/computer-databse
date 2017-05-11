@@ -3,7 +3,7 @@ package com.excilys.computerdatabase.util;
 /**
  * Created by excilys on 10/05/17.
  */
-public class MapperException extends RuntimeException{
+public class MapperException extends RuntimeException {
 
     public MapperException() {
         super();

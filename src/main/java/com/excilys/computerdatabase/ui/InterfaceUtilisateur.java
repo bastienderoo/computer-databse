@@ -1,14 +1,16 @@
 package com.excilys.computerdatabase.ui;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.util.Scanner;
-import java.util.logging.Logger;
 
 public class InterfaceUtilisateur {
 
     Scanner sc = new Scanner(System.in);
 
     CommandSetters command = new CommandSetters();
-    private static final Logger LOGGER = Logger.getLogger(CommandSetters.class.getName());
+    private static final Logger LOGGER = LoggerFactory.getLogger(CommandSetters.class.getName());
 
     /**
      * list command user.

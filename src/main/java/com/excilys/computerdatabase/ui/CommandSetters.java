@@ -3,20 +3,21 @@ package com.excilys.computerdatabase.ui;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Scanner;
-import java.util.logging.Logger;
 
 import com.excilys.computerdatabase.model.Company;
 import com.excilys.computerdatabase.model.Computer;
 import com.excilys.computerdatabase.model.ComputerDTO;
 import com.excilys.computerdatabase.service.implementation.CompanyServiceImp;
 import com.excilys.computerdatabase.service.implementation.ComputerServiceImp;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class CommandSetters {
 
     Scanner sc = new Scanner(System.in);
     private ComputerServiceImp computerService = new ComputerServiceImp();
     private CompanyServiceImp companyService = new CompanyServiceImp();
-    private static final Logger LOGGER = Logger.getLogger(CommandSetters.class.getName());
+    private static final Logger LOGGER = LoggerFactory.getLogger(CommandSetters.class.getName());
 
     /**
      * show computers list.

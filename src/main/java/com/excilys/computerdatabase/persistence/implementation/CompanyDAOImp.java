@@ -4,23 +4,22 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Logger;
 
 import com.excilys.computerdatabase.mappers.MapperResultset;
 import com.excilys.computerdatabase.model.Company;
 import com.excilys.computerdatabase.persistence.CompanyDAO;
 import com.excilys.computerdatabase.persistence.ConnectionDatabase;
 import com.excilys.computerdatabase.util.ComputerDatabaseDAOException;
-import com.mysql.jdbc.log.Log;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 
 public class CompanyDAOImp implements CompanyDAO {
     private static final String SELECT_COMPANY_BY_ID = "SELECT * FROM company WHERE id=? ";
     private static final String SELECT_COMPANY_BY_NAME = "SELECT * FROM company WHERE nameCompany=? ";
     private static final String SELECT_ALL_QUERY_PAGE10 = "SELECT * FROM company";
-    private static final Logger LOGGER = Logger.getLogger(CompanyDAOImp.class.getName());
+    private static final Logger LOGGER = LoggerFactory.getLogger(CompanyDAOImp.class.getName());
 
     public List<Company> getList() {
 

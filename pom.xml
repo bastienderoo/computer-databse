@@ -11,6 +11,13 @@
         <version.mysql>5.1.40</version.mysql>
         <version.org.mockito>2.0.2-beta</version.org.mockito>
         <version.org.slf4j>1.7.23</version.org.slf4j>
+        <version.javax.servlet-api>3.1.0</version.javax.servlet-api>
+        <version.jsp-api>2.2</version.jsp-api>
+        <version.jstl>1.2</version.jstl>
+        <version.commons-lang3>3.5</version.commons-lang3>
+        <version.hikaricp>2.6.1</version.hikaricp>
+        <version.selenium-java>2.27.0</version.selenium-java>
+        <version.org.apache.maven.plugins>2.17</version.org.apache.maven.plugins>
     </properties>
     <build>
         <!-- To define the plugin version in your parent POM -->
@@ -31,7 +38,7 @@
                 <groupId>org.apache.tomcat.maven</groupId>
                 <artifactId>tomcat7-maven-plugin</artifactId>
                 <configuration>
-                    <url>http://localhost:8086/manager/text</url>
+                    <url>http://localhost:8080/manager/text</url>
                     <server>tomcat</server>
                     <username>admin</username>
                     <password>admin</password>
@@ -44,74 +51,76 @@
 
 
     <dependencies>
-
         <dependency>
+            <!-- junit -->
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <version>${version.junit}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
+            <!-- mysql -->
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
             <version>${version.mysql}</version>
-
         </dependency>
         <dependency>
+            <!-- mockito -->
             <groupId>org.mockito</groupId>
             <artifactId>mockito-all</artifactId>
             <version>${version.org.mockito}</version>
             <scope>test</scope>
         </dependency>
-
         <dependency>
+            <!-- slf4j-api -->
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
             <version>${version.org.slf4j}</version>
         </dependency>
         <dependency>
+            <!-- slf4j-simple -->
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-simple</artifactId>
             <version>${version.org.slf4j}</version>
         </dependency>
         <dependency>
+            <!-- javax-servlet-api -->
             <groupId>javax.servlet</groupId>
             <artifactId>javax.servlet-api</artifactId>
-            <version>3.1.0</version>
+            <version>${version.javax.servlet-api}</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
+            <!-- javax-servlet-jsp -->
             <groupId>javax.servlet.jsp</groupId>
             <artifactId>jsp-api</artifactId>
-            <version>2.2</version>
-
+            <version>${version.jsp-api}</version>
         </dependency>
-
         <dependency>
+            <!-- javax-servlet-jstl -->
             <groupId>javax.servlet</groupId>
             <artifactId>jstl</artifactId>
-            <version>1.2</version>
+            <version>${version.jstl}</version>
         </dependency>
         <dependency>
+            <!-- common language -->
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
-            <version>3.5</version>
+            <version>${version.commons-lang3}</version>
         </dependency>
-
-        <!-- https://mvnrepository.com/artifact/com.zaxxer/HikariCP -->
         <dependency>
+            <!-- https://mvnrepository.com/artifact/com.zaxxer/HikariCP -->
             <groupId>com.zaxxer</groupId>
             <artifactId>HikariCP</artifactId>
-            <version>2.6.1</version>
+            <version>${version.hikaricp}</version>
         </dependency>
         <dependency>
+            <!-- selenium -->
             <groupId>org.seleniumhq.selenium</groupId>
             <artifactId>selenium-java</artifactId>
-            <version>2.27.0</version>
+            <version>${version.selenium-java}</version>
             <scope>test</scope>
         </dependency>
-
-
     </dependencies>
 
     <reporting>
@@ -119,7 +128,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-checkstyle-plugin</artifactId>
-                <version>2.17</version>
+                <version>${version.org.apache.maven.plugins}</version>
                 <configuration>
                     <configLocation>checkstyle.xml</configLocation>
                     <suppressionsLocation>suppressions.xml</suppressionsLocation>

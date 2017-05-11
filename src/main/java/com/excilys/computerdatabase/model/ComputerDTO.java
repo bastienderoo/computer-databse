@@ -52,37 +52,50 @@ public class ComputerDTO {
 
     @Override
     public boolean equals(Object obj) {
-        if (this == obj)
+        if (this == obj) {
             return true;
-        if (obj == null)
+        }
+        if (obj == null) {
             return false;
-        if (getClass() != obj.getClass())
+        }
+        if (getClass() != obj.getClass()) {
             return false;
+        }
         ComputerDTO other = (ComputerDTO) obj;
         if (company == null) {
-            if (other.company != null)
+            if (other.company != null) {
                 return false;
-        } else if (!company.equals(other.company))
+            }
+        } else if (!company.equals(other.company)) {
             return false;
+        }
         if (dateDiscontinued == null) {
-            if (other.dateDiscontinued != null)
+            if (other.dateDiscontinued != null) {
                 return false;
-        } else if (!dateDiscontinued.equals(other.dateDiscontinued))
+            }
+        } else if (!dateDiscontinued.equals(other.dateDiscontinued)) {
             return false;
+        }
         if (dateIntroduced == null) {
-            if (other.dateIntroduced != null)
+            if (other.dateIntroduced != null) {
                 return false;
-        } else if (!dateIntroduced.equals(other.dateIntroduced))
+            }
+        } else if (!dateIntroduced.equals(other.dateIntroduced)) {
             return false;
-        if (id != other.id)
+        }
+        if (id != other.id) {
             return false;
-        if (idCompany != other.idCompany)
+        }
+        if (idCompany != other.idCompany) {
             return false;
+        }
         if (name == null) {
-            if (other.name != null)
+            if (other.name != null) {
                 return false;
-        } else if (!name.equals(other.name))
+            }
+        } else if (!name.equals(other.name)) {
             return false;
+        }
         return true;
     }
 
@@ -106,6 +119,10 @@ public class ComputerDTO {
         this.idCompany = idCompany;
     }
 
+    /**
+     * .
+     * @param name name
+     */
     public ComputerDTO(String name) {
         this.name = name;
     }
@@ -125,6 +142,9 @@ public class ComputerDTO {
         this.idCompany = builder.idCompany;
     }
 
+    /**
+     * Builder.
+     */
     public static class Builder {
         private long id;
         private String name;
@@ -186,6 +206,11 @@ public class ComputerDTO {
             return this;
         }
 
+        /**
+         * builder id company.
+         * @param idCompany id company
+         * @return builder
+         */
         public Builder idCompany(long idCompany) {
             this.idCompany = idCompany;
             return this;

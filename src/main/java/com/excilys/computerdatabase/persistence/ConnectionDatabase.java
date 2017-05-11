@@ -3,13 +3,15 @@ package com.excilys.computerdatabase.persistence;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
-import java.util.logging.Logger;
+
 
 import javax.sql.DataSource;
 
 import com.excilys.computerdatabase.util.ComputerDatabaseDAOException;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public enum ConnectionDatabase {
 
@@ -20,8 +22,11 @@ public enum ConnectionDatabase {
     private String user = bundle.getString("database.user");
     private String password = bundle.getString("database.password");
     private DataSource dataSource;
-    private final Logger LOGGER = Logger.getLogger(ConnectionDatabase.class.getName());
+    private final Logger LOGGER = LoggerFactory.getLogger(ConnectionDatabase.class.getName());
 
+    /**
+     * connection to database
+     */
     ConnectionDatabase() {
 
         try {
@@ -32,7 +37,6 @@ public enum ConnectionDatabase {
             config.setUsername(user);
             config.setPassword(password);
             config.setMaximumPoolSize(100);
-
 
             dataSource = new HikariDataSource(config);
 
@@ -45,9 +49,8 @@ public enum ConnectionDatabase {
             });
 
         } catch (ClassNotFoundException e) {
-            LOGGER.info("Connection failure");
+            LOGGER.error("Connection failure");
             e.printStackTrace();
-
         }
 
     }
@@ -60,7 +63,7 @@ public enum ConnectionDatabase {
         try {
             return dataSource.getConnection();
         } catch (SQLException e) {
-            LOGGER.info("Connection failure");
+            LOGGER.error("Connection failure");
             throw new ComputerDatabaseDAOException();
         }
 

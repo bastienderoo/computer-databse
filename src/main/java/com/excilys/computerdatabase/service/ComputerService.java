@@ -12,7 +12,7 @@ public interface ComputerService {
      *
      * @param id id
      */
-    void delete(long id);
+    Computer delete(long id);
 
     /**
      * create a list of computers.
@@ -36,7 +36,7 @@ public interface ComputerService {
      *
      * @param computer computer
      */
-    void update(Computer computer);
+    Computer update(Computer computer);
 
     /**
      * get a computer by its ID.

@@ -7,11 +7,11 @@ import com.excilys.computerdatabase.model.Computer;
 public interface ComputerDAO {
 
     /**
-     * delete a computer.
-     *
+     * delete computer.
      * @param id id
+     * @return computer
      */
-    void delete(long id);
+    Computer delete(long id);
 
     /**
      * Create a list of computers.
@@ -32,11 +32,11 @@ public interface ComputerDAO {
     long add(Computer computer);
 
     /**
-     * update a computer.
-     *
+     * update a computer
      * @param computer computer
+     * @return computer
      */
-    void update(Computer computer);
+    Computer update(Computer computer);
 
     /**
      * get a computer by its ID.

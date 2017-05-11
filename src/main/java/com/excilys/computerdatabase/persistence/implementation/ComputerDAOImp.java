@@ -6,13 +6,15 @@ import com.excilys.computerdatabase.model.Computer;
 import com.excilys.computerdatabase.persistence.ComputerDAO;
 import com.excilys.computerdatabase.persistence.ConnectionDatabase;
 import com.excilys.computerdatabase.util.ComputerDatabaseDAOException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 
 import java.sql.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Logger;
 
 /**
  * Classe contenant les méthodes permettant d'effectuer les différentes actions
@@ -30,16 +32,18 @@ public class ComputerDAOImp implements ComputerDAO {
     private static final String GET_COMPUTER_BY_NAME = "SELECT * From computer WHERE upper(name) like upper(?)";
     private static final String COUNT_COMPUTER = "SELECT COUNT(*) FROM computer";
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.S");
-    private static final Logger LOGGER = Logger.getLogger(CompanyDAOImp.class.getName());
+    private static final Logger LOGGER = LoggerFactory.getLogger(CompanyDAOImp.class.getName());
 
-    public void delete(long id) {
+    public Computer delete(long id) {
         try (Connection connect = ConnectionDatabase.INSTANCE.getConnection();
              PreparedStatement preparedStatement = connect.prepareStatement(DELETE_QUERY)) {
             preparedStatement.setLong(1, id);
             preparedStatement.executeUpdate();
+            return getComputerById(id);
         } catch (SQLException e) {
-            LOGGER.info("Impossible to delete this computer");
+            LOGGER.error("Impossible to delete this computer");
             e.printStackTrace();
+            throw new ComputerDatabaseDAOException();
         }
     }
 
@@ -53,11 +57,11 @@ public class ComputerDAOImp implements ComputerDAO {
             try (ResultSet rs = preparedStatement.executeQuery()) {
                 return MapperResultset.mapperComputerList(rs);
             } catch (SQLException e) {
-                LOGGER.info("Can not get the list of computers");
+                LOGGER.error("Can not get the list of computers");
                 e.printStackTrace();
             }
         } catch (SQLException e) {
-            LOGGER.info("Connection failure");
+            LOGGER.error("Connection failure");
             e.printStackTrace();
         }
         return listComputer;
@@ -91,8 +95,8 @@ public class ComputerDAOImp implements ComputerDAO {
     }
 
 
-    public void update(Computer computer) {
-        System.out.println(computer);
+    public Computer update(Computer computer) {
+
         try (Connection connect = ConnectionDatabase.INSTANCE.getConnection();
              PreparedStatement preparedStatement = connect.prepareStatement(UPDATE_QUERY)) {
             preparedStatement.setString(1, computer.getName());
@@ -115,10 +119,11 @@ public class ComputerDAOImp implements ComputerDAO {
             }
             preparedStatement.setLong(5, computer.getId());
             preparedStatement.executeUpdate();
-
+            return computer;
         } catch (SQLException e) {
             LOGGER.info("Can not update the computer");
             e.printStackTrace();
+            throw new ComputerDatabaseDAOException();
         }
 
     }

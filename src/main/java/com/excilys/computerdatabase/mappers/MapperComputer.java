@@ -13,6 +13,12 @@ import org.apache.commons.lang3.StringUtils;
 
 
 public class MapperComputer {
+    /**
+     * Map a computer into a dto computer.
+     * @param computer computer
+     * @return computer dto
+     */
+
     public static ComputerDTO mapperComputerIntoDTO(Computer computer) {
         String dateDiscontinued;
         String dateIntroduced;
@@ -41,6 +47,11 @@ public class MapperComputer {
         return computerDTO;
     }
 
+    /**
+     * map a dto computer into a computer.
+     * @param computerDTO computer dto
+     * @return computer
+     */
     public static Computer mapperDTOIntoComputer(ComputerDTO computerDTO) {
         CompanyServiceImp companyService = new CompanyServiceImp();
         LocalDate dateDiscontinued;
@@ -67,6 +78,11 @@ public class MapperComputer {
         return computer;
     }
 
+    /**
+     * map a list of computers int o a list of dto computers.
+     * @param computer list of computers
+     * @return list of dto computers
+     */
     public static List<ComputerDTO> mapperComputerIntoDTO(List<Computer> computer) {
         List<ComputerDTO> listComputerDTO = new ArrayList<ComputerDTO>();
 

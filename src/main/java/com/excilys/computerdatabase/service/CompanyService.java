@@ -22,9 +22,8 @@ public interface CompanyService {
 
     /**
      * get a company by its name.
-     *
-     * @param name
-     * @return
+     * @param name name
+     * @return company
      */
     Company getCompanyByName(String name);
 
