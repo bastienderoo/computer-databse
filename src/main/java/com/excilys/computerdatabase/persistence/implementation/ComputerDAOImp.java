@@ -4,12 +4,12 @@ import com.excilys.computerdatabase.mappers.MapperResultset;
 import com.excilys.computerdatabase.model.Company;
 import com.excilys.computerdatabase.model.Computer;
 import com.excilys.computerdatabase.persistence.ComputerDAO;
-import com.excilys.computerdatabase.persistence.ConnectionDatabase;
 import com.excilys.computerdatabase.util.ComputerDatabaseDAOException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 
+import javax.sql.DataSource;
 import java.sql.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -33,9 +33,10 @@ public class ComputerDAOImp implements ComputerDAO {
     private static final String COUNT_COMPUTER = "SELECT COUNT(*) FROM computer";
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.S");
     private static final Logger LOGGER = LoggerFactory.getLogger(CompanyDAOImp.class.getName());
+    private DataSource datasource;
 
     public Computer delete(long id) {
-        try (Connection connect = ConnectionDatabase.INSTANCE.getConnection();
+        try (Connection connect = datasource.getConnection();
              PreparedStatement preparedStatement = connect.prepareStatement(DELETE_QUERY)) {
             preparedStatement.setLong(1, id);
             preparedStatement.executeUpdate();
@@ -50,7 +51,7 @@ public class ComputerDAOImp implements ComputerDAO {
 
     public List<Computer> getList(int page, int nbrElements) {
         List<Computer> listComputer = new ArrayList<Computer>();
-        try (Connection connect = ConnectionDatabase.INSTANCE.getConnection();
+        try (Connection connect = datasource.getConnection();
              PreparedStatement preparedStatement = connect.prepareStatement(SELECT_ALL_QUERY_PAGE)) {
             preparedStatement.setInt(1, nbrElements);
             preparedStatement.setInt(2, page * nbrElements);
@@ -63,13 +64,14 @@ public class ComputerDAOImp implements ComputerDAO {
         } catch (SQLException e) {
             LOGGER.error("Connection failure");
             e.printStackTrace();
+            throw new ComputerDatabaseDAOException();
         }
         return listComputer;
     }
 
 
     public long add(Computer computer) {
-        try (Connection connect = ConnectionDatabase.INSTANCE.getConnection();
+        try (Connection connect = datasource.getConnection();
              PreparedStatement pstmt = connect.prepareStatement(ADD_QUERY, Statement.RETURN_GENERATED_KEYS)) {
             pstmt.setString(1, computer.getName());
 
@@ -97,7 +99,7 @@ public class ComputerDAOImp implements ComputerDAO {
 
     public Computer update(Computer computer) {
 
-        try (Connection connect = ConnectionDatabase.INSTANCE.getConnection();
+        try (Connection connect = datasource.getConnection();
              PreparedStatement preparedStatement = connect.prepareStatement(UPDATE_QUERY)) {
             preparedStatement.setString(1, computer.getName());
             if (computer.getDateIntroduced() != null) {
@@ -130,7 +132,7 @@ public class ComputerDAOImp implements ComputerDAO {
 
 
     public Computer getComputerById(long id) {
-        try (Connection connect = ConnectionDatabase.INSTANCE.getConnection();
+        try (Connection connect = datasource.getConnection();
              PreparedStatement preparedStatement = connect.prepareStatement(GET_COMPUTER_BY_ID)) {
             preparedStatement.setLong(1, id);
             try (ResultSet rs = preparedStatement.executeQuery()) {
@@ -151,7 +153,7 @@ public class ComputerDAOImp implements ComputerDAO {
 
     public List<Computer> getComputerByName(String name) {
         List<Computer> listComputer = new ArrayList<Computer>();
-        try (Connection connect = ConnectionDatabase.INSTANCE.getConnection();
+        try (Connection connect = datasource.getConnection();
              PreparedStatement preparedStatement = connect.prepareStatement(GET_COMPUTER_BY_NAME)) {
             preparedStatement.setString(1, name + "%");
             try (ResultSet rs = preparedStatement.executeQuery()) {
@@ -193,12 +195,17 @@ public class ComputerDAOImp implements ComputerDAO {
     }
 
     public int numberComputer() {
-        try (Connection connect = ConnectionDatabase.INSTANCE.getConnection();
+        try (Connection connect = datasource.getConnection();
+
              PreparedStatement preparedStatement = connect.prepareStatement(COUNT_COMPUTER);
              ResultSet rs = preparedStatement.executeQuery()) {
+
             rs.next();
+
             int numberComputer = rs.getInt(1);
+
             return numberComputer;
+
         } catch (SQLException e) {
             LOGGER.info("Can not get the number of computers");
             e.printStackTrace();
@@ -206,4 +213,8 @@ public class ComputerDAOImp implements ComputerDAO {
         }
     }
 
+
+    public void setDatasource(DataSource datasource) {
+        this.datasource = datasource;
+    }
 }

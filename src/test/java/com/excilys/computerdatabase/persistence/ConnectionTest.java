@@ -5,13 +5,15 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
+import javax.sql.DataSource;
+
 public class ConnectionTest {
 
+private DataSource dataSource;
+   // @Test
+  //  public void testConnection() {
 
-    @Test
-    public void testConnection() {
+    //    assertNotNull(dataSource.getConnection());
 
-        assertNotNull(ConnectionDatabase.INSTANCE.getConnection());
-
-    }
+   // }
 }

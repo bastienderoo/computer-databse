@@ -10,9 +10,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+
 import com.excilys.computerdatabase.model.ComputerDTO;
 import com.excilys.computerdatabase.service.ComputerService;
-import com.excilys.computerdatabase.service.implementation.ComputerServiceImp;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 /**
  * Servlet implementation class Dashboard
@@ -46,8 +48,10 @@ public class Dashboard extends HttpServlet {
 
         }
         List<ComputerDTO> listComputer;
+        ApplicationContext context =
+                new ClassPathXmlApplicationContext(new String[]{"services.xml"});
+        ComputerService computerService = (ComputerService) context.getBean("computerService");
 
-        ComputerService computerService = new ComputerServiceImp();
         search = request.getParameter("search");
         int numberComputers;
         if (!Objects.equals(search, "") && search != null) {
@@ -56,6 +60,8 @@ public class Dashboard extends HttpServlet {
         } else {
             listComputer = computerService.getList(page, numberElements);
             numberComputers = computerService.getNumberComputer();
+
+
         }
 
         int numberPage = numberComputers / numberElements + 1;
@@ -74,8 +80,10 @@ public class Dashboard extends HttpServlet {
      */
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        // TODO Auto-generated method stub
-        ComputerService computerService = new ComputerServiceImp();
+
+        ApplicationContext context =
+                new ClassPathXmlApplicationContext(new String[]{"services.xml"});
+        ComputerService computerService = (ComputerService) context.getBean("computerService");
         String listSelection = request.getParameter("selection");
         System.out.println(listSelection);
         String[] idString = listSelection.split(",");

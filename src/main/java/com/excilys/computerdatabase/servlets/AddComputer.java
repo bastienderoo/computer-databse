@@ -32,7 +32,7 @@ public class AddComputer extends HttpServlet {
      */
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        // TODO Auto-generated method stub
+
         CompanyService companyService = new CompanyServiceImp();
         List<Company> listCompany = companyService.getList();
         request.setAttribute("companyId", listCompany);
@@ -46,7 +46,7 @@ public class AddComputer extends HttpServlet {
      */
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        // TODO Auto-generated method stub
+
 
         ComputerService computerService = new ComputerServiceImp();
 

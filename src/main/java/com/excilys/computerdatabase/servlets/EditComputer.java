@@ -26,7 +26,7 @@ public class EditComputer extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        // TODO Auto-generated method stub
+
         CompanyService companyService = new CompanyServiceImp();
         ComputerService computerService = new ComputerServiceImp();
         List<Company> listCompany = companyService.getList();
@@ -51,7 +51,6 @@ public class EditComputer extends HttpServlet {
      */
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        // TODO Auto-generated method stub
 
         ComputerService computerService = new ComputerServiceImp();
 

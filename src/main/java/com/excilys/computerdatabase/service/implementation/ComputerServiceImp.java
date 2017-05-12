@@ -13,7 +13,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class ComputerServiceImp implements ComputerService {
-    private ComputerDAOImp computerDAO = new ComputerDAOImp();
+
+    public void setComputerDAO(ComputerDAOImp computerDAO) {
+        this.computerDAO = computerDAO;
+    }
+
+    private ComputerDAOImp computerDAO;
     private final Logger LOGGER = LoggerFactory.getLogger(ComputerServiceImp.class.getName());
 
 
@@ -68,5 +73,6 @@ public class ComputerServiceImp implements ComputerService {
     public int getNumberComputer() {
         return computerDAO.numberComputer();
     }
+
 
 }

@@ -8,7 +8,8 @@ import com.excilys.computerdatabase.service.CompanyService;
 
 public class CompanyServiceImp implements CompanyService {
 
-    private CompanyDAOImp companyDAO = new CompanyDAOImp();
+    private CompanyDAOImp companyDAO;
+
 
     public List<Company> getList() {
         return companyDAO.getList();
@@ -22,5 +23,10 @@ public class CompanyServiceImp implements CompanyService {
     public Company getCompanyByName(String name) {
         return companyDAO.getCompanyByName(name);
     }
+
+    public void setCompanyDAO(CompanyDAOImp companyDAO) {
+        this.companyDAO = companyDAO;
+    }
+
 
 }
