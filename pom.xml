@@ -120,12 +120,6 @@
             <version>${version.commons-lang3}</version>
         </dependency>
         <dependency>
-            <!-- https://mvnrepository.com/artifact/com.zaxxer/HikariCP -->
-            <groupId>com.zaxxer</groupId>
-            <artifactId>HikariCP</artifactId>
-            <version>${version.hikaricp}</version>
-        </dependency>
-        <dependency>
             <!-- selenium -->
             <groupId>org.seleniumhq.selenium</groupId>
             <artifactId>selenium-java</artifactId>

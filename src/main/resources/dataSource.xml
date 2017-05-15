@@ -22,7 +22,7 @@
     </bean>
 
     <!-- HikariCP configuration -->
-    <bean id="datasource"
+    <bean id="dataSource"
           class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 
         <property name="driverClassName" value="com.mysql.jdbc.Driver" />

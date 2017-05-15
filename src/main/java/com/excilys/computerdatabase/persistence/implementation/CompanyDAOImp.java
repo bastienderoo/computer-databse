@@ -3,7 +3,6 @@ package com.excilys.computerdatabase.persistence.implementation;
 import com.excilys.computerdatabase.mappers.MapperResultset;
 import com.excilys.computerdatabase.model.Company;
 import com.excilys.computerdatabase.persistence.CompanyDAO;
-import com.excilys.computerdatabase.service.ComputerService;
 import com.excilys.computerdatabase.util.ComputerDatabaseDAOException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,13 +24,13 @@ public class CompanyDAOImp implements CompanyDAO {
     private static final Logger LOGGER = LoggerFactory.getLogger(CompanyDAOImp.class.getName());
 
     ApplicationContext context =
-            new ClassPathXmlApplicationContext(new String[]{"datasource.xml"});
-    DataSource datasource
-            = (DataSource) context.getBean("datasource");
+            new ClassPathXmlApplicationContext(new String[]{"dataSource.xml"});
+    DataSource dataSource
+            = (DataSource) context.getBean("dataSource");
 
     public List<Company> getList() {
 
-        try (Connection connect = datasource.getConnection();
+        try (Connection connect = dataSource.getConnection();
              PreparedStatement preparedStatement = connect.prepareStatement(SELECT_ALL_QUERY_PAGE10)) {
             try (ResultSet rs = preparedStatement.executeQuery()) {
 
@@ -48,7 +47,7 @@ public class CompanyDAOImp implements CompanyDAO {
 
 
     public Company getCompanyById(long id) {
-        try (Connection connect = datasource.getConnection();
+        try (Connection connect = dataSource.getConnection();
              PreparedStatement preparedStatement = connect.prepareStatement(SELECT_COMPANY_BY_ID)) {
             preparedStatement.setLong(1, id);
             try (ResultSet rs = preparedStatement.executeQuery()) {
@@ -66,7 +65,7 @@ public class CompanyDAOImp implements CompanyDAO {
     }
 
     public Company getCompanyByName(String name) {
-        try (Connection connect = datasource.getConnection();
+        try (Connection connect = dataSource.getConnection();
              PreparedStatement preparedStatement = connect.prepareStatement(SELECT_COMPANY_BY_NAME)) {
             preparedStatement.setString(1, name);
             try (ResultSet rs = preparedStatement.executeQuery()) {
@@ -83,7 +82,7 @@ public class CompanyDAOImp implements CompanyDAO {
     }
 
 
-    public void setDatasource(DataSource datasource) {
-        this.datasource = datasource;
+    public void setDataSource(DataSource dataSource) {
+        this.dataSource = dataSource;
     }
 }

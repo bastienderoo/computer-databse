@@ -32,6 +32,7 @@ public class MapperResultset {
 
     /**
      * mapper of resultset company.
+     *
      * @param rs reultset
      * @return company
      */
@@ -46,6 +47,7 @@ public class MapperResultset {
 
     /**
      * mapper of result set list companies.
+     *
      * @param rs result set
      * @return list of companies
      */
@@ -64,6 +66,7 @@ public class MapperResultset {
 
     /**
      * mapper of resultset computer.
+     *
      * @param rs reultset
      * @return computer
      */
@@ -74,9 +77,13 @@ public class MapperResultset {
         try {
             if (!StringUtils.isBlank(rs.getString(3))) {
                 dateIntroduced = LocalDate.parse(rs.getString(3), formatter);
+            } else {
+                dateIntroduced = null;
             }
             if (!StringUtils.isBlank(rs.getString(4))) {
                 dateDiscontinued = LocalDate.parse(rs.getString(4), formatter);
+            } else {
+                dateDiscontinued = null;
             }
             if (rs.getLong(5) != 0L) {
                 company = (new CompanyDAOImp()).getCompanyById(rs.getLong(5));
@@ -96,8 +103,10 @@ public class MapperResultset {
 
         }
     }
+
     /**
      * mapper of result set list computers.
+     *
      * @param rs result set
      * @return list of computers
      */
@@ -110,12 +119,19 @@ public class MapperResultset {
             while (rs.next()) {
                 if (!StringUtils.isBlank(rs.getString(3))) {
                     dateIntroduced = LocalDate.parse(rs.getString(3), formatter);
+                } else {
+                    dateIntroduced = null;
                 }
+
                 if (!StringUtils.isBlank(rs.getString(4))) {
                     dateDiscontinued = LocalDate.parse(rs.getString(4), formatter);
+                } else {
+                    dateDiscontinued = null;
                 }
                 if (rs.getLong(5) != 0L) {
                     company = (new CompanyDAOImp()).getCompanyById(rs.getLong(5));
+                } else {
+                    company = null;
                 }
                 listComputer.add(new Computer.Builder(rs.getString(2))
                         .id(rs.getLong(1))
