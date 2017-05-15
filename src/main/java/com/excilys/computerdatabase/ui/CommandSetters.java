@@ -1,9 +1,5 @@
 package com.excilys.computerdatabase.ui;
 
-import java.time.LocalDate;
-import java.util.List;
-import java.util.Scanner;
-
 import com.excilys.computerdatabase.model.Company;
 import com.excilys.computerdatabase.model.Computer;
 import com.excilys.computerdatabase.model.ComputerDTO;
@@ -11,6 +7,10 @@ import com.excilys.computerdatabase.service.implementation.CompanyServiceImp;
 import com.excilys.computerdatabase.service.implementation.ComputerServiceImp;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.time.LocalDate;
+import java.util.List;
+import java.util.Scanner;
 
 public class CommandSetters {
 

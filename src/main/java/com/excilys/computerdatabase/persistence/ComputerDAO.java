@@ -1,8 +1,8 @@
 package com.excilys.computerdatabase.persistence;
 
-import java.util.List;
-
 import com.excilys.computerdatabase.model.Computer;
+
+import java.util.List;
 
 public interface ComputerDAO {
 

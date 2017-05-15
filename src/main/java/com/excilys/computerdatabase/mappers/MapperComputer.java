@@ -1,15 +1,14 @@
 package com.excilys.computerdatabase.mappers;
 
+import com.excilys.computerdatabase.model.Company;
+import com.excilys.computerdatabase.model.Computer;
 import com.excilys.computerdatabase.model.ComputerDTO;
 import com.excilys.computerdatabase.service.implementation.CompanyServiceImp;
+import org.apache.commons.lang3.StringUtils;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-
-import com.excilys.computerdatabase.model.Company;
-import com.excilys.computerdatabase.model.Computer;
-import org.apache.commons.lang3.StringUtils;
 
 
 public class MapperComputer {

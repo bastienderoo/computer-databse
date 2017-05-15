@@ -1,8 +1,8 @@
 package com.excilys.computerdatabase.service;
 
-import java.util.List;
-
 import com.excilys.computerdatabase.model.Company;
+
+import java.util.List;
 
 public interface CompanyService {
     /**

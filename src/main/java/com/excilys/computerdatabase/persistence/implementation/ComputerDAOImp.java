@@ -7,7 +7,8 @@ import com.excilys.computerdatabase.persistence.ComputerDAO;
 import com.excilys.computerdatabase.util.ComputerDatabaseDAOException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import javax.sql.DataSource;
 import java.sql.*;
@@ -33,7 +34,10 @@ public class ComputerDAOImp implements ComputerDAO {
     private static final String COUNT_COMPUTER = "SELECT COUNT(*) FROM computer";
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.S");
     private static final Logger LOGGER = LoggerFactory.getLogger(CompanyDAOImp.class.getName());
-    private DataSource datasource;
+
+
+    DataSource datasource;
+
 
     public Computer delete(long id) {
         try (Connection connect = datasource.getConnection();
@@ -72,18 +76,18 @@ public class ComputerDAOImp implements ComputerDAO {
 
     public long add(Computer computer) {
         try (Connection connect = datasource.getConnection();
-             PreparedStatement pstmt = connect.prepareStatement(ADD_QUERY, Statement.RETURN_GENERATED_KEYS)) {
-            pstmt.setString(1, computer.getName());
+             PreparedStatement preparedStatement = connect.prepareStatement(ADD_QUERY, Statement.RETURN_GENERATED_KEYS)) {
+            preparedStatement.setString(1, computer.getName());
 
-            pstmt.setObject(2, computer.getDateIntroduced());
-            pstmt.setObject(3, computer.getDateDiscontinued());
+            preparedStatement.setObject(2, computer.getDateIntroduced());
+            preparedStatement.setObject(3, computer.getDateDiscontinued());
             if (computer.getcompany() != null) {
-                pstmt.setLong(4, computer.getcompany().getId());
+                preparedStatement.setLong(4, computer.getcompany().getId());
             } else {
-                pstmt.setNull(4, java.sql.Types.BIGINT);
+                preparedStatement.setNull(4, java.sql.Types.BIGINT);
             }
-            pstmt.executeUpdate();
-            ResultSet generatedKeys = pstmt.getGeneratedKeys();
+            preparedStatement.executeUpdate();
+            ResultSet generatedKeys = preparedStatement.getGeneratedKeys();
             generatedKeys.next();
             return generatedKeys.getLong(1);
 

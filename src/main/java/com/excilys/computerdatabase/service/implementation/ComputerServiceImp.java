@@ -1,16 +1,18 @@
 package com.excilys.computerdatabase.service.implementation;
 
-import java.util.List;
-
-
 import com.excilys.computerdatabase.mappers.MapperComputer;
 import com.excilys.computerdatabase.model.Computer;
 import com.excilys.computerdatabase.model.ComputerDTO;
+import com.excilys.computerdatabase.persistence.ComputerDAO;
 import com.excilys.computerdatabase.persistence.implementation.ComputerDAOImp;
 import com.excilys.computerdatabase.service.ComputerService;
 import com.excilys.computerdatabase.util.ServiceException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+import java.util.List;
 
 public class ComputerServiceImp implements ComputerService {
 
@@ -18,7 +20,8 @@ public class ComputerServiceImp implements ComputerService {
         this.computerDAO = computerDAO;
     }
 
-    private ComputerDAOImp computerDAO;
+
+    ComputerDAOImp computerDAO;
     private final Logger LOGGER = LoggerFactory.getLogger(ComputerServiceImp.class.getName());
 
 

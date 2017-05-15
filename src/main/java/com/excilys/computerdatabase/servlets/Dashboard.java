@@ -1,22 +1,19 @@
 package com.excilys.computerdatabase.servlets;
 
-import java.io.IOException;
-import java.util.List;
-import java.util.Objects;
+import com.excilys.computerdatabase.model.ComputerDTO;
+import com.excilys.computerdatabase.service.ComputerService;
+import com.excilys.computerdatabase.service.implementation.ComputerServiceImp;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-
-import com.excilys.computerdatabase.model.ComputerDTO;
-import com.excilys.computerdatabase.service.ComputerService;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
-import org.springframework.web.context.WebApplicationContext;
-import org.springframework.web.context.support.WebApplicationContextUtils;
+import java.io.IOException;
+import java.util.List;
+import java.util.Objects;
 
 /**
  * Servlet implementation class Dashboard
@@ -27,7 +24,10 @@ public class Dashboard extends HttpServlet {
     int page;
     int numberElements = 10;
     String search = "";
-    //ComputerService computerService;
+    ApplicationContext context =
+            new ClassPathXmlApplicationContext(new String[]{"services.xml"});
+    ComputerServiceImp computerService = (ComputerServiceImp) context.getBean("computerService");
+
 
     /**
      * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
@@ -51,8 +51,6 @@ public class Dashboard extends HttpServlet {
 
         }
         List<ComputerDTO> listComputer;
-        WebApplicationContext context = WebApplicationContextUtils.getRequiredWebApplicationContext(Dashboard.this.getServletContext());
-        ComputerService computerService = (ComputerService) context.getBean("computerService");
 
         search = request.getParameter("search");
         int numberComputers;
@@ -76,6 +74,10 @@ public class Dashboard extends HttpServlet {
 
     }
 
+    public void setComputerService(ComputerServiceImp computerService) {
+        this.computerService = computerService;
+    }
+
     /**
      * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
      * response)
@@ -83,15 +85,14 @@ public class Dashboard extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        WebApplicationContext context = WebApplicationContextUtils.getRequiredWebApplicationContext(Dashboard.this.getServletContext());
 
-       ComputerService computerService = (ComputerService) context.getBean("computerService");
         String listSelection = request.getParameter("selection");
         System.out.println(listSelection);
         String[] idString = listSelection.split(",");
         for (String idS : idString) {
             if (idS != null) {
                 Long id = Long.parseLong(idS);
+
                 computerService.delete(id);
             }
 

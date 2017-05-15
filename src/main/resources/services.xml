@@ -4,7 +4,7 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
 
-    <import resource="classpath:dao.xml"/>
+    <import resource="/dao.xml"/>
     <!-- Company services -->
     <bean id="companyService"
           class="com.excilys.computerdatabase.service.implementation.CompanyServiceImp"

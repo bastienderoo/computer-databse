@@ -6,7 +6,7 @@
 
     <bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig">
         <property name="poolName" value="springHikariCP"/>
-        <property name="dataSourceClassName" value="com.mysql.jdbc.Driver"/>
+        <property name="dataSourceClassName" value="com.mysql.jdbc.jdbc2.optional.MysqlDataSource"/>
 
         <property name="maximumPoolSize" value="100"/>
 
@@ -22,8 +22,12 @@
     </bean>
 
     <!-- HikariCP configuration -->
-    <bean id="datasource" class="com.zaxxer.hikari.HikariDataSource" destroy-method="close">
-        <constructor-arg ref="hikariConfig"/>
-    </bean>
+    <bean id="datasource"
+          class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 
+        <property name="driverClassName" value="com.mysql.jdbc.Driver" />
+        <property name="url" value="jdbc:mysql://127.0.0.1:3306/computer-database-db?zeroDateTimeBehavior=convertToNull" />
+        <property name="username" value="admincdb" />
+        <property name="password" value="qwerty1234" />
+    </bean>
 </beans>

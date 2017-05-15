@@ -2,12 +2,15 @@ package com.excilys.computerdatabase.servlets;
 
 import com.excilys.computerdatabase.mappers.MapperComputer;
 import com.excilys.computerdatabase.model.Company;
+import com.excilys.computerdatabase.model.CompanyDTO;
 import com.excilys.computerdatabase.model.Computer;
 import com.excilys.computerdatabase.model.ComputerDTO;
 import com.excilys.computerdatabase.service.CompanyService;
-import com.excilys.computerdatabase.service.implementation.CompanyServiceImp;
 import com.excilys.computerdatabase.service.ComputerService;
+import com.excilys.computerdatabase.service.implementation.CompanyServiceImp;
 import com.excilys.computerdatabase.service.implementation.ComputerServiceImp;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -23,12 +26,24 @@ import java.util.List;
 @WebServlet("/editComputer")
 public class EditComputer extends HttpServlet {
 
+    ApplicationContext context =
+            new ClassPathXmlApplicationContext(new String[]{"services.xml"});
+    ComputerServiceImp computerService = (ComputerServiceImp) context.getBean("computerService");
+    CompanyService companyService = (CompanyService) context.getBean("companyService");
+
+    public void setComputerService(ComputerServiceImp computerService) {
+        this.computerService = computerService;
+    }
+
+    public void setCompanyService(CompanyServiceImp companyService) {
+        this.companyService = companyService;
+    }
+
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        CompanyService companyService = new CompanyServiceImp();
-        ComputerService computerService = new ComputerServiceImp();
+
         List<Company> listCompany = companyService.getList();
         String idString = request.getParameter("id");
         if (idString != null) {
@@ -52,7 +67,7 @@ public class EditComputer extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        ComputerService computerService = new ComputerServiceImp();
+
 
 
         String idCompanyString = request.getParameter("companyId");

@@ -1,10 +1,9 @@
 package com.excilys.computerdatabase.service;
 
-import java.util.List;
-
 import com.excilys.computerdatabase.model.Computer;
-
 import com.excilys.computerdatabase.model.ComputerDTO;
+
+import java.util.List;
 
 public interface ComputerService {
     /**

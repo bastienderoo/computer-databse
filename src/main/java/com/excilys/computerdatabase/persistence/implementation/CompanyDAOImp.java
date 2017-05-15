@@ -1,11 +1,5 @@
 package com.excilys.computerdatabase.persistence.implementation;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.List;
-
 import com.excilys.computerdatabase.mappers.MapperResultset;
 import com.excilys.computerdatabase.model.Company;
 import com.excilys.computerdatabase.persistence.CompanyDAO;
@@ -17,6 +11,11 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import javax.sql.DataSource;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.List;
 
 
 public class CompanyDAOImp implements CompanyDAO {
@@ -24,7 +23,11 @@ public class CompanyDAOImp implements CompanyDAO {
     private static final String SELECT_COMPANY_BY_NAME = "SELECT * FROM company WHERE nameCompany=? ";
     private static final String SELECT_ALL_QUERY_PAGE10 = "SELECT * FROM company";
     private static final Logger LOGGER = LoggerFactory.getLogger(CompanyDAOImp.class.getName());
-    private DataSource datasource;
+
+    ApplicationContext context =
+            new ClassPathXmlApplicationContext(new String[]{"datasource.xml"});
+    DataSource datasource
+            = (DataSource) context.getBean("datasource");
 
     public List<Company> getList() {
 

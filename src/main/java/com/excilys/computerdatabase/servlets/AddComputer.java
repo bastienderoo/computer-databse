@@ -1,23 +1,24 @@
 package com.excilys.computerdatabase.servlets;
 
-import java.io.IOException;
-import java.util.List;
-import java.util.Objects;
+import com.excilys.computerdatabase.mappers.MapperComputer;
+import com.excilys.computerdatabase.model.Company;
+import com.excilys.computerdatabase.model.Computer;
+import com.excilys.computerdatabase.model.ComputerDTO;
+import com.excilys.computerdatabase.service.CompanyService;
+import com.excilys.computerdatabase.service.ComputerService;
+import com.excilys.computerdatabase.service.implementation.CompanyServiceImp;
+import com.excilys.computerdatabase.service.implementation.ComputerServiceImp;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import com.excilys.computerdatabase.model.Company;
-import com.excilys.computerdatabase.model.Computer;
-import com.excilys.computerdatabase.model.ComputerDTO;
-import com.excilys.computerdatabase.service.CompanyService;
-import com.excilys.computerdatabase.service.implementation.CompanyServiceImp;
-import com.excilys.computerdatabase.service.ComputerService;
-import com.excilys.computerdatabase.service.implementation.ComputerServiceImp;
-import com.excilys.computerdatabase.mappers.MapperComputer;
+import java.io.IOException;
+import java.util.List;
+import java.util.Objects;
 
 /**
  * Servlet implementation class addComputer
@@ -25,6 +26,19 @@ import com.excilys.computerdatabase.mappers.MapperComputer;
 @WebServlet("/addComputer")
 public class AddComputer extends HttpServlet {
     private static final long serialVersionUID = 1L;
+    ApplicationContext context =
+            new ClassPathXmlApplicationContext(new String[]{"services.xml"});
+
+    public void setComputerService(ComputerServiceImp computerService) {
+        this.computerService = computerService;
+    }
+
+    public void setCompanyService(CompanyServiceImp companyService) {
+        this.companyService = companyService;
+    }
+
+    ComputerServiceImp computerService = (ComputerServiceImp) context.getBean("computerService");
+    CompanyService companyService = (CompanyService) context.getBean("companyService");
 
     /**
      * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
@@ -33,7 +47,7 @@ public class AddComputer extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        CompanyService companyService = new CompanyServiceImp();
+
         List<Company> listCompany = companyService.getList();
         request.setAttribute("companyId", listCompany);
         this.getServletContext().getRequestDispatcher("/WEB-INF/views/addComputer.jsp").forward(request, response);
@@ -48,7 +62,7 @@ public class AddComputer extends HttpServlet {
             throws ServletException, IOException {
 
 
-        ComputerService computerService = new ComputerServiceImp();
+
 
         String computerName = request.getParameter("computerName");
         if (!Objects.equals(computerName, "")) {
