@@ -15,6 +15,8 @@ import com.excilys.computerdatabase.model.ComputerDTO;
 import com.excilys.computerdatabase.service.ComputerService;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.web.context.WebApplicationContext;
+import org.springframework.web.context.support.WebApplicationContextUtils;
 
 /**
  * Servlet implementation class Dashboard
@@ -25,6 +27,7 @@ public class Dashboard extends HttpServlet {
     int page;
     int numberElements = 10;
     String search = "";
+    //ComputerService computerService;
 
     /**
      * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
@@ -48,8 +51,7 @@ public class Dashboard extends HttpServlet {
 
         }
         List<ComputerDTO> listComputer;
-        ApplicationContext context =
-                new ClassPathXmlApplicationContext(new String[]{"services.xml"});
+        WebApplicationContext context = WebApplicationContextUtils.getRequiredWebApplicationContext(Dashboard.this.getServletContext());
         ComputerService computerService = (ComputerService) context.getBean("computerService");
 
         search = request.getParameter("search");
@@ -81,9 +83,9 @@ public class Dashboard extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        ApplicationContext context =
-                new ClassPathXmlApplicationContext(new String[]{"services.xml"});
-        ComputerService computerService = (ComputerService) context.getBean("computerService");
+        WebApplicationContext context = WebApplicationContextUtils.getRequiredWebApplicationContext(Dashboard.this.getServletContext());
+
+       ComputerService computerService = (ComputerService) context.getBean("computerService");
         String listSelection = request.getParameter("selection");
         System.out.println(listSelection);
         String[] idString = listSelection.split(",");
