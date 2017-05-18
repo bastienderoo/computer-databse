@@ -7,6 +7,8 @@ import com.excilys.computerdatabase.util.MapperException;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -18,10 +20,18 @@ import java.util.List;
 /**
  * Created by excilys on 10/05/17.
  */
+@Component
 public class MapperResultset {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(CompanyDAOImp.class.getName());
     private static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.S");
+
+    private static CompanyDAOImp companyDAOImp;
+
+    @Autowired
+    public void setCompanyDAOImp(CompanyDAOImp companyDAOImp) {
+        MapperResultset.companyDAOImp = companyDAOImp;
+    }
 
     /**
      * .
@@ -86,7 +96,7 @@ public class MapperResultset {
                 dateDiscontinued = null;
             }
             if (rs.getLong(5) != 0L) {
-                company = (new CompanyDAOImp()).getCompanyById(rs.getLong(5));
+                company = companyDAOImp.getCompanyById(rs.getLong(5));
             } else {
                 company = null;
             }
@@ -129,7 +139,7 @@ public class MapperResultset {
                     dateDiscontinued = null;
                 }
                 if (rs.getLong(5) != 0L) {
-                    company = (new CompanyDAOImp()).getCompanyById(rs.getLong(5));
+                    company = companyDAOImp.getCompanyById(rs.getLong(5));
                 } else {
                     company = null;
                 }

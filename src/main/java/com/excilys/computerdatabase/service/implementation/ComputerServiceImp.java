@@ -3,78 +3,75 @@ package com.excilys.computerdatabase.service.implementation;
 import com.excilys.computerdatabase.mappers.MapperComputer;
 import com.excilys.computerdatabase.model.Computer;
 import com.excilys.computerdatabase.model.ComputerDTO;
-import com.excilys.computerdatabase.persistence.ComputerDAO;
 import com.excilys.computerdatabase.persistence.implementation.ComputerDAOImp;
 import com.excilys.computerdatabase.service.ComputerService;
 import com.excilys.computerdatabase.util.ServiceException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class ComputerServiceImp implements ComputerService {
-
-    public void setComputerDAO(ComputerDAOImp computerDAO) {
-        this.computerDAO = computerDAO;
-    }
+    @Autowired
+    private ComputerDAOImp computerDAOImp;
 
 
-    ComputerDAOImp computerDAO;
     private final Logger LOGGER = LoggerFactory.getLogger(ComputerServiceImp.class.getName());
 
 
     public Computer delete(long id) {
-        return computerDAO.delete(id);
+        return computerDAOImp.delete(id);
     }
 
     public List<ComputerDTO> getList(int page, int nbrElements) {
-        List<Computer> listComputer = computerDAO.getList(page, nbrElements);
+        List<Computer> listComputer = computerDAOImp.getList(page, nbrElements);
         return MapperComputer.mapperComputerIntoDTO(listComputer);
     }
 
     public long add(Computer computer) {
         if (computer.getDateIntroduced() != null && computer.getDateDiscontinued() != null) {
             if (computer.getDateIntroduced().isBefore(computer.getDateDiscontinued())) {
-                long id = computerDAO.add(computer);
+                long id = computerDAOImp.add(computer);
                 return id;
             } else {
                 LOGGER.info("Date introduced must be before Date dicontinued");
                 throw new ServiceException();
             }
         } else {
-            return computerDAO.add(computer);
+            return computerDAOImp.add(computer);
         }
     }
 
     public Computer update(Computer computer) {
         if (computer.getDateIntroduced() != null && computer.getDateDiscontinued() != null) {
             if (computer.getDateIntroduced().isBefore(computer.getDateDiscontinued())) {
-                return computerDAO.update(computer);
+                return computerDAOImp.update(computer);
             } else {
                 LOGGER.info("Date introduced must be before Date dicontinued");
                 throw new ServiceException();
             }
         } else {
-            return computerDAO.update(computer);
+            return computerDAOImp.update(computer);
         }
 
     }
 
     public Computer getComputerById(long id) {
-        return computerDAO.getComputerById(id);
+        return computerDAOImp.getComputerById(id);
 
     }
 
     public List<ComputerDTO> getComputerByName(String name) {
-        List<Computer> listComputer = computerDAO.getComputerByName(name);
+        List<Computer> listComputer = computerDAOImp.getComputerByName(name);
         return MapperComputer.mapperComputerIntoDTO(listComputer);
 
     }
 
     public int getNumberComputer() {
-        return computerDAO.numberComputer();
+        return computerDAOImp.numberComputer();
     }
 
 

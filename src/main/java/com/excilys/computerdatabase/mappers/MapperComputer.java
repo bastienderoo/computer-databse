@@ -3,17 +3,35 @@ package com.excilys.computerdatabase.mappers;
 import com.excilys.computerdatabase.model.Company;
 import com.excilys.computerdatabase.model.Computer;
 import com.excilys.computerdatabase.model.ComputerDTO;
+import com.excilys.computerdatabase.persistence.implementation.CompanyDAOImp;
 import com.excilys.computerdatabase.service.implementation.CompanyServiceImp;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
-
+@Component
 public class MapperComputer {
+
+    static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.S");
+
+
+
+    private static CompanyServiceImp companyServiceImp;
+
+    @Autowired
+    public void setCompanyDAOImp(CompanyServiceImp companyServiceImp) {
+        MapperComputer.companyServiceImp = companyServiceImp;
+    }
+
     /**
      * Map a computer into a dto computer.
+     *
      * @param computer computer
      * @return computer dto
      */
@@ -40,7 +58,7 @@ public class MapperComputer {
 
         Long idCompany = computer.getId();
 
-        ComputerDTO computerDTO = new ComputerDTO.Builder(computer.getName()).id(computer.getId())
+        ComputerDTO computerDTO = new ComputerDTO.Builder().id(computer.getId()).name(computer.getName())
                 .dateIntroduced(dateIntroduced).dateDiscontinued(dateDiscontinued).company(company).idCompany(idCompany)
                 .build();
         return computerDTO;
@@ -48,26 +66,28 @@ public class MapperComputer {
 
     /**
      * map a dto computer into a computer.
+     *
      * @param computerDTO computer dto
      * @return computer
      */
     public static Computer mapperDTOIntoComputer(ComputerDTO computerDTO) {
-        CompanyServiceImp companyService = new CompanyServiceImp();
+
         LocalDate dateDiscontinued;
         LocalDate dateIntroduced;
         Company company;
         if (!StringUtils.isBlank(computerDTO.getDateDiscontinued())) {
-            dateDiscontinued = LocalDate.parse(computerDTO.getDateDiscontinued());
+            dateDiscontinued = LocalDate.parse(computerDTO.getDateDiscontinued(), formatter);
         } else {
             dateDiscontinued = null;
         }
         if (!StringUtils.isBlank(computerDTO.getDateIntroduced())) {
-            dateIntroduced = LocalDate.parse(computerDTO.getDateIntroduced());
+            dateIntroduced = LocalDate.parse(computerDTO.getDateIntroduced(), formatter);
         } else {
             dateIntroduced = null;
         }
         if (computerDTO.getIdCompany() != 0) {
-            company = companyService.getCompanyById(computerDTO.getIdCompany());
+
+            company = companyServiceImp.getCompanyById(computerDTO.getIdCompany());
         } else {
             company = null;
         }
@@ -79,17 +99,16 @@ public class MapperComputer {
 
     /**
      * map a list of computers int o a list of dto computers.
+     *
      * @param computer list of computers
      * @return list of dto computers
      */
     public static List<ComputerDTO> mapperComputerIntoDTO(List<Computer> computer) {
-        List<ComputerDTO> listComputerDTO = new ArrayList<ComputerDTO>();
-
-        for (Computer c : computer) {
-            ComputerDTO computerDTO = mapperComputerIntoDTO(c);
-            listComputerDTO.add(computerDTO);
+        List<ComputerDTO> list = new ArrayList<>();
+        for (Computer computer1 : computer) {
+            ComputerDTO computerDTO = mapperComputerIntoDTO(computer1);
+            list.add(computerDTO);
         }
-
-        return listComputerDTO;
+        return list;
     }
 }

@@ -43,11 +43,11 @@
                                 <c:otherwise><input type="date" class="form-control"
                                                     name="introduced"
                                                     id="introduced"
-                                                    value="${introduced}"></c:otherwise>
+                                                    value="${dateIntroduced}"></c:otherwise>
                             </c:choose>
                         </div>
                         <div class="form-group">
-                            <label for="discontinued">Discontinued date</label> <input
+                            <label for="discontinued">Discontinued date</label>
                             <c:choose>
                                 <c:when test="${discontinued == null}"><input type="date" class="form-control"
                                                                               name="discontinued"
@@ -56,8 +56,8 @@
                                 <c:otherwise><input type="date" class="form-control"
                                                     name="discontinued"
                                                     id="discontinued"
-                                                    value="${discontinued}"></c:otherwise>
-                            </c:choose>>
+                                                    value="${dateDiscontinued}"></c:otherwise>
+                            </c:choose>
                         </div>
                         <div class="form-group">
                             <label for="companyId">Company</label> <select

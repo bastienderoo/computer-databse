@@ -1,88 +1,68 @@
 package com.excilys.computerdatabase.persistence.implementation;
 
-import com.excilys.computerdatabase.mappers.MapperResultset;
+
 import com.excilys.computerdatabase.model.Company;
 import com.excilys.computerdatabase.persistence.CompanyDAO;
-import com.excilys.computerdatabase.util.ComputerDatabaseDAOException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
+import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
-
+@Repository
 public class CompanyDAOImp implements CompanyDAO {
     private static final String SELECT_COMPANY_BY_ID = "SELECT * FROM company WHERE id=? ";
-    private static final String SELECT_COMPANY_BY_NAME = "SELECT * FROM company WHERE nameCompany=? ";
+    private static final String SELECT_COMPANY_BY_NAME = "SELECT * FROM company WHERE name=? ";
     private static final String SELECT_ALL_QUERY_PAGE10 = "SELECT * FROM company";
     private static final Logger LOGGER = LoggerFactory.getLogger(CompanyDAOImp.class.getName());
 
-    ApplicationContext context =
-            new ClassPathXmlApplicationContext(new String[]{"dataSource.xml"});
-    DataSource dataSource
-            = (DataSource) context.getBean("dataSource");
 
+    private JdbcTemplate jdbcTemplate;
+
+    public CompanyDAOImp(DataSource dataSource) {
+        jdbcTemplate = new JdbcTemplate(dataSource);
+    }
+
+    @Override
     public List<Company> getList() {
 
-        try (Connection connect = dataSource.getConnection();
-             PreparedStatement preparedStatement = connect.prepareStatement(SELECT_ALL_QUERY_PAGE10)) {
-            try (ResultSet rs = preparedStatement.executeQuery()) {
-
-                return MapperResultset.mapperCompanyList(rs);
-
-            }
-        } catch (SQLException e) {
-            LOGGER.info("Impossible to create the list of companies");
-            e.printStackTrace();
-            throw new ComputerDatabaseDAOException();
+        List<Company> listCompany = new ArrayList<>();
+        List<Map<String, Object>> rows = jdbcTemplate.queryForList(SELECT_ALL_QUERY_PAGE10);
+        for (Map row : rows) {
+            Company company = new Company.Builder((String) row.get("name"))
+                    .id((Long) row.get("id"))
+                    .build();
+            listCompany.add(company);
         }
-
+        return listCompany;
     }
 
-
+    @Override
     public Company getCompanyById(long id) {
-        try (Connection connect = dataSource.getConnection();
-             PreparedStatement preparedStatement = connect.prepareStatement(SELECT_COMPANY_BY_ID)) {
-            preparedStatement.setLong(1, id);
-            try (ResultSet rs = preparedStatement.executeQuery()) {
-                rs.next();
-
-                return MapperResultset.mapperCompany(rs);
-            }
-
-        } catch (SQLException e) {
-            LOGGER.info("Impossible to get the company with this ID");
-            e.printStackTrace();
-            throw new ComputerDatabaseDAOException();
-        }
+        ;
+        return jdbcTemplate.queryForObject(SELECT_COMPANY_BY_ID, new Object[]{id}, new CompanyMapper());
 
     }
 
+    @Override
     public Company getCompanyByName(String name) {
-        try (Connection connect = dataSource.getConnection();
-             PreparedStatement preparedStatement = connect.prepareStatement(SELECT_COMPANY_BY_NAME)) {
-            preparedStatement.setString(1, name);
-            try (ResultSet rs = preparedStatement.executeQuery()) {
-                rs.next();
-                return MapperResultset.mapperCompany(rs);
-            }
-
-        } catch (SQLException e) {
-            LOGGER.info("Impossible to get the company with this name");
-            e.printStackTrace();
-            throw new ComputerDatabaseDAOException();
-        }
-
+        return jdbcTemplate.queryForObject(SELECT_COMPANY_BY_NAME, new Object[]{name}, new CompanyMapper());
     }
 
 
-    public void setDataSource(DataSource dataSource) {
-        this.dataSource = dataSource;
+    private static final class CompanyMapper implements RowMapper<Company> {
+        public Company mapRow(ResultSet rs, int rowNum) throws SQLException {
+            return new Company.Builder(rs.getString("name")).id(rs.getLong("id")).build();
+        }
     }
 }
+
+

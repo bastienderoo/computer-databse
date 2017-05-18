@@ -1,5 +1,9 @@
 package com.excilys.computerdatabase.model;
 
+
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
 public class CompanyDTO {
     private long id;
     private String name;
@@ -24,6 +28,8 @@ public class CompanyDTO {
 
     public static class Builder {
         private long id;
+        @NotNull
+        @Size(min=2, max=30)
         private String name;
 
         /**

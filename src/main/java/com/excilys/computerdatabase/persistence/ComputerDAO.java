@@ -8,6 +8,7 @@ public interface ComputerDAO {
 
     /**
      * delete computer.
+     *
      * @param id id
      * @return computer
      */
@@ -33,6 +34,7 @@ public interface ComputerDAO {
 
     /**
      * update a computer
+     *
      * @param computer computer
      * @return computer
      */
@@ -54,4 +56,5 @@ public interface ComputerDAO {
      */
     List<Computer> getComputerByName(String name);
 
+    int numberComputer();
 }

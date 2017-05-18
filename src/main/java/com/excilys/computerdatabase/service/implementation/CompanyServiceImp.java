@@ -3,29 +3,29 @@ package com.excilys.computerdatabase.service.implementation;
 import com.excilys.computerdatabase.model.Company;
 import com.excilys.computerdatabase.persistence.implementation.CompanyDAOImp;
 import com.excilys.computerdatabase.service.CompanyService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class CompanyServiceImp implements CompanyService {
-
-    private CompanyDAOImp companyDAO;
-
+    @Autowired
+    private CompanyDAOImp companyDAOImp;
 
     public List<Company> getList() {
-        return companyDAO.getList();
+        return companyDAOImp.getList();
     }
 
 
     public Company getCompanyById(long id) {
-        return companyDAO.getCompanyById(id);
+
+
+        return companyDAOImp.getCompanyById(id);
     }
 
     public Company getCompanyByName(String name) {
-        return companyDAO.getCompanyByName(name);
-    }
-
-    public void setCompanyDAO(CompanyDAOImp companyDAO) {
-        this.companyDAO = companyDAO;
+        return companyDAOImp.getCompanyByName(name);
     }
 
 

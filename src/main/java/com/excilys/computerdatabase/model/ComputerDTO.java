@@ -1,7 +1,15 @@
 package com.excilys.computerdatabase.model;
 
+import com.excilys.computerdatabase.persistence.ComputerDAO;
+
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
 public class ComputerDTO {
+    @NotNull
     private long id;
+    @NotNull
+    @Size(min = 2, max = 250)
     private String name;
     private String dateIntroduced;
     private String dateDiscontinued;
@@ -121,10 +129,9 @@ public class ComputerDTO {
 
     /**
      * .
-     * @param name name
      */
-    public ComputerDTO(String name) {
-        this.name = name;
+    private ComputerDTO() {
+
     }
 
     /**
@@ -132,34 +139,26 @@ public class ComputerDTO {
      *
      * @param builder builder
      */
-    private ComputerDTO(Builder builder) {
 
-        this.id = builder.id;
-        this.name = builder.name;
-        this.dateIntroduced = builder.dateIntroduced;
-        this.dateDiscontinued = builder.dateDiscontinued;
-        this.company = builder.company;
-        this.idCompany = builder.idCompany;
-    }
 
     /**
      * Builder.
      */
     public static class Builder {
-        private long id;
-        private String name;
-        private String dateIntroduced;
-        private String dateDiscontinued;
-        private String company;
-        private long idCompany;
+        private ComputerDTO computer = new ComputerDTO();
 
+
+
+        public Builder() {
+        }
         /**
          * .
          *
          * @param name name
          */
-        public Builder(String name) {
-            this.name = name;
+        public Builder name(String name) {
+            computer.name = name;
+            return this;
         }
 
         /**
@@ -168,8 +167,8 @@ public class ComputerDTO {
          * @param id id
          * @return id
          */
-        public Builder id(Long id) {
-            this.id = id;
+        public Builder id(long id) {
+            computer.id = id;
             return this;
         }
 
@@ -180,7 +179,7 @@ public class ComputerDTO {
          * @return dateIntroduced
          */
         public Builder dateIntroduced(String dateIntroduced) {
-            this.dateIntroduced = dateIntroduced;
+            computer.dateIntroduced = dateIntroduced;
             return this;
         }
 
@@ -191,7 +190,7 @@ public class ComputerDTO {
          * @return dateDiscontinued
          */
         public Builder dateDiscontinued(String dateDiscontinued) {
-            this.dateDiscontinued = dateDiscontinued;
+            computer.dateDiscontinued = dateDiscontinued;
             return this;
         }
 
@@ -202,17 +201,18 @@ public class ComputerDTO {
          * @return company
          */
         public Builder company(String company) {
-            this.company = company;
+            computer.company = company;
             return this;
         }
 
         /**
          * builder id company.
+         *
          * @param idCompany id company
          * @return builder
          */
         public Builder idCompany(long idCompany) {
-            this.idCompany = idCompany;
+            computer.idCompany = idCompany;
             return this;
         }
 
@@ -222,7 +222,7 @@ public class ComputerDTO {
          * @return computer
          */
         public ComputerDTO build() {
-            return new ComputerDTO(this);
+            return computer;
         }
 
 
