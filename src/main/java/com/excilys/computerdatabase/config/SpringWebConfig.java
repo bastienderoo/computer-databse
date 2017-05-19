@@ -48,7 +48,6 @@ public class SpringWebConfig extends WebMvcConfigurerAdapter {
           String url = bundle.getString("database.url");
           String user = bundle.getString("database.user");
           String password = bundle.getString("database.password");
-
           MysqlDataSource dataSource = new MysqlDataSource();
           dataSource.setUrl(url);
           dataSource.setUser(user);

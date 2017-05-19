@@ -41,7 +41,7 @@ public class AddComputerController {
 
     @RequestMapping(method = RequestMethod.POST)
     public ModelAndView post(ModelMap model,
-            @RequestParam(value = "computer", defaultValue = "") @Valid final ComputerDTO computerDTO,
+            @RequestParam(value = "computer", defaultValue = "") @Valid ComputerDTO computerDTO,
             BindingResult bindingResult
     ) {
         if (bindingResult.hasErrors()) {

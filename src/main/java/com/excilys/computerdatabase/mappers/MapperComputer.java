@@ -1,26 +1,28 @@
 package com.excilys.computerdatabase.mappers;
 
-import com.excilys.computerdatabase.model.Company;
-import com.excilys.computerdatabase.model.Computer;
-import com.excilys.computerdatabase.model.ComputerDTO;
-import com.excilys.computerdatabase.persistence.implementation.CompanyDAOImp;
-import com.excilys.computerdatabase.service.implementation.CompanyServiceImp;
-import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
+
+import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+import com.excilys.computerdatabase.model.Company;
+import com.excilys.computerdatabase.model.Computer;
+import com.excilys.computerdatabase.model.ComputerDTO;
+import com.excilys.computerdatabase.service.implementation.CompanyServiceImp;
+import com.excilys.computerdatabase.service.implementation.ComputerServiceImp;
 
 @Component
 public class MapperComputer {
 
     static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.S");
 
-
+    private final Logger LOGGER = LoggerFactory.getLogger(MapperComputer.class.getName());
 
     private static CompanyServiceImp companyServiceImp;
 
@@ -71,17 +73,16 @@ public class MapperComputer {
      * @return computer
      */
     public static Computer mapperDTOIntoComputer(ComputerDTO computerDTO) {
-
         LocalDate dateDiscontinued;
         LocalDate dateIntroduced;
         Company company;
         if (!StringUtils.isBlank(computerDTO.getDateDiscontinued())) {
-            dateDiscontinued = LocalDate.parse(computerDTO.getDateDiscontinued(), formatter);
+            dateDiscontinued = LocalDate.parse(computerDTO.getDateDiscontinued(),formatter);
         } else {
             dateDiscontinued = null;
         }
         if (!StringUtils.isBlank(computerDTO.getDateIntroduced())) {
-            dateIntroduced = LocalDate.parse(computerDTO.getDateIntroduced(), formatter);
+            dateIntroduced = LocalDate.parse(computerDTO.getDateIntroduced(),formatter);
         } else {
             dateIntroduced = null;
         }
@@ -98,7 +99,7 @@ public class MapperComputer {
     }
 
     /**
-     * map a list of computers int o a list of dto computers.
+     * map a list of computers into a list of dto computers.
      *
      * @param computer list of computers
      * @return list of dto computers

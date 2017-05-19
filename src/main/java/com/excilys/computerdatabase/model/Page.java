@@ -10,7 +10,7 @@ public class Page {
 
     int numberPage;
     int elementByPage;
-    List<Computer> listElements = new ArrayList();
+    List<Computer> listElements = new ArrayList<>();
 
     public Page(int numberPage, int elementByPage) {
         this.numberPage = numberPage;

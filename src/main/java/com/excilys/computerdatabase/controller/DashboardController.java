@@ -8,7 +8,10 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
+import java.sql.Array;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
@@ -19,16 +22,18 @@ import java.util.Objects;
 @RequestMapping("/Dashboard")
 public class DashboardController {
 
+    int numberElements = 10;
+
     @Autowired
     private ComputerServiceImp computerServiceImp;
 
     @RequestMapping(method = RequestMethod.GET)
-    public String get(
-            ModelMap model,
-            @RequestParam(value = "numberElements", defaultValue = "10") final int numberElements,
+    public String get(ModelMap model, @RequestParam(value = "numberElements", required=false) Integer numberElements,
             @RequestParam(value = "page", defaultValue = "1") int page,
-            @RequestParam(value = "search", defaultValue = "") final String search
-    ) {
+            @RequestParam(value = "search", defaultValue = "") final String search) {
+        if (numberElements != null) {
+            this.numberElements = numberElements;
+        }
         page--;
         List<ComputerDTO> listComputer;
 
@@ -37,28 +42,25 @@ public class DashboardController {
             listComputer = computerServiceImp.getComputerByName(search);
             numberComputers = listComputer.size();
         } else {
-            listComputer = computerServiceImp.getList(page, numberElements);
+            listComputer = computerServiceImp.getList(page, this.numberElements);
             numberComputers = computerServiceImp.getNumberComputer();
         }
 
-        int numberPage = numberComputers / numberElements + 1;
+        int numberPage = numberComputers / this.numberElements + 1;
         model.addAttribute("numberComputers", numberComputers);
         model.addAttribute("computerList", listComputer);
         model.addAttribute("page", page + 1);
-        model.addAttribute("numberElements", numberElements);
+        model.addAttribute("numberElements", this.numberElements);
         model.addAttribute("numberPage", numberPage);
-
 
         return "dashboard";
 
     }
 
-
     @RequestMapping(method = RequestMethod.POST)
-    public String post(
+    public ModelAndView post(
 
-            @RequestParam(value = "selection", defaultValue = "") final String listSelection
-    ) {
+            @RequestParam(value = "selection", defaultValue = "") final String listSelection) {
         String[] idString = listSelection.split(",");
         for (String idS : idString) {
             if (idS != null) {
@@ -67,9 +69,8 @@ public class DashboardController {
                 computerServiceImp.delete(id);
             }
 
-
         }
+        return new ModelAndView("redirect:/Dashboard");
 
-        return "dashboard";
     }
 }

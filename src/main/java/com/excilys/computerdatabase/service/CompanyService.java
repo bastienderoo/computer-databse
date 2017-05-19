@@ -15,16 +15,20 @@ public interface CompanyService {
     /**
      * get a company by its ID.
      *
-     * @param id id
+     * @param id
+     *            id
      * @return company
      */
     Company getCompanyById(long id);
 
     /**
      * get a company by its name.
-     * @param name name
+     * 
+     * @param name
+     *            name
      * @return company
      */
     Company getCompanyByName(String name);
 
+    Company delete(long id);
 }

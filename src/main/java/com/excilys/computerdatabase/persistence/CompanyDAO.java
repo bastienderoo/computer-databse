@@ -16,7 +16,8 @@ public interface CompanyDAO {
     /**
      * get company by id.
      *
-     * @param id id
+     * @param id
+     *            id
      * @return company
      */
     Company getCompanyById(long id);
@@ -24,10 +25,12 @@ public interface CompanyDAO {
     /**
      * get a company by its name.
      *
-     * @param name name
+     * @param name
+     *            name
      * @return company
      */
     Company getCompanyByName(String name);
 
+    Company delete(long id);
 
 }
