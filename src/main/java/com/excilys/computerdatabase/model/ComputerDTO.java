@@ -1,7 +1,5 @@
 package com.excilys.computerdatabase.model;
 
-import com.excilys.computerdatabase.persistence.ComputerDAO;
-
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 

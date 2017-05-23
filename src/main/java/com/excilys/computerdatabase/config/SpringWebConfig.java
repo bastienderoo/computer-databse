@@ -1,35 +1,31 @@
 package com.excilys.computerdatabase.config;
 
-import com.excilys.computerdatabase.persistence.CompanyDAO;
-import com.excilys.computerdatabase.persistence.ComputerDAO;
-import com.excilys.computerdatabase.persistence.implementation.CompanyDAOImp;
-import com.excilys.computerdatabase.persistence.implementation.ComputerDAOImp;
-import com.mysql.jdbc.jdbc2.optional.MysqlDataSource;
 import com.zaxxer.hikari.HikariDataSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
 
-import javax.sql.DataSource;
 import java.util.ResourceBundle;
 
 /**
  * Created by excilys on 17/05/17.
  */
-@EnableWebMvc //<mvc:annotation-driven />
+@EnableTransactionManagement
+@EnableWebMvc
 @Configuration
 @ComponentScan({"com.excilys.computerdatabase"})
 public class SpringWebConfig extends WebMvcConfigurerAdapter {
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/resources/**")
-                .addResourceLocations("/resources/");
+        registry.addResourceHandler("/css/**", "/js/**", "/fonts/**")
+                .addResourceLocations("/css/", "/js/", "/fonts/");
     }
 
     @Bean
@@ -54,11 +50,11 @@ public class SpringWebConfig extends WebMvcConfigurerAdapter {
           dataSource.setPassword(password);
           return dataSource;
       }*/
-    @Bean
+    @Bean(name = "dataSource")
     public HikariDataSource dataSource() {
         ResourceBundle bundle = ResourceBundle.getBundle("config");
         final HikariDataSource ds = new HikariDataSource();
-        ds.setMaximumPoolSize(100);
+        ds.setMaximumPoolSize(10);
         ds.setDriverClassName("org.mariadb.jdbc.Driver");
         ds.setJdbcUrl(bundle.getString("database.url"));
         ds.setUsername(bundle.getString("database.user"));
@@ -68,14 +64,5 @@ public class SpringWebConfig extends WebMvcConfigurerAdapter {
 
     }
 
-    @Bean
-    public ComputerDAO getComputerDAO() {
-        return new ComputerDAOImp(dataSource());
-    }
-
-    @Bean
-    public CompanyDAO getCompanyDAO() {
-        return new CompanyDAOImp(dataSource());
-    }
 
 }

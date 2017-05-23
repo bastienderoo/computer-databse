@@ -1,22 +1,34 @@
 package com.excilys.computerdatabase.model;
 
+import javax.persistence.*;
 import java.time.LocalDate;
 
+@Entity
+@Table(name = "computer")
 public class Computer {
 
     /**
      * .
      */
+    @Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @Column(name = "id")
     private long id;
+    @Column(name = "name")
     private String name;
+    @Column(name = "introduced")
     private LocalDate dateIntroduced;
+    @Column(name = "discontinued")
     private LocalDate dateDiscontinued;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "company_id")
     private Company company;
 
     /**
      * .
      *
-     * @param name name
+     * @param name
+     *            name
      */
     public Computer(String name) {
         this.name = name;
@@ -25,8 +37,16 @@ public class Computer {
     /**
      * .
      */
-    private Computer() {
+    public Computer() {
 
+    }
+
+    private Computer(long id, String name, LocalDate dateIntroduced, LocalDate dateDiscontinued, Company company) {
+        this.id = id;
+        this.name = name;
+        this.dateIntroduced = dateIntroduced;
+        this.dateDiscontinued = dateDiscontinued;
+        this.company = company;
     }
 
     public long getId() {
@@ -73,7 +93,8 @@ public class Computer {
     /**
      * .
      *
-     * @param company company
+     * @param company
+     *            company
      */
     public void setcompany(Company company) {
         this.company = company;
@@ -90,7 +111,8 @@ public class Computer {
         /**
          * .
          *
-         * @param name name
+         * @param name
+         *            name
          */
         public Builder(String name) {
             computer.name = name;
@@ -99,7 +121,8 @@ public class Computer {
         /**
          * .
          *
-         * @param id id
+         * @param id
+         *            id
          * @return id
          */
         public Builder id(Long id) {
@@ -110,7 +133,8 @@ public class Computer {
         /**
          * .
          *
-         * @param dateIntroduced dateIntroduced
+         * @param dateIntroduced
+         *            dateIntroduced
          * @return dateIntroduced
          */
         public Builder dateIntroduced(LocalDate dateIntroduced) {
@@ -121,7 +145,8 @@ public class Computer {
         /**
          * .
          *
-         * @param dateDiscontinued dateDiscontinued
+         * @param dateDiscontinued
+         *            dateDiscontinued
          * @return dateDiscontinued
          */
         public Builder dateDiscontinued(LocalDate dateDiscontinued) {
@@ -132,7 +157,8 @@ public class Computer {
         /**
          * .
          *
-         * @param company company
+         * @param company
+         *            company
          * @return company
          */
         public Builder company(Company company) {
@@ -214,6 +240,5 @@ public class Computer {
         return "Computer [id=" + id + ", name=" + name + ", dateIntroduced=" + dateIntroduced + ", dateDiscontinued="
                 + dateDiscontinued + ", company=" + company + "]";
     }
-
 
 }

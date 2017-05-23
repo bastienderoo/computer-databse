@@ -1,10 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <!DOCTYPE html>
 <html>
 <head>
-<title>Computer Database</title>
+<title><spring:message code="homeTitle"/></title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta charset="utf-8">
 <!-- Bootstrap -->
@@ -13,6 +15,7 @@
 <link href="<c:url value="css/main.css"/>" rel="stylesheet" media="screen">
 </head>
 <body>
+<a href="?mylocale=en">English </a> | <a href="?mylocale=fr">Français </a>
 	<header class="navbar navbar-inverse navbar-fixed-top">
 		<div class="container">
 			<a class="navbar-brand" href="Dashboard"> Application -
@@ -22,7 +25,7 @@
 
 	<section id="main">
 		<div class="container">
-			<h1 id="homeTitle">${numberComputers} Computers found</h1>
+			<h1 id="homeTitle">${numberComputers} <spring:message code="computer.found"/></h1>
 			<div id="actions" class="form-horizontal">
 				<div class="pull-left">
 					<form id="searchForm" action="#" method="GET" class="form-inline">
@@ -43,7 +46,7 @@
 
 		<form id="deleteForm" action="#" method="POST">
 			<input type="hidden" name="selection" value="">
-		</form>
+		</form>		
 
 		<div class="container" style="margin-top: 10px;">
 			<table class="table table-striped table-bordered">
@@ -59,12 +62,12 @@
 									class="fa fa-trash-o fa-lg"></i>
 							</a>
 						</span></th>
-						<th>Computer name</th>
-						<th>Introduced date</th>
+						<th><spring:message code="computer.Name"/></th>
+						<th><spring:message code="computer.introduced"/></th>
 						<!-- Table header for Discontinued Date -->
-						<th>Discontinued date</th>
+						<th><spring:message code="computer.discontinued"/></th>
 						<!-- Table header for Company -->
-						<th>Company</th>
+						<th><spring:message code="computer.company"/></th>
 
 					</tr>
 				</thead>
@@ -142,9 +145,9 @@
 			</div>
 		</div>
 	</footer>
-	<script src="<c:url value="../js/jquery.min.js"/>"></script>
-	<script src="<c:url value="../js/bootstrap.min.js"/>"></script>
-	<script src="<c:url value="../js/dashboard.js"/>"></script>
+	<script src="<c:url value="js/jquery.min.js"/>"></script>
+	<script src="<c:url value="js/bootstrap.min.js"/>"></script>
+	<script src="<c:url value="js/dashboard.js"/>"></script>
 
 </body>
 </html>

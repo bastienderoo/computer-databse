@@ -1,6 +1,7 @@
 package com.excilys.computerdatabase.controller;
 
 import com.excilys.computerdatabase.model.ComputerDTO;
+import com.excilys.computerdatabase.service.ComputerService;
 import com.excilys.computerdatabase.service.implementation.ComputerServiceImp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,9 +11,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.sql.Array;
-import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
 import java.util.Objects;
 
 /**
@@ -23,18 +23,27 @@ import java.util.Objects;
 public class DashboardController {
 
     int numberElements = 10;
-
+    int page = 1;
     @Autowired
-    private ComputerServiceImp computerServiceImp;
+    private ComputerService computerServiceImp;
 
     @RequestMapping(method = RequestMethod.GET)
-    public String get(ModelMap model, @RequestParam(value = "numberElements", required=false) Integer numberElements,
-            @RequestParam(value = "page", defaultValue = "1") int page,
-            @RequestParam(value = "search", defaultValue = "") final String search) {
+    public ModelAndView get(ModelMap model, @RequestParam(value = "numberElements", required = false) Integer numberElements,
+            @RequestParam(value = "page", required = false) Integer page,
+            @RequestParam(value = "search", defaultValue = "") final String search,
+            @RequestParam(value = "mylocale", defaultValue = "en") String language,
+            Locale locale) {
         if (numberElements != null) {
             this.numberElements = numberElements;
+            this.page = 0;
+            
+        } else {
+            if (page!=null) {
+                this.page = page-1;
+            }
         }
-        page--;
+
+        
         List<ComputerDTO> listComputer;
 
         int numberComputers;
@@ -42,24 +51,23 @@ public class DashboardController {
             listComputer = computerServiceImp.getComputerByName(search);
             numberComputers = listComputer.size();
         } else {
-            listComputer = computerServiceImp.getList(page, this.numberElements);
+            listComputer = computerServiceImp.getList(this.page, this.numberElements);
             numberComputers = computerServiceImp.getNumberComputer();
         }
 
         int numberPage = numberComputers / this.numberElements + 1;
         model.addAttribute("numberComputers", numberComputers);
         model.addAttribute("computerList", listComputer);
-        model.addAttribute("page", page + 1);
+        model.addAttribute("page", this.page + 1);
         model.addAttribute("numberElements", this.numberElements);
         model.addAttribute("numberPage", numberPage);
 
-        return "dashboard";
+        return new ModelAndView("dashboard");
 
     }
 
     @RequestMapping(method = RequestMethod.POST)
     public ModelAndView post(
-
             @RequestParam(value = "selection", defaultValue = "") final String listSelection) {
         String[] idString = listSelection.split(",");
         for (String idS : idString) {
@@ -70,7 +78,9 @@ public class DashboardController {
             }
 
         }
+
         return new ModelAndView("redirect:/Dashboard");
 
     }
+
 }

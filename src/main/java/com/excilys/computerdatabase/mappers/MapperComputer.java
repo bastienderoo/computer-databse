@@ -1,21 +1,19 @@
 package com.excilys.computerdatabase.mappers;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.List;
-
+import com.excilys.computerdatabase.model.Company;
+import com.excilys.computerdatabase.model.Computer;
+import com.excilys.computerdatabase.model.ComputerDTO;
+import com.excilys.computerdatabase.service.CompanyService;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.excilys.computerdatabase.model.Company;
-import com.excilys.computerdatabase.model.Computer;
-import com.excilys.computerdatabase.model.ComputerDTO;
-import com.excilys.computerdatabase.service.implementation.CompanyServiceImp;
-import com.excilys.computerdatabase.service.implementation.ComputerServiceImp;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
 
 @Component
 public class MapperComputer {
@@ -24,10 +22,10 @@ public class MapperComputer {
 
     private final Logger LOGGER = LoggerFactory.getLogger(MapperComputer.class.getName());
 
-    private static CompanyServiceImp companyServiceImp;
+    private static CompanyService companyServiceImp;
 
     @Autowired
-    public void setCompanyDAOImp(CompanyServiceImp companyServiceImp) {
+    public void setCompanyDAOImp(CompanyService companyServiceImp) {
         MapperComputer.companyServiceImp = companyServiceImp;
     }
 

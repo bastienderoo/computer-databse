@@ -2,6 +2,7 @@ package com.excilys.computerdatabase.mappers;
 
 import com.excilys.computerdatabase.model.Company;
 import com.excilys.computerdatabase.model.Computer;
+import com.excilys.computerdatabase.persistence.CompanyDAO;
 import com.excilys.computerdatabase.persistence.implementation.CompanyDAOImp;
 import com.excilys.computerdatabase.util.MapperException;
 import org.apache.commons.lang3.StringUtils;
@@ -26,10 +27,10 @@ public class MapperResultset {
     private static final Logger LOGGER = LoggerFactory.getLogger(CompanyDAOImp.class.getName());
     private static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.S");
 
-    private static CompanyDAOImp companyDAOImp;
+    private static CompanyDAO companyDAOImp;
 
     @Autowired
-    public void setCompanyDAOImp(CompanyDAOImp companyDAOImp) {
+    public void setCompanyDAOImp(CompanyDAO companyDAOImp) {
         MapperResultset.companyDAOImp = companyDAOImp;
     }
 

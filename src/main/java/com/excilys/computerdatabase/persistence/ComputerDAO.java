@@ -4,6 +4,7 @@ import com.excilys.computerdatabase.model.Computer;
 
 import java.util.List;
 
+
 public interface ComputerDAO {
 
     /**

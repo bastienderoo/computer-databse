@@ -5,16 +5,20 @@ import com.excilys.computerdatabase.model.Company;
 import com.excilys.computerdatabase.model.Computer;
 import com.excilys.computerdatabase.model.ComputerDTO;
 import com.excilys.computerdatabase.persistence.implementation.CompanyDAOImp;
+import com.excilys.computerdatabase.service.CompanyService;
+import com.excilys.computerdatabase.service.ComputerService;
 import com.excilys.computerdatabase.service.implementation.CompanyServiceImp;
 import com.excilys.computerdatabase.service.implementation.ComputerServiceImp;
-
 import org.apache.logging.log4j.util.Strings;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
@@ -26,9 +30,9 @@ import java.util.List;
 @RequestMapping("/editComputer")
 public class EditComputerController {
     @Autowired
-    ComputerServiceImp computerServiceImp;
+    ComputerService computerServiceImp;
     @Autowired
-    CompanyServiceImp companyServiceImp;
+    CompanyService companyServiceImp;
     
     private static final Logger LOGGER = LoggerFactory.getLogger(CompanyDAOImp.class.getName());
 
@@ -61,7 +65,7 @@ public class EditComputerController {
 
 
             ) {
-        LOGGER.info(EditComputerController.class+" in post edit");
+        
         ComputerDTO computerDTO = new ComputerDTO.Builder()
                 .name(computerName)
                 .id(id)
