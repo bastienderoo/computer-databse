@@ -7,8 +7,6 @@ import com.excilys.computerdatabase.model.ComputerDTO;
 import com.excilys.computerdatabase.persistence.implementation.CompanyDAOImp;
 import com.excilys.computerdatabase.service.CompanyService;
 import com.excilys.computerdatabase.service.ComputerService;
-import com.excilys.computerdatabase.service.implementation.CompanyServiceImp;
-import com.excilys.computerdatabase.service.implementation.ComputerServiceImp;
 import org.apache.logging.log4j.util.Strings;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

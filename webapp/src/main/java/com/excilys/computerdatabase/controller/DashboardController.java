@@ -2,7 +2,6 @@ package com.excilys.computerdatabase.controller;
 
 import com.excilys.computerdatabase.model.ComputerDTO;
 import com.excilys.computerdatabase.service.ComputerService;
-import com.excilys.computerdatabase.service.implementation.ComputerServiceImp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
