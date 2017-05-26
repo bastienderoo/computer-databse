@@ -12,8 +12,8 @@
 <body>
 	<header class="navbar navbar-inverse navbar-fixed-top">
 		<div class="container">
-			<a class="navbar-brand" href="Dashboard"> Application -
-				Computer Database </a>
+			<a class="navbar-brand" href="Dashboard"> Application - Computer
+				Database </a>
 		</div>
 	</header>
 
@@ -24,6 +24,8 @@
 					<h1>Add Computer</h1>
 					<form action="addComputer" method="POST">
 						<fieldset>
+							<input type="hidden" name="${_csrf.parameterName}"
+								value="${_csrf.token}" />
 							<div class="form-group">
 								<label for="computerName">Computer name</label> <input
 									type="text" class="form-control" name="computerName"
@@ -51,8 +53,8 @@
 							</div>
 						</fieldset>
 						<div class="actions pull-right">
-							<input  type="submit" value="Add" class="btn btn-primary" />
-							or <a href="Dashboard" class="btn btn-default">Cancel</a>
+							<input type="submit" value="Add" class="btn btn-primary" /> or <a
+								href="Dashboard" class="btn btn-default">Cancel</a>
 						</div>
 					</form>
 				</div>

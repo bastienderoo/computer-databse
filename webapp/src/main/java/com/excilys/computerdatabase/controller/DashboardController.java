@@ -18,7 +18,7 @@ import java.util.Objects;
  * Created by excilys on 17/05/17.
  */
 @Controller
-@RequestMapping("/Dashboard")
+@RequestMapping({"/","/Dashboard"})
 public class DashboardController {
 
     int numberElements = 10;

@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.security.Principal;
 import java.util.List;
 
 /**
@@ -38,6 +39,7 @@ public class AddComputerController {
         model.addAttribute("companyId", listCompany);
         return "addComputer";
     }
+
 
     @RequestMapping(method = RequestMethod.POST)
     public ModelAndView post(ModelMap model, @RequestParam(value = "companyId", defaultValue = "") final long idCompany,

@@ -13,7 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class ConnectionController {
-    @RequestMapping(value = { "/", "/welcome**" }, method = RequestMethod.GET)
+    @RequestMapping(value = { "/welcome**" }, method = RequestMethod.GET)
     public ModelAndView welcomePage() {
 
         ModelAndView model = new ModelAndView();
@@ -35,18 +35,5 @@ public class ConnectionController {
         return model;
 
     }
-
-    @RequestMapping(value = "/dba**", method = RequestMethod.GET)
-    public ModelAndView dbaPage() {
-
-        ModelAndView model = new ModelAndView();
-        model.addObject("title", "Spring Security Hello World");
-        model.addObject("message", "This is protected page - Database Page!");
-        model.setViewName("admin");
-
-        return model;
-
-    }
-
 }
 

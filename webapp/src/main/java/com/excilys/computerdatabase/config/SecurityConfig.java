@@ -18,16 +18,19 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
         auth.inMemoryAuthentication().withUser("Baba").password("Baba").roles("USER");
         auth.inMemoryAuthentication().withUser("JL").password("Croissants").roles("ADMIN");
-        auth.inMemoryAuthentication().withUser("dba").password("test").roles("DBA");
+       
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
         http.authorizeRequests()
-                .antMatchers("/admin/**").access("hasRole('ROLE_ADMIN')")
-                .antMatchers("/dba/**").access("hasRole('ROLE_ADMIN') or hasRole('ROLE_DBA')")
-                .and().formLogin();
-
+                .antMatchers("/Dashboard").access("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
+                .antMatchers("/").access("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
+                .antMatchers("/addComputer").access("hasRole('ROLE_ADMIN')")
+                .antMatchers("/editComputer").access("hasRole('ROLE_ADMIN')")
+                .and().formLogin()
+                .and()
+                .exceptionHandling().accessDeniedPage("/403");
     }
 }

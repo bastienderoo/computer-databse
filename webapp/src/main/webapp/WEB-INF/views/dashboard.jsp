@@ -3,6 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@page session="false"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -16,6 +17,7 @@
 </head>
 <body>
 <a href="?mylocale=en">English </a> | <a href="?mylocale=fr">Français </a>
+<a class="btn btn-success" id="login" href="login">Login</a>
 	<header class="navbar navbar-inverse navbar-fixed-top">
 		<div class="container">
 			<a class="navbar-brand" href="Dashboard"> Application -
