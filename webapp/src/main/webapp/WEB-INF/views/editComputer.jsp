@@ -29,6 +29,8 @@
                     <input type="hidden" value="${computerId}" name="id" id="id"/>
 
                     <fieldset>
+                    <input type="hidden" name="${_csrf.parameterName}"
+								value="${_csrf.token}" />
                         <div class="form-group">
                             <label for="computerName">Computer name</label> <input
                                 type="text" class="form-control" name="computerName" id="computerName"

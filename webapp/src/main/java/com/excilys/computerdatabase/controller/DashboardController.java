@@ -1,24 +1,26 @@
 package com.excilys.computerdatabase.controller;
 
-import com.excilys.computerdatabase.model.ComputerDTO;
-import com.excilys.computerdatabase.service.ComputerService;
+import java.util.List;
+import java.util.Locale;
+import java.util.Objects;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.util.List;
-import java.util.Locale;
-import java.util.Objects;
+import com.excilys.computerdatabase.model.ComputerDTO;
+import com.excilys.computerdatabase.service.ComputerService;
 
 /**
  * Created by excilys on 17/05/17.
  */
 @Controller
-@RequestMapping({"/","/Dashboard"})
+@RequestMapping("/Dashboard")
 public class DashboardController {
 
     int numberElements = 10;
@@ -65,7 +67,7 @@ public class DashboardController {
 
     }
 
-    @RequestMapping(method = RequestMethod.POST)
+    @PostMapping("/delete")
     public ModelAndView post(
             @RequestParam(value = "selection", defaultValue = "") final String listSelection) {
         String[] idString = listSelection.split(",");

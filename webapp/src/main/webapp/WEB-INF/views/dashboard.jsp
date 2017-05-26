@@ -7,27 +7,34 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title><spring:message code="homeTitle"/></title>
+<title><spring:message code="homeTitle" /></title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta charset="utf-8">
 <!-- Bootstrap -->
-<link href="<c:url value="css/bootstrap.min.css"/>" rel="stylesheet" media="screen">
-<link href="<c:url value="css/font-awesome.css"/>" rel="stylesheet" media="screen">
-<link href="<c:url value="css/main.css"/>" rel="stylesheet" media="screen">
+<link href="<c:url value="css/bootstrap.min.css"/>" rel="stylesheet"
+	media="screen">
+<link href="<c:url value="css/font-awesome.css"/>" rel="stylesheet"
+	media="screen">
+<link href="<c:url value="css/main.css"/>" rel="stylesheet"
+	media="screen">
 </head>
 <body>
-<a href="?mylocale=en">English </a> | <a href="?mylocale=fr">Français </a>
-<a class="btn btn-success" id="login" href="login">Login</a>
+
+	<a href="?mylocale=en">English </a> |
+	<a href="?mylocale=fr">Français </a>
+	<a class="btn btn-success" id="login" href="login">Login</a>
 	<header class="navbar navbar-inverse navbar-fixed-top">
 		<div class="container">
-			<a class="navbar-brand" href="Dashboard"> Application -
-				Computer Database </a>
+			<a class="navbar-brand" href="Dashboard"> Application - Computer
+				Database </a>
 		</div>
 	</header>
 
 	<section id="main">
 		<div class="container">
-			<h1 id="homeTitle">${numberComputers} <spring:message code="computer.found"/></h1>
+			<h1 id="homeTitle">${numberComputers}
+				<spring:message code="computer.found" />
+			</h1>
 			<div id="actions" class="form-horizontal">
 				<div class="pull-left">
 					<form id="searchForm" action="#" method="GET" class="form-inline">
@@ -38,6 +45,7 @@
 							class="btn btn-primary" />
 					</form>
 				</div>
+
 				<div class="pull-right">
 					<a class="btn btn-success" id="addComputer" href="addComputer">Add
 						Computer</a> <a class="btn btn-default" id="editComputer" href="#"
@@ -46,9 +54,11 @@
 			</div>
 		</div>
 
-		<form id="deleteForm" action="#" method="POST">
-			<input type="hidden" name="selection" value="">
-		</form>		
+		<form id="deleteForm" action="Dashboard/delete" method="POST">
+
+			<input type="hidden" name="selection" value="" /> <input
+				type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+		</form>
 
 		<div class="container" style="margin-top: 10px;">
 			<table class="table table-striped table-bordered">
@@ -64,12 +74,12 @@
 									class="fa fa-trash-o fa-lg"></i>
 							</a>
 						</span></th>
-						<th><spring:message code="computer.Name"/></th>
-						<th><spring:message code="computer.introduced"/></th>
+						<th><spring:message code="computer.Name" /></th>
+						<th><spring:message code="computer.introduced" /></th>
 						<!-- Table header for Discontinued Date -->
-						<th><spring:message code="computer.discontinued"/></th>
+						<th><spring:message code="computer.discontinued" /></th>
 						<!-- Table header for Company -->
-						<th><spring:message code="computer.company"/></th>
+						<th><spring:message code="computer.company" /></th>
 
 					</tr>
 				</thead>
@@ -81,8 +91,8 @@
 
 							<td class="editMode"><input type="checkbox" name="cb"
 								class="cb" value="${computer.id}"></td>
-							<td><a id="id" href="editComputer?id=${computer.id}" onclick=""><c:out
-										value="${computer.name}"></c:out></a></td>
+							<td><a id="id" href="editComputer?id=${computer.id}"
+								onclick=""><c:out value="${computer.name}"></c:out></a></td>
 							<td>${computer.dateIntroduced}</td>
 							<td>${computer.dateDiscontinued}</td>
 							<td>${computer.company}</td>

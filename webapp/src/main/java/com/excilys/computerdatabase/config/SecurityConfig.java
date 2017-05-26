@@ -26,7 +26,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         http.authorizeRequests()
                 .antMatchers("/Dashboard").access("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
-                .antMatchers("/").access("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
+                .antMatchers("/Dashboard/delete").access("hasRole('ROLE_ADMIN')")         
                 .antMatchers("/addComputer").access("hasRole('ROLE_ADMIN')")
                 .antMatchers("/editComputer").access("hasRole('ROLE_ADMIN')")
                 .and().formLogin()
