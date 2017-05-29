@@ -1,12 +1,17 @@
 package com.excilys.computerdatabase.model;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
 @Table(name = "company")
 public class Company {
     @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private long id;
     @Column(name = "name")
@@ -38,7 +43,8 @@ public class Company {
         /**
          * Builder.
          *
-         * @param name name
+         * @param name
+         *            name
          */
         public Builder(String name) {
             company.name = name;
@@ -47,7 +53,8 @@ public class Company {
         /**
          * .
          *
-         * @param id id
+         * @param id
+         *            id
          * @return id
          */
         public Builder id(long id) {

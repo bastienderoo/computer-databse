@@ -1,17 +1,18 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Computer Database</title>
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<!-- Bootstrap -->
-	<link href="../css/bootstrap.min.css" rel="stylesheet" media="screen">
-	<link href="../css/font-awesome.css" rel="stylesheet" media="screen">
-	<link href="../css/main.css" rel="stylesheet" media="screen">
+<title>Computer Database</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- Bootstrap -->
+<link href="../css/bootstrap.min.css" rel="stylesheet" media="screen">
+<link href="../css/font-awesome.css" rel="stylesheet" media="screen">
+<link href="../css/main.css" rel="stylesheet" media="screen">
 </head>
 <body>
 	<header class="navbar navbar-inverse navbar-fixed-top">
 		<div class="container">
-			<a class="navbar-brand" href="/webapp/Dashboard"> Application - Computer Database </a>
+			<a class="navbar-brand" href="/webapp/Dashboard"> Application -
+				Computer Database </a>
 			<div class="pull-right" style="margin-top: 10px;">
 				<form id="logout" action="logout" method="POST">
 
@@ -25,9 +26,8 @@
 	<section id="main">
 		<div class="container">
 			<div class="alert alert-danger">
-				Error 403: Access denied! Connect as Admin !!!
-				<br/>
-				
+				Error 404: Page not found. Too bad bitch! C'est vulgaire.... <br />
+				<!-- stacktrace -->
 			</div>
 		</div>
 	</section>

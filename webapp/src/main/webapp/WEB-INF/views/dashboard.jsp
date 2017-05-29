@@ -19,15 +19,33 @@
 	media="screen">
 </head>
 <body>
+	<div class="container">
+		<div class="pull-right">
+			<a href="?mylocale=en"> <img src="images/USA.gif" width="60"
+				height="40" />
+			</a> <a href="?mylocale=fr"> <img src="images/France.gif" width="60"
+				height="40" />
+			</a>
 
-	<a href="?mylocale=en">English </a> |
-	<a href="?mylocale=fr">Français </a>
-	<a class="btn btn-success" id="login" href="login">Login</a>
+		</div>
+	</div>
+
+
+
 	<header class="navbar navbar-inverse navbar-fixed-top">
 		<div class="container">
-			<a class="navbar-brand" href="Dashboard"> Application - Computer
-				Database </a>
+			<a class="navbar-brand" href="/webapp/Dashboard"> Application -
+				Computer Database </a>
+			<div class="pull-right" style="margin-top: 10px;">
+				<form id="logout" action="logout" method="POST">
+
+					<input type="submit" name="logout" value="<spring:message code="logout" />" /> <input
+						type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+				</form>
+			</div>
 		</div>
+
+
 	</header>
 
 	<section id="main">
@@ -40,16 +58,19 @@
 					<form id="searchForm" action="#" method="GET" class="form-inline">
 
 						<input type="search" id="search" name="search"
-							class="form-control" placeholder="Search name" /> <input
-							type="submit" id="searchsubmit" value="Filter by name"
+							class="form-control" placeholder="<spring:message
+							code="search" />" /> <input
+							type="submit" id="searchsubmit" value="<spring:message
+							code="filter" />"
 							class="btn btn-primary" />
 					</form>
 				</div>
 
 				<div class="pull-right">
-					<a class="btn btn-success" id="addComputer" href="addComputer">Add
-						Computer</a> <a class="btn btn-default" id="editComputer" href="#"
-						onclick="$.fn.toggleEditMode();">Edit</a>
+					<a class="btn btn-success" id="addComputer" href="addComputer"><spring:message
+							code="addComputer" /></a> <a class="btn btn-default"
+						id="editComputer" href="#" onclick="$.fn.toggleEditMode();"><spring:message
+							code="edit" /></a>
 				</div>
 			</div>
 		</div>

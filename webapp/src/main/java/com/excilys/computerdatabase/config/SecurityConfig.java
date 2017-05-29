@@ -1,11 +1,16 @@
 package com.excilys.computerdatabase.config;
 
+import javax.sql.DataSource;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 /**
  * Created by excilys on 24/05/17.
@@ -15,22 +20,30 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
-    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-        auth.inMemoryAuthentication().withUser("Baba").password("Baba").roles("USER");
-        auth.inMemoryAuthentication().withUser("JL").password("Croissants").roles("ADMIN");
-       
+    DataSource dataSource;
+
+    @Autowired
+    public void configAuthentication(AuthenticationManagerBuilder auth, PasswordEncoder passEncoder) throws Exception {
+        auth.jdbcAuthentication().dataSource(dataSource)
+                .usersByUsernameQuery("SELECT username,password,enabled FROM users WHERE username=?")
+                .authoritiesByUsernameQuery("SELECT username, userRoles FROM users WHERE username=?")
+                .passwordEncoder(passEncoder);
+    }
+
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
         http.authorizeRequests()
-                .antMatchers("/Dashboard").access("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
-                .antMatchers("/Dashboard/delete").access("hasRole('ROLE_ADMIN')")         
-                .antMatchers("/addComputer").access("hasRole('ROLE_ADMIN')")
-                .antMatchers("/editComputer").access("hasRole('ROLE_ADMIN')")
-                .and().formLogin()
-                .and()
-                .exceptionHandling().accessDeniedPage("/403");
+     //   .antMatchers("/Dashboard").hasAnyRole("ADMIN", "USER")
+        .antMatchers("/Dashboard/delete")
+                .hasAnyRole("ADMIN").antMatchers("/addComputer").hasAnyRole("ADMIN").antMatchers("/editComputer")
+                .hasAnyRole("ADMIN").and().formLogin().defaultSuccessUrl("/Dashboard").and().exceptionHandling()
+                .accessDeniedPage("/403");
+
     }
 }

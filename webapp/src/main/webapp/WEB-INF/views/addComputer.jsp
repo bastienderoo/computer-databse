@@ -12,8 +12,16 @@
 <body>
 	<header class="navbar navbar-inverse navbar-fixed-top">
 		<div class="container">
-			<a class="navbar-brand" href="Dashboard"> Application - Computer
-				Database </a>
+			<a class="navbar-brand" href="/webapp/Dashboard"> Application -
+				Computer Database </a>
+
+			<div class="pull-right" style="margin-top: 10px;">
+				<form id="logout" action="logout" method="POST">
+
+					<input type="submit" name="logout" value="logout" /> <input
+						type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+				</form>
+			</div>
 		</div>
 	</header>
 

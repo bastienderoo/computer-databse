@@ -6,6 +6,8 @@ import com.excilys.computerdatabase.model.ComputerDTO;
 import com.excilys.computerdatabase.persistence.ComputerDAO;
 import com.excilys.computerdatabase.service.ComputerService;
 import com.excilys.computerdatabase.util.ServiceException;
+
+import org.apache.logging.log4j.util.Strings;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,9 +21,7 @@ public class ComputerServiceImp implements ComputerService {
     @Autowired
     private ComputerDAO computerDAO;
 
-
     private final Logger LOGGER = LoggerFactory.getLogger(ComputerServiceImp.class.getName());
-
 
     public Computer delete(long id) {
         return computerDAO.delete(id);
@@ -42,7 +42,12 @@ public class ComputerServiceImp implements ComputerService {
                 throw new ServiceException();
             }
         } else {
-            return computerDAO.add(computer);
+            if (Strings.isNotEmpty(computer.getName())) {
+                return computerDAO.add(computer);
+            } else {
+                LOGGER.info("Name must be filled");
+                throw new ServiceException();
+            }
         }
     }
 
@@ -55,7 +60,12 @@ public class ComputerServiceImp implements ComputerService {
                 throw new ServiceException();
             }
         } else {
-            return computerDAO.update(computer);
+            if (Strings.isNotEmpty(computer.getName())) {
+                return computerDAO.update(computer);
+            } else {
+                LOGGER.info("Name must be filled");
+                throw new ServiceException();
+            }
         }
 
     }
@@ -74,6 +84,5 @@ public class ComputerServiceImp implements ComputerService {
     public int getNumberComputer() {
         return computerDAO.numberComputer();
     }
-
 
 }

@@ -27,7 +27,7 @@ import java.util.function.Supplier;
 public class ComputerDAOImp implements ComputerDAO {
 
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.S");
-    private static final Logger LOGGER = LoggerFactory.getLogger(CompanyDAOImp.class.getName());
+    private static final Logger LOGGER = LoggerFactory.getLogger(CompanyDAOImp.class);
 
     QComputer qComputer = QComputer.computer;
     QCompany qCompany = QCompany.company;
@@ -55,7 +55,6 @@ public class ComputerDAOImp implements ComputerDAO {
         LOGGER.info("Computer.getList is running");
         List<Computer> computersResult = queryFactory.get().select(qComputer).from(qComputer).leftJoin(qCompany)
                 .on(qCompany.id.eq(qComputer.company.id)).limit(nbrElements).offset(nbrElements * page).fetch();
-        LOGGER.info(computersResult.toString());
         return computersResult;
 
     }
@@ -69,7 +68,7 @@ public class ComputerDAOImp implements ComputerDAO {
 
     @Override
     public Computer update(Computer computer) {
-        LOGGER.info("Computer.update is running" + computer.getDateDiscontinued());
+        LOGGER.info("Computer.update is running");
         queryFactory.get().update(qComputer).where(qComputer.id.eq(computer.getId()))
                 .set(qComputer.name, computer.getName()).set(qComputer.dateIntroduced, computer.getDateIntroduced())
                 .set(qComputer.dateDiscontinued, computer.getDateDiscontinued())
@@ -90,7 +89,7 @@ public class ComputerDAOImp implements ComputerDAO {
     public List<Computer> getComputerByName(String name) {
         LOGGER.info("Computer.getComputerByName is running");
         List<Computer> computersResult = queryFactory.get().select(qComputer).from(qComputer).leftJoin(qCompany)
-                .on(qCompany.id.eq(qComputer.company.id)).where(qComputer.name.like(name + "%")).fetch();
+                .on(qCompany.id.eq(qComputer.company.id)).where(qComputer.name.like("%" + name + "%")).fetch();
         return computersResult;
     }
 
