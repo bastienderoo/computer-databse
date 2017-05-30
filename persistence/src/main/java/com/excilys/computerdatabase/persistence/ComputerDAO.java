@@ -1,8 +1,7 @@
 package com.excilys.computerdatabase.persistence;
 
 import com.excilys.computerdatabase.model.Computer;
-
-import java.util.List;
+import com.excilys.computerdatabase.model.Page;
 
 
 public interface ComputerDAO {
@@ -23,7 +22,7 @@ public interface ComputerDAO {
      * @return List of Computers
      */
 
-    List<Computer> getList(int page, int nbrElements);
+    Page<Computer> getList(int page, int nbrElements);
 
     /**
      * add a computer.
@@ -55,7 +54,7 @@ public interface ComputerDAO {
      * @param name name
      * @return computer
      */
-    List<Computer> getComputerByName(String name);
+    Page<Computer> getComputerByName(String name);
 
     int numberComputer();
 }

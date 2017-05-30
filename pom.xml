@@ -33,6 +33,7 @@
 		<module>core</module>
 		<module>service</module>
 		<module>webapp</module>
+		<module>cli</module>
 	</modules>
 	<build>
 		<!-- To define the plugin version in your parent POM -->
@@ -204,6 +205,12 @@
 				<artifactId>spring-webmvc</artifactId>
 				<version>${version.spring}</version>
 			</dependency>
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-test</artifactId>
+				<version>${version.spring}</version>
+				<scope>test</scope>
+			</dependency>
 			<!-- Validator -->
 			<dependency>
 				<groupId>javax.validation</groupId>
@@ -268,9 +275,19 @@
 				<artifactId>spring-security-config</artifactId>
 				<version>${version.SpringSecurity}</version>
 			</dependency>
+			<dependency>
+				<groupId>org.springframework.security</groupId>
+				<artifactId>spring-security-taglibs</artifactId>
+				<version>${version.SpringSecurity}</version>
+			</dependency>
 		</dependencies>
 	</dependencyManagement>
-
+	<dependencies>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-test</artifactId>
+		</dependency>
+	</dependencies>
 	<reporting>
 		<plugins>
 			<plugin>

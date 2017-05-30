@@ -20,13 +20,15 @@ public class UserDAOImp implements UserDAO {
     private static final Logger LOGGER = LoggerFactory.getLogger(UserDAOImp.class.getName());
 
     QUser qUser = QUser.user;
+    
+    private SessionFactory sessionFactory;
 
     @Autowired
     public void setSessionFactory(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
     }
 
-    private SessionFactory sessionFactory;
+    
 
     private Supplier<HibernateQueryFactory> queryFactory = () -> new HibernateQueryFactory(
             sessionFactory.getCurrentSession());

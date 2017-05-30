@@ -1,8 +1,7 @@
 package com.excilys.computerdatabase.service;
 
 import com.excilys.computerdatabase.model.Company;
-
-import java.util.List;
+import com.excilys.computerdatabase.model.Page;
 
 public interface CompanyService {
     /**
@@ -10,7 +9,7 @@ public interface CompanyService {
      *
      * @return list of companies
      */
-    List<Company> getList();
+    Page<Company> getList();
 
     /**
      * get a company by its ID.

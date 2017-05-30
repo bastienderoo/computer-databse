@@ -14,12 +14,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
+
+import javax.validation.Valid;
 
 /**
  * Created by excilys on 17/05/17.
@@ -31,12 +34,14 @@ public class EditComputerController {
     ComputerService computerServiceImp;
     @Autowired
     CompanyService companyServiceImp;
-    
+    @Autowired
+    MapperComputer mapperComputer;
+
     private static final Logger LOGGER = LoggerFactory.getLogger(CompanyDAOImp.class.getName());
 
     @GetMapping()
     public String get(ModelMap model, @RequestParam(value = "id", defaultValue = "") final String idString) {
-        List<Company> listCompany = companyServiceImp.getList();
+        List<Company> listCompany = companyServiceImp.getList().getList();
 
         if (idString != null) {
             long id = Long.parseLong(idString);
@@ -53,28 +58,13 @@ public class EditComputerController {
     }
 
     @PostMapping()
-    public ModelAndView post(
-            ModelMap model,
-            @RequestParam(value = "companyId", defaultValue = "") final long idCompany,
-            @RequestParam(value = "id", defaultValue = "") final long id,
-            @RequestParam(value = "computerName", defaultValue = "") final String computerName,
-            @RequestParam(value = "introduced", defaultValue = "") final String introduced,
-            @RequestParam(value = "discontinued", defaultValue = "") final String discontinued
+    public ModelAndView post(ModelMap model, @Valid @ModelAttribute ComputerDTO computerDTO
 
+    ) {
 
-            ) {
-        
-        ComputerDTO computerDTO = new ComputerDTO.Builder()
-                .name(computerName)
-                .id(id)
-                .dateIntroduced((Strings.isNotBlank(introduced))?introduced+" 00:00:00.0":introduced)
-                .dateDiscontinued((Strings.isNotBlank(discontinued))?discontinued+" 00:00:00.0":discontinued)
-                .idCompany(idCompany).build();
-        Computer computer = MapperComputer.mapperDTOIntoComputer(computerDTO);
+        Computer computer = mapperComputer.mapperDTOIntoComputer(computerDTO);
         computerServiceImp.update(computer);
         return new ModelAndView("redirect:/Dashboard");
     }
 
-
 }
-

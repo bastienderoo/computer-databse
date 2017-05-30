@@ -46,9 +46,7 @@
 //		Company company9 = new Company.Builder("IMS Associates, Inc.").id(9l).build();
 //		Company company10 = new Company.Builder("Digital Equipment Corporation").id(10l).build();
 //		List<Company> listCompany = new ArrayList<Company>(){{add(company1);add(company2);add(company3);add(company4);add(company5);add(company6);add(company7);add(company8);add(company9);add(company10);}};
-//		List<Company> listCompany2 =companyDAOImp.getList(0);
-//		System.out.println(listCompany);
-//		System.out.println(listCompany2);
+//		List<Company> listCompany2 =companyDAOImp.getList(0,10);
 //		assertTrue(listCompany.equals(listCompany2));
 //	}
 //

@@ -51,8 +51,6 @@ public class DashboardController {
             @RequestParam(value = "mylocale", defaultValue = "en") String language, Locale locale) {
         
         
-        String hashedPassword = pwdEnc.encode("Croissants");
-        LOGGER.info("CRYTPTOOOOOOOOOOOOOOOOOOOOOOO : "+hashedPassword);
         if (numberElements != null) {
             this.numberElements = numberElements;
             this.page = 0;
@@ -68,10 +66,10 @@ public class DashboardController {
 
         int numberComputers;
         if (!Objects.equals(search, "") && search != null) {
-            listComputer = computerServiceImp.getComputerByName(search);
+            listComputer = computerServiceImp.getComputerByName(search).getList();
             numberComputers = listComputer.size();
         } else {
-            listComputer = computerServiceImp.getList(this.page, this.numberElements);
+            listComputer = computerServiceImp.getList(this.page, this.numberElements).getList();
             numberComputers = computerServiceImp.getNumberComputer();
         }
 

@@ -19,7 +19,7 @@ import java.util.ResourceBundle;
 @EnableTransactionManagement
 @EnableWebMvc
 @Configuration
-@ComponentScan({"com.excilys.computerdatabase"})
+@ComponentScan({"com.excilys.computerdatabase.persistence"})
 public class SpringWebConfig extends WebMvcConfigurerAdapter {
 
     @Override

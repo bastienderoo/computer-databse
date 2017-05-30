@@ -2,8 +2,7 @@ package com.excilys.computerdatabase.service;
 
 import com.excilys.computerdatabase.model.Computer;
 import com.excilys.computerdatabase.model.ComputerDTO;
-
-import java.util.List;
+import com.excilys.computerdatabase.model.Page;
 
 public interface ComputerService {
     /**
@@ -20,7 +19,7 @@ public interface ComputerService {
      * @param nbrElements number of elements per page
      * @return liscomputer
      */
-    List<ComputerDTO> getList(int page, int nbrElements);
+    Page<ComputerDTO> getList(int page, int nbrElements);
 
     /**
      * add a computer.
@@ -51,7 +50,7 @@ public interface ComputerService {
      * @param name name
      * @return computer
      */
-    List<ComputerDTO> getComputerByName(String name);
+    Page<ComputerDTO> getComputerByName(String name);
 
     /**
      * get the number of computers.

@@ -22,12 +22,10 @@ public class MapperComputer {
 
     private final Logger LOGGER = LoggerFactory.getLogger(MapperComputer.class.getName());
 
-    private static CompanyService companyServiceImp;
-
     @Autowired
-    public void setCompanyDAOImp(CompanyService companyServiceImp) {
-        MapperComputer.companyServiceImp = companyServiceImp;
-    }
+    private CompanyService companyServiceImp;
+
+
 
     /**
      * Map a computer into a dto computer.
@@ -36,7 +34,7 @@ public class MapperComputer {
      * @return computer dto
      */
 
-    public static ComputerDTO mapperComputerIntoDTO(Computer computer) {
+    public ComputerDTO mapperComputerIntoDTO(Computer computer) {
         String dateDiscontinued;
         String dateIntroduced;
         String company;
@@ -70,7 +68,7 @@ public class MapperComputer {
      * @param computerDTO computer dto
      * @return computer
      */
-    public static Computer mapperDTOIntoComputer(ComputerDTO computerDTO) {
+    public Computer mapperDTOIntoComputer(ComputerDTO computerDTO) {
         LocalDate dateDiscontinued;
         LocalDate dateIntroduced;
         Company company;
@@ -102,7 +100,7 @@ public class MapperComputer {
      * @param computer list of computers
      * @return list of dto computers
      */
-    public static List<ComputerDTO> mapperComputerIntoDTO(List<Computer> computer) {
+    public List<ComputerDTO> mapperComputerIntoDTO(List<Computer> computer) {
         List<ComputerDTO> list = new ArrayList<>();
         for (Computer computer1 : computer) {
             ComputerDTO computerDTO = mapperComputerIntoDTO(computer1);

@@ -1,8 +1,7 @@
 package com.excilys.computerdatabase.persistence;
 
 import com.excilys.computerdatabase.model.Company;
-
-import java.util.List;
+import com.excilys.computerdatabase.model.Page;
 
 
 public interface CompanyDAO {
@@ -12,7 +11,7 @@ public interface CompanyDAO {
      *
      * @return listcompany
      */
-    List<Company> getList();
+    Page<Company> getList();
 
     /**
      * get company by id.

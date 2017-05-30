@@ -21,15 +21,13 @@ public class Computer {
      */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
     private long id;
-    @Column(name = "name")
     private String name;
     @Column(name = "introduced")
     private LocalDate dateIntroduced;
     @Column(name = "discontinued")
     private LocalDate dateDiscontinued;
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne
     @JoinColumn(name = "company_id")
     private Company company;
 
@@ -52,6 +50,7 @@ public class Computer {
 
     /**
      * .
+     * 
      * @param id
      *            id
      * @param name

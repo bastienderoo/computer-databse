@@ -3,6 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@page session="false"%>
 <!DOCTYPE html>
 <html>
@@ -39,8 +40,9 @@
 			<div class="pull-right" style="margin-top: 10px;">
 				<form id="logout" action="logout" method="POST">
 
-					<input type="submit" name="logout" value="<spring:message code="logout" />" /> <input
-						type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+					<input type="submit" name="logout"
+						value="<spring:message code="logout" />" /> <input type="hidden"
+						name="${_csrf.parameterName}" value="${_csrf.token}" />
 				</form>
 			</div>
 		</div>
@@ -58,20 +60,24 @@
 					<form id="searchForm" action="#" method="GET" class="form-inline">
 
 						<input type="search" id="search" name="search"
-							class="form-control" placeholder="<spring:message
+							class="form-control"
+							placeholder="<spring:message
 							code="search" />" /> <input
-							type="submit" id="searchsubmit" value="<spring:message
+							type="submit" id="searchsubmit"
+							value="<spring:message
 							code="filter" />"
 							class="btn btn-primary" />
 					</form>
 				</div>
+				<sec:authorize access="hasRole('ADMIN') or hasRole('DBA')">
+					<div class="pull-right">
 
-				<div class="pull-right">
-					<a class="btn btn-success" id="addComputer" href="addComputer"><spring:message
-							code="addComputer" /></a> <a class="btn btn-default"
-						id="editComputer" href="#" onclick="$.fn.toggleEditMode();"><spring:message
-							code="edit" /></a>
-				</div>
+						<a class="btn btn-success" id="addComputer" href="addComputer"><spring:message
+								code="addComputer" /></a> <a class="btn btn-default"
+							id="editComputer" href="#" onclick="$.fn.toggleEditMode();"><spring:message
+								code="edit" /></a>
+					</div>
+				</sec:authorize>
 			</div>
 		</div>
 
