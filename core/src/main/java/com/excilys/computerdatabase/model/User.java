@@ -11,7 +11,7 @@ import javax.persistence.Table;
 public class User implements Serializable {
 
     /**
-     *
+     * .
      */
     private static final long serialVersionUID = -3882079512414316136L;
 
@@ -21,6 +21,13 @@ public class User implements Serializable {
     private UserRole userRoles;
     private boolean enabled;
 
+    /**
+     * .
+     * @param username username
+     * @param password password
+     * @param userRoles userRoles
+     * @param enabled enabled
+     */
     public User(String username, String password, UserRole userRoles, boolean enabled) {
         this.username = username;
         this.password = password;
@@ -28,7 +35,10 @@ public class User implements Serializable {
         this.enabled = enabled;
     }
 
-    public User() {
+    /**
+     * .
+     */
+    private User() {
     }
 
     public String getUsername() {
@@ -76,27 +86,36 @@ public class User implements Serializable {
 
     @Override
     public boolean equals(Object obj) {
-        if (this == obj)
+        if (this == obj) {
             return true;
-        if (obj == null)
+        }
+        if (obj == null) {
             return false;
-        if (getClass() != obj.getClass())
+        }
+        if (getClass() != obj.getClass()) {
             return false;
+        }
         User other = (User) obj;
-        if (enabled != other.enabled)
+        if (enabled != other.enabled) {
             return false;
+        }
         if (password == null) {
-            if (other.password != null)
+            if (other.password != null) {
                 return false;
-        } else if (!password.equals(other.password))
+            }
+        } else if (!password.equals(other.password)) {
             return false;
-        if (userRoles != other.userRoles)
+        }
+        if (userRoles != other.userRoles) {
             return false;
+        }
         if (username == null) {
-            if (other.username != null)
+            if (other.username != null) {
                 return false;
-        } else if (!username.equals(other.username))
+            }
+        } else if (!username.equals(other.username)) {
             return false;
+        }
         return true;
     }
 

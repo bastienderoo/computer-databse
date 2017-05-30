@@ -24,6 +24,13 @@ public class Company {
 
     }
 
+    /**
+     * .
+     * @param id
+     *            id
+     * @param name
+     *            name
+     */
     private Company(long id, String name) {
         this.id = id;
         this.name = name;

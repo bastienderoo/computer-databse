@@ -67,56 +67,8 @@
 			<artifactId>persistence</artifactId>
 			<version>${project.version}</version>
 		</dependency>
-        <!-- junit -->
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-
-            <scope>test</scope>
-        </dependency>
-        <!-- mysql -->
-        <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-
-        </dependency>
-        <!-- slf4j-api -->
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-api</artifactId>
-
-        </dependency>
-        <!-- slf4j-simple -->
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-simple</artifactId>
-
-        </dependency>
-        <!-- javax-servlet-api -->
-        <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>javax.servlet-api</artifactId>
-
-            <scope>provided</scope>
-        </dependency>
-        <!-- javax-servlet-jsp -->
-        <dependency>
-            <groupId>javax.servlet.jsp</groupId>
-            <artifactId>jsp-api</artifactId>
-
-        </dependency>
-        <!-- javax-servlet-jstl -->
-        <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>jstl</artifactId>
-
-        </dependency>
-        <!-- common language -->
-        <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-lang3</artifactId>
-
-        </dependency>
+       
+       
 
 
         <!-- Spring -->
@@ -131,22 +83,9 @@
             <artifactId>spring-core</artifactId>
 
         </dependency>
-        <!-- log4j -->
-        <dependency>
-            <groupId>org.apache.logging.log4j</groupId>
-            <artifactId>log4j-api</artifactId>
+       
 
-        </dependency>
-        <dependency>
-            <groupId>org.apache.logging.log4j</groupId>
-            <artifactId>log4j-core</artifactId>
-
-        </dependency>
-        <dependency>
-            <groupId>org.apache.logging.log4j</groupId>
-            <artifactId>log4j-jcl</artifactId>
-
-        </dependency>
+       
         <!-- Spring jdbc -->
         <dependency>
             <groupId>org.springframework</groupId>
@@ -171,18 +110,7 @@
             <artifactId>spring-webmvc</artifactId>
 
         </dependency>
-        <!--Hikari -->
-        <dependency>
-            <groupId>com.zaxxer</groupId>
-            <artifactId>HikariCP</artifactId>
-
-        </dependency>
-        <!-- Mariadb -->
-        <dependency>
-            <groupId>org.mariadb.jdbc</groupId>
-            <artifactId>mariadb-java-client</artifactId>
-
-        </dependency>
+       
         <!-- QueryDSL -->
         <dependency>
             <groupId>com.querydsl</groupId>
@@ -200,12 +128,6 @@
 
         </dependency>
 
-        <!-- slf4j logs -->
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-log4j12</artifactId>
-
-        </dependency>
         <!-- Hibernate -->
         <dependency>
             <groupId>org.hibernate</groupId>

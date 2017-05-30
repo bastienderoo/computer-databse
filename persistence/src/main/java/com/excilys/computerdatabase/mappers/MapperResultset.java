@@ -44,7 +44,8 @@ public class MapperResultset {
     /**
      * mapper of resultset company.
      *
-     * @param rs reultset
+     * @param rs
+     *            reultset
      * @return company
      */
     public static Company mapperCompany(ResultSet rs) {
@@ -59,7 +60,8 @@ public class MapperResultset {
     /**
      * mapper of result set list companies.
      *
-     * @param rs result set
+     * @param rs
+     *            result set
      * @return list of companies
      */
     public static List<Company> mapperCompanyList(ResultSet rs) {
@@ -78,7 +80,8 @@ public class MapperResultset {
     /**
      * mapper of resultset computer.
      *
-     * @param rs reultset
+     * @param rs
+     *            reultset
      * @return computer
      */
     public static Computer mapperComputer(ResultSet rs) {
@@ -101,12 +104,8 @@ public class MapperResultset {
             } else {
                 company = null;
             }
-            return new Computer.Builder(rs.getString(2))
-                    .id(rs.getLong(1))
-                    .dateIntroduced(dateIntroduced)
-                    .dateDiscontinued(dateDiscontinued)
-                    .company(company)
-                    .build();
+            return new Computer.Builder(rs.getString(2)).id(rs.getLong(1)).dateIntroduced(dateIntroduced)
+                    .dateDiscontinued(dateDiscontinued).company(company).build();
         } catch (SQLException e) {
             LOGGER.error("Can not map computer resultset");
             e.printStackTrace();
@@ -118,7 +117,8 @@ public class MapperResultset {
     /**
      * mapper of result set list computers.
      *
-     * @param rs result set
+     * @param rs
+     *            result set
      * @return list of computers
      */
     public static List<Computer> mapperComputerList(ResultSet rs) {
@@ -144,12 +144,8 @@ public class MapperResultset {
                 } else {
                     company = null;
                 }
-                listComputer.add(new Computer.Builder(rs.getString(2))
-                        .id(rs.getLong(1))
-                        .dateIntroduced(dateIntroduced)
-                        .dateDiscontinued(dateDiscontinued)
-                        .company(company)
-                        .build());
+                listComputer.add(new Computer.Builder(rs.getString(2)).id(rs.getLong(1)).dateIntroduced(dateIntroduced)
+                        .dateDiscontinued(dateDiscontinued).company(company).build());
             }
             return listComputer;
         } catch (SQLException e) {
