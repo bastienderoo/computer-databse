@@ -10,7 +10,7 @@ public interface ComputerService {
      *
      * @param id id
      */
-    Computer delete(long id);
+    ComputerDTO delete(long id);
 
     /**
      * create a list of computers.
@@ -27,14 +27,14 @@ public interface ComputerService {
      * @param computer computer
      * @return long
      */
-    long add(Computer computer);
+    long add(ComputerDTO computerDTO);
 
     /**
      * update a computer.
      *
      * @param computer computer
      */
-    Computer update(Computer computer);
+    ComputerDTO update(ComputerDTO computerDTO);
 
     /**
      * get a computer by its ID.
@@ -42,7 +42,7 @@ public interface ComputerService {
      * @param id id
      * @return computer
      */
-    Computer getComputerById(long id);
+    ComputerDTO getComputerById(long id);
 
     /**
      * get a computer by its name.

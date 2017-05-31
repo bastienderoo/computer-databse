@@ -16,6 +16,7 @@ import com.excilys.computerdatabase.model.Page;
 import com.excilys.computerdatabase.persistence.ComputerDAO;
 import com.excilys.computerdatabase.service.ComputerService;
 import com.excilys.computerdatabase.util.ServiceException;
+
 @Transactional
 @Service
 public class ComputerServiceImp implements ComputerService {
@@ -27,20 +28,24 @@ public class ComputerServiceImp implements ComputerService {
     @Autowired
     MapperComputer mapperComputer;
 
-    
-    public Computer delete(long id) {
-        return computerDAO.delete(id);
+    public ComputerDTO delete(long id) {
+        return mapperComputer.mapperComputerIntoDTO(computerDAO.delete(id));
     }
 
-    
     public Page<ComputerDTO> getList(int page, int nbrElements) {
         Page<Computer> pageComputer = computerDAO.getList(page, nbrElements);
         List<ComputerDTO> listComputerDTO = mapperComputer.mapperComputerIntoDTO(pageComputer.getList());
         return new Page<ComputerDTO>(listComputerDTO, page, nbrElements);
     }
 
-    
-    public long add(Computer computer) {
+    public long add(ComputerDTO computerDTO) {
+        if (Strings.isNotEmpty(computerDTO.getDateIntroduced())) {
+            computerDTO.setDateIntroduced(computerDTO.getDateIntroduced() + " 00:00:00.0");
+        }
+        if (Strings.isNotEmpty(computerDTO.getDateDiscontinued())) {
+            computerDTO.setDateDiscontinued(computerDTO.getDateDiscontinued() + " 00:00:00.0");
+        }
+        Computer computer = mapperComputer.mapperDTOIntoComputer(computerDTO);
         if (computer.getDateIntroduced() != null && computer.getDateDiscontinued() != null) {
             if (computer.getDateIntroduced().isBefore(computer.getDateDiscontinued())) {
                 long id = computerDAO.add(computer);
@@ -59,18 +64,24 @@ public class ComputerServiceImp implements ComputerService {
         }
     }
 
-    
-    public Computer update(Computer computer) {
+    public ComputerDTO update(ComputerDTO computerDTO) {
+        if (Strings.isNotEmpty(computerDTO.getDateIntroduced())) {
+            computerDTO.setDateIntroduced(computerDTO.getDateIntroduced() + " 00:00:00.0");
+        }
+        if (Strings.isNotEmpty(computerDTO.getDateDiscontinued())) {
+            computerDTO.setDateDiscontinued(computerDTO.getDateDiscontinued() + " 00:00:00.0");
+        }
+        Computer computer = mapperComputer.mapperDTOIntoComputer(computerDTO);
         if (computer.getDateIntroduced() != null && computer.getDateDiscontinued() != null) {
             if (computer.getDateIntroduced().isBefore(computer.getDateDiscontinued())) {
-                return computerDAO.update(computer);
+                return mapperComputer.mapperComputerIntoDTO(computerDAO.update(computer));
             } else {
                 LOGGER.info("Date introduced must be before Date dicontinued");
                 throw new ServiceException();
             }
         } else {
             if (Strings.isNotEmpty(computer.getName())) {
-                return computerDAO.update(computer);
+                return mapperComputer.mapperComputerIntoDTO(computerDAO.update(computer));
             } else {
                 LOGGER.info("Name must be filled");
                 throw new ServiceException();
@@ -79,20 +90,18 @@ public class ComputerServiceImp implements ComputerService {
 
     }
 
-    
-    public Computer getComputerById(long id) {
-        return computerDAO.getComputerById(id);
+    public ComputerDTO getComputerById(long id) {
+
+        return mapperComputer.mapperComputerIntoDTO(computerDAO.getComputerById(id));
 
     }
 
-    
     public Page<ComputerDTO> getComputerByName(String name) {
         Page<Computer> listComputer = computerDAO.getComputerByName(name);
         return new Page<ComputerDTO>(mapperComputer.mapperComputerIntoDTO(listComputer.getList()));
 
     }
 
-    
     public int getNumberComputer() {
         return computerDAO.numberComputer();
     }

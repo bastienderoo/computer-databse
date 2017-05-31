@@ -21,11 +21,9 @@ import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
 
-import javassist.NotFoundException;
-
 @EnableWebMvc
 @Configuration
-@ComponentScan({"com.excilys.computerdatabase"})
+@ComponentScan({ "com.excilys.computerdatabase" })
 @Import({ SecurityConfig.class })
 public class AppConfiguration extends WebMvcConfigurerAdapter {
     @Bean
@@ -60,6 +58,7 @@ public class AppConfiguration extends WebMvcConfigurerAdapter {
         interceptor.setParamName("mylocale");
         registry.addInterceptor(interceptor);
     }
+
     @Bean
     public HandlerExceptionResolver handlerExceptionResolver() {
         SimpleMappingExceptionResolver resolver = new SimpleMappingExceptionResolver();

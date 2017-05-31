@@ -2,6 +2,7 @@ package com.excilys.computerdatabase.model;
 
 import java.util.List;
 
+import javax.persistence.Entity;
 
 
 public class Page<T> {
@@ -9,6 +10,10 @@ public class Page<T> {
     private int page;
     private int nbrElements;
 
+    public Page(){
+        
+    }
+    
     public Page(List<T> listElement, int page, int nbrElements) {
         this.listElement = listElement;
         this.page = page;

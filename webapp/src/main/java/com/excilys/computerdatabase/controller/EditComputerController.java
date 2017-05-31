@@ -46,7 +46,7 @@ public class EditComputerController {
         if (idString != null) {
             long id = Long.parseLong(idString);
 
-            Computer computer = computerServiceImp.getComputerById(id);
+            ComputerDTO computer = computerServiceImp.getComputerById(id);
 
             model.addAttribute("computerName", computer.getName());
             model.addAttribute("introduced", computer.getDateIntroduced());
@@ -62,8 +62,8 @@ public class EditComputerController {
 
     ) {
 
-        Computer computer = mapperComputer.mapperDTOIntoComputer(computerDTO);
-        computerServiceImp.update(computer);
+        
+        computerServiceImp.update(computerDTO);
         return new ModelAndView("redirect:/Dashboard");
     }
 

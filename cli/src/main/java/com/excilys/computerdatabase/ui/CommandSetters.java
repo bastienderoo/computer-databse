@@ -5,6 +5,9 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.logging.Logger;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.excilys.computerdatabase.mappers.MapperComputer;
 import com.excilys.computerdatabase.model.Company;
 import com.excilys.computerdatabase.model.Computer;
 import com.excilys.computerdatabase.model.ComputerDTO;
@@ -30,6 +33,9 @@ public class CommandSetters {
         Page<ComputerDTO> listcomputer = computerService.getList(page10,nbrelement);
         LOGGER.info(listcomputer.getList().toString());
     }
+    
+    @Autowired
+    MapperComputer mapperComputer;
 /**
  * ajout d'un ordinateur.
  */
@@ -48,7 +54,8 @@ public class CommandSetters {
         Company company = companyService.getCompanyById(iDCompany);
         Computer computer = new Computer.Builder(name).dateIntroduced(dateIntroduced).dateDiscontinued(dateDiscontinued)
                 .company(company).build();
-        computerService.add(computer);
+        ComputerDTO computerDTO = mapperComputer.mapperComputerIntoDTO(computer);
+        computerService.add(computerDTO);
     }
 /**
  * supression d'un ordinateur.
@@ -89,7 +96,8 @@ public class CommandSetters {
         Company company = companyService.getCompanyById(iDCompany);
         Computer computer = new Computer.Builder(name).id(id).dateIntroduced(dateIntroduced)
                 .dateDiscontinued(dateDiscontinued).company(company).build();
-        computerService.update(computer);
+        ComputerDTO computerDTO = mapperComputer.mapperComputerIntoDTO(computer);
+        computerService.update(computerDTO);
     }
 
 }

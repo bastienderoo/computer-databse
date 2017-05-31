@@ -50,9 +50,9 @@ public class AddComputerController {
     public ModelAndView post(ModelMap model, @Valid @ModelAttribute ComputerDTO computerDTO) {
 
 
-        Computer computer = mapperComputer.mapperDTOIntoComputer(computerDTO);
-        LOGGER.info("Computer Demande Add : " + computer);
-        computerServiceImp.add(computer);
+        
+        LOGGER.info("Computer Demande Add : " + computerDTO);
+        computerServiceImp.add(computerDTO);
         return new ModelAndView("redirect:/Dashboard");
     }
 
