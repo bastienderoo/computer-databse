@@ -45,7 +45,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
 
         http.authorizeRequests().antMatchers("/Dashboard").hasAnyRole("ADMIN", "USER").antMatchers("/Dashboard/delete")
-                .hasAnyRole("ADMIN").antMatchers("/addComputer").hasAnyRole("ADMIN").antMatchers("/editComputer")
+                .hasAnyRole("ADMIN").antMatchers("/addComputer").hasAnyRole("ADMIN").antMatchers("/final/**").hasAnyRole("ADMIN").antMatchers("/editComputer")
                 .hasAnyRole("ADMIN").and().formLogin().defaultSuccessUrl("/Dashboard").and().exceptionHandling()
                 .accessDeniedPage("/403");
         http.csrf().disable();

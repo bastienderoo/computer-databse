@@ -4,6 +4,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 public class ComputerDTO {
+
     @NotNull
     private long id;
     @NotNull
@@ -13,7 +14,6 @@ public class ComputerDTO {
     private String dateDiscontinued;
     private String company;
     private long idCompany;
-
 
     public long getId() {
         return id;
@@ -128,16 +128,16 @@ public class ComputerDTO {
     /**
      * .
      */
-    private ComputerDTO() {
+    public ComputerDTO() {
 
     }
 
     /**
      * .
      *
-     * @param builder builder
+     * @param builder
+     *            builder
      */
-
 
     /**
      * Builder.
@@ -145,14 +145,14 @@ public class ComputerDTO {
     public static class Builder {
         private ComputerDTO computer = new ComputerDTO();
 
-
-
         public Builder() {
         }
+
         /**
          * .
          *
-         * @param name name
+         * @param name
+         *            name
          */
         public Builder name(String name) {
             computer.name = name;
@@ -162,7 +162,8 @@ public class ComputerDTO {
         /**
          * .
          *
-         * @param id id
+         * @param id
+         *            id
          * @return id
          */
         public Builder id(long id) {
@@ -173,7 +174,8 @@ public class ComputerDTO {
         /**
          * .
          *
-         * @param dateIntroduced dateIntroduced
+         * @param dateIntroduced
+         *            dateIntroduced
          * @return dateIntroduced
          */
         public Builder dateIntroduced(String dateIntroduced) {
@@ -184,7 +186,8 @@ public class ComputerDTO {
         /**
          * .
          *
-         * @param dateDiscontinued dateDiscontinued
+         * @param dateDiscontinued
+         *            dateDiscontinued
          * @return dateDiscontinued
          */
         public Builder dateDiscontinued(String dateDiscontinued) {
@@ -195,7 +198,8 @@ public class ComputerDTO {
         /**
          * .
          *
-         * @param company company
+         * @param company
+         *            company
          * @return company
          */
         public Builder company(String company) {
@@ -206,7 +210,8 @@ public class ComputerDTO {
         /**
          * builder id company.
          *
-         * @param idCompany id company
+         * @param idCompany
+         *            id company
          * @return builder
          */
         public Builder idCompany(long idCompany) {
@@ -223,6 +228,11 @@ public class ComputerDTO {
             return computer;
         }
 
+    }
 
+    @Override
+    public String toString() {
+        return "ComputerDTO [id=" + id + ", name=" + name + ", dateIntroduced=" + dateIntroduced + ", dateDiscontinued="
+                + dateDiscontinued + ", company=" + company + ", idCompany=" + idCompany + "]";
     }
 }

@@ -26,7 +26,7 @@ public class CompanyUI {
         Scanner scan = new Scanner(System.in);
         long id;
         id = scan.nextLong();
-        scan.close();
+        scan.nextLine();
         WebTarget find = base.path("company/" + id);
         Invocation.Builder builder = find.request(MediaType.APPLICATION_JSON_TYPE);
         company = builder.get(Company.class);
